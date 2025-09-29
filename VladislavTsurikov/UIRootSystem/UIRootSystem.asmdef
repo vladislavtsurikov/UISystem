@@ -1,0 +1,10 @@
+﻿{
+    "name": "UIRootSystem",
+    "references": [
+        "GUID:15c32ad562be4f47878e88b61bc1d709",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:34db211c2f0b92240ab733ebaa37be17",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "name": "VladislavTsurikov.ScriptableObjectUtility",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c58cb679f31162c47bc160d1f716ecea",
+        "GUID:4f3f15d33f84e044490b60cf8fdc046e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

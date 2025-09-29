@@ -1,0 +1,11 @@
+﻿using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.AddressableLoaderSystemIntegration;
+
+namespace VladislavTsurikov.UISystem.Tests.Runtime
+{
+    [SceneFilter("TestScene_1")]
+    public class MissionViewLoader : PrefabResourceLoader
+    {
+        public override string PrefabAddress => "MissionView";
+    }
+}

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa37cc14e104eeb98672f725938232b, type: 3}
+  m_Name: ConfigSceneB_WithAssetReference
+  m_EditorClassIdentifier: 
+  TextureRef1:
+    m_AssetGUID: ad8d6525f319fb44e85fa822646c0f63
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  TextureRef2:
+    m_AssetGUID: ddcf90664653aaa4087c5d8b16359ad7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 1
+  TextureRef3:
+    m_AssetGUID: bac74380f0cb3984ea239d1230b5f1d3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

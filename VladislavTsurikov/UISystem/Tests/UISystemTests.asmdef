@@ -1,0 +1,27 @@
+{
+    "name": "UISystemTests",
+    "rootNamespace": "",
+    "references": [
+        "UISystem",
+        "AddressableLoaderSystem",
+        "UniTask",
+        "Zenject",
+        "UniRx",
+        "UIRootSystem",
+        "Unity.ResourceManager",
+        "Unity.Addressables",
+        "Unity.TextMeshPro",
+        "Neutral.SceneUtility",
+        "VladislavTsurikov.AddressableLoaderSystem",
+        "VladislavTsurikov.SceneUtility"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

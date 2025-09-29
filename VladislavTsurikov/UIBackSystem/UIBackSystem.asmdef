@@ -1,0 +1,9 @@
+﻿{
+    "name": "UIBackSystem",
+    "references": [
+        "GUID:15c32ad562be4f47878e88b61bc1d709",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:5c9c0ef81e306bb4fb8182d62410223a",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+    ]
+}
