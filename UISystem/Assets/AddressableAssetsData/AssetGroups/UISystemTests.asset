@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UISystemTests
+  m_EditorClassIdentifier: 
+  m_GroupName: UISystemTests
+  m_GUID: 0c246ed9b7538974d857dc8a69b0380a
+  m_SerializeEntries:
+  - m_GUID: 08aa2c65cd9c3654eb3d12084560cb22
+    m_Address: HUDScene_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16f09b8cb797ca647acac80475ee8b15
+    m_Address: MissionView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2850da75f9637ad41952c15f6c9540ae
+    m_Address: GeneralMissions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4de733ebfc2c9eb479745c6c85f48526
+    m_Address: MissionsMainWindow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b93b090ca6e9244b976127da54b30ca
+    m_Address: TestScene_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7866bc8d8c9c03446a6bfb769a2027ad
+    m_Address: TestScene_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fd6696532df55949addc9a2d716a7fb
+    m_Address: Avatar Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4fbf66e3c508f443bd754e7030ccf43
+    m_Address: HUDScene_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dfa2e9d0f9e2ac044b6a4077998f4d07
+    m_Address: MissionsHUD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0ce413439e05d8d40a548f7e97ab50e6, type: 2}
+  m_SchemaSet:
+    m_Schemas: []

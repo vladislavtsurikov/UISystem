@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using ModestTree;
 using UnityEngine;
+using VladislavTsurikov.ZenjectUtility.Runtime;
 using Zenject.Internal;
 
 namespace Zenject
@@ -277,6 +278,7 @@ namespace Zenject
             _container.Settings = _settings ?? ZenjectSettings.Default;
 
             _container.Bind<ZenjectSceneLoader>().AsSingle();
+            _container.Bind<ZenjectAddressableSceneLoader>().AsSingle();
 
             ZenjectManagersInstaller.Install(_container);
 
