@@ -1,0 +1,20 @@
+{
+    "name": "VladislavTsurikov.UnityUtility",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ce9acb4c89fd77746a90c158718c588d",
+        "GUID:c58cb679f31162c47bc160d1f716ecea",
+        "GUID:4f3f15d33f84e044490b60cf8fdc046e",
+        "GUID:5c9c0ef81e306bb4fb8182d62410223a",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

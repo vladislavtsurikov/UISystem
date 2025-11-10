@@ -1,0 +1,48 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+*.unityproj
+
+# Rider
+.idea/
+*.sln
+*.csproj
+*.user
+*.userprefs
+*.suo
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Addressables
+Assets/AddressableAssetsData/*.bin*
+Assets/AddressableAssetsData/*.json
+Assets/AddressableAssetsData/*.linker
+Assets/AddressableAssetsData/*.hash
+Assets/AddressableAssetsData/*/catalog_*
+Assets/AddressableAssetsData/*/*.bundle
+
+# VSCode (если используешь)
+.vscode/
+
+# JetBrains Rider cache (дополнительно)
+.idea/.idea.Addressable Tools/
+.idea/.idea.Addressable-Tools/
+
+# Crash dumps
+sysinfo.txt
+*.stacktrace

@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style
+        src="project://database/Assets/VladislavTsurikov/UIElements/ScriptsEditor/EditorUI/Editor/ListView.uss?fileID=7433441132597879392&amp;guid=f5d788932a0e07445a49482dae845603&amp;type=3#ListView"/>
+    <ui:VisualElement name="LayoutContainer" class="ListView">
+        <ui:VisualElement name="Top" class="ListView"/>
+        <ui:VisualElement name="Body" style="background-color: rgb(44, 44, 44);">
+            <ui:VisualElement name="HeaderContainer" class="ListView">
+                <ui:Label text="ListTitle" display-tooltip-when-elided="true" name="ListTitle" class="ListView"/>
+                <ui:VisualElement style="flex-grow: 1;"/>
+                <ui:VisualElement name="AddItemButtonContainer" class="ListView"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="ListViewContainer" class="ListView"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="Bottom" class="ListView"/>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,19 @@
+.ListViewItem#LayoutContainer {
+    flex-direction: row;
+    align-items: center;
+}
+
+.ListViewItem#ItemIndex {
+    font-size: 11px;
+    padding-right: 2px;
+    -unity-text-align: middle-center;
+    width: 26px;
+    display: none;
+}
+
+.ListViewItem#ItemContentContainer {
+    flex-grow: 1;
+}
+
+.ListViewItem#ItemRemoveButtonContainer {
+}
