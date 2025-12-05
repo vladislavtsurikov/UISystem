@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
 using VladislavTsurikov.AutoDefines.Editor;
 
-namespace VladislavTsurikov.ActionFlow.Editor
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor
 {
     public sealed class AddressableLoaderSystemZenjectRule : TypeDefineRule
     {

@@ -7,6 +7,7 @@ namespace VladislavTsurikov.UISystem.Tests.Runtime
     [SceneFilter("TestScene_1")]
     public class GeneralMissionLoader : PrefabResourceLoader
     {
+        [AutoLoad("GeneralMissions")]
         public override string PrefabAddress => "GeneralMissions";
     }
 }

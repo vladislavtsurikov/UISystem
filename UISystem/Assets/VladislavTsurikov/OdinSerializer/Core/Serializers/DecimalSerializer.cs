@@ -39,7 +39,7 @@ namespace OdinSerializer
             if (entry == EntryType.FloatingPoint || entry == EntryType.Integer)
             {
                 decimal value;
-                if (reader.ReadDecimal(out value) == false)
+                if (!reader.ReadDecimal(out value))
                 {
                     reader.Context.Config.DebugContext.LogWarning("Failed to read entry of type " + entry);
                 }

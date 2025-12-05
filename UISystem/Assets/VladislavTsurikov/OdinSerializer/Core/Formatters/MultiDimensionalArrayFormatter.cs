@@ -38,7 +38,7 @@ namespace OdinSerializer
 
         static MultiDimensionalArrayFormatter()
         {
-            if (typeof(TArray).IsArray == false)
+            if (!typeof(TArray).IsArray)
             {
                 throw new ArgumentException("Type " + typeof(TArray).Name + " is not an array.");
             }
@@ -161,7 +161,7 @@ namespace OdinSerializer
 
                             TElement v = ValueReaderWriter.ReadValue(reader);
 
-                            if (reader.IsInArrayNode == false)
+                            if (!reader.IsInArrayNode)
                             {
                                 reader.Context.Config.DebugContext.LogError("Reading array went wrong. Data dump: " +
                                                                             reader.GetDataDump());
@@ -401,7 +401,7 @@ namespace OdinSerializer
 
                             var v = ValueReaderWriter.ReadValueWeak(reader);
 
-                            if (reader.IsInArrayNode == false)
+                            if (!reader.IsInArrayNode)
                             {
                                 reader.Context.Config.DebugContext.LogError("Reading array went wrong. Data dump: " +
                                                                             reader.GetDataDump());

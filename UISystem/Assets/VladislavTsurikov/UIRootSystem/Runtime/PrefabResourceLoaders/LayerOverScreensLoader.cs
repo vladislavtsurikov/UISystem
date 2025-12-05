@@ -7,6 +7,7 @@ namespace VladislavTsurikov.UIRootSystem.Runtime.PrefabResourceLoaders
     [SceneFilter("TestScene_1", "TestScene_2")]
     public class LayerOverScreensLoader : PrefabResourceLoader
     {
+        [AutoLoad("LayerOverScreens")]
         public override string PrefabAddress => "LayerOverScreens";
     }
 }

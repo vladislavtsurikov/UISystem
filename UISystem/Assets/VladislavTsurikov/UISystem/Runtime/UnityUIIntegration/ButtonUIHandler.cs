@@ -1,4 +1,5 @@
 ﻿#if UI_SYSTEM_ZENJECT
+#if UI_SYSTEM_ADDRESSABLE_LOADER_SYSTEM
 using System;
 using Zenject;
 
@@ -20,4 +21,5 @@ namespace VladislavTsurikov.UISystem.Runtime.UnityUIIntegration
     }
 }
 
+#endif
 #endif

@@ -100,8 +100,8 @@ namespace OdinSerializer.Utilities.Editor
             // All valid BuildTarget values.
             Platforms = new ImmutableList<BuildTarget>(Enum.GetValues(typeof(BuildTarget))
                 .Cast<BuildTarget>()
-                .Where(t => t >= 0 && typeof(BuildTarget).GetMember(t.ToString())[0]
-                    .IsDefined(typeof(ObsoleteAttribute), false) == false)
+                .Where(t => t >= 0 && !typeof(BuildTarget).GetMember(t.ToString())[0]
+                    .IsDefined(typeof(ObsoleteAttribute), false))
                 .ToArray());
 
             // All BuildTarget values that support JIT.
@@ -176,7 +176,7 @@ namespace OdinSerializer.Utilities.Editor
         public static void SetAssemblyImportSettings(BuildTarget platform, string assemblyFilePath, bool includeInBuild,
             bool includeInEditor)
         {
-            if (File.Exists(assemblyFilePath) == false)
+            if (!File.Exists(assemblyFilePath))
             {
                 throw new FileNotFoundException(assemblyFilePath);
             }

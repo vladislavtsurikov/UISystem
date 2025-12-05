@@ -242,24 +242,24 @@ MonoBehaviour:
       Data: 0
     - Name: SceneDataStack
       Entry: 7
-      Data: 0|Neutral.SceneDataSystem.Runtime.SceneDataStack, Neutral.SceneDataSystem
+      Data: 0|VladislavTsurikov.SceneDataSystem.Runtime.SceneDataStack, VladislavTsurikov.SceneDataSystem
     - Name: _elementList
       Entry: 7
-      Data: 1|Neutral.ComponentStack.Runtime.Core.AdvancedElementList`1[[Neutral.SceneDataSystem.Runtime.SceneData,
-        Neutral.SceneDataSystem]], Neutral.ComponentStack
+      Data: 1|VladislavTsurikov.ComponentStack.Runtime.Core.AdvancedElementList`1[[VladislavTsurikov.SceneDataSystem.Runtime.SceneData,
+        VladislavTsurikov.SceneDataSystem]], VladislavTsurikov.ComponentStack
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 2|Neutral.GameObjectCollider.Editor.GameObjectCollider, Neutral.GameObjectCollider
+      Data: 2|VladislavTsurikov.GameObjectCollider.Editor.GameObjectCollider, VladislavTrurikov.GameObjectCollider
     - Name: SelectSettingsFoldout
       Entry: 5
       Data: true
-    - Name: _selected
+    - Name: _active
       Entry: 5
       Data: true
-    - Name: _active
+    - Name: _selected
       Entry: 5
       Data: true
     - Name: SceneDataManager

@@ -3,6 +3,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using ModestTree;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -11,8 +12,8 @@ namespace VladislavTsurikov.ZenjectUtility.Runtime
 {
     public class ZenjectAddressableSceneLoader
     {
-        readonly ProjectKernel _projectKernel;
-        readonly DiContainer _sceneContainer;
+        private readonly ProjectKernel _projectKernel;
+        private readonly DiContainer _sceneContainer;
 
         public ZenjectAddressableSceneLoader(
             [InjectOptional] SceneContext sceneRoot,
@@ -32,7 +33,8 @@ namespace VladislavTsurikov.ZenjectUtility.Runtime
         {
             PrepareForLoadScene(loadMode, extraBindings, extraBindingsLate, containerMode);
 
-            var handle = Addressables.LoadSceneAsync(sceneAddress, loadMode, activateOnLoad);
+            AsyncOperationHandle<SceneInstance> handle =
+                Addressables.LoadSceneAsync(sceneAddress, loadMode, activateOnLoad);
             await handle.ToUniTask();
             return handle.Result;
         }
@@ -61,7 +63,8 @@ namespace VladislavTsurikov.ZenjectUtility.Runtime
             }
             else
             {
-                Assert.IsNotNull(_sceneContainer, "Cannot use LoadSceneRelationship.Sibling when loading from ProjectContext");
+                Assert.IsNotNull(_sceneContainer,
+                    "Cannot use LoadSceneRelationship.Sibling when loading from ProjectContext");
                 SceneContext.ParentContainers = _sceneContainer.ParentContainers;
             }
 

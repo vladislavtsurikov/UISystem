@@ -1,0 +1,16 @@
+{
+    "name": "VladislavTsurikov.AutoUnmanagedPropertiesDispose",
+    "rootNamespace": "",
+    "references": [
+        "GUID:57871bcf0a96ad84d9cfc0df4fb444e7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

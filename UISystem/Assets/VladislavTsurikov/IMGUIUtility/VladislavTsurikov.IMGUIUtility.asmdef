@@ -1,0 +1,25 @@
+{
+    "name": "VladislavTsurikov.IMGUIUtility",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4f3f15d33f84e044490b60cf8fdc046e",
+        "GUID:c372a3935f457fe43ba8f977ae663de7",
+        "GUID:5c9c0ef81e306bb4fb8182d62410223a",
+        "GUID:86afa44309ced704d99b18db08754600",
+        "GUID:ce9acb4c89fd77746a90c158718c588d",
+        "GUID:50f1e976bb3457245bf1e7f709b44a45",
+        "GUID:fc9b53401deb44f19c6e9ef693a26c77",
+        "GUID:6f7c2c763c464614a3efc88a2e2e88c8",
+        "GUID:c58cb679f31162c47bc160d1f716ecea",
+        "GUID:3aaf044f27854e348638436fa2f57b24"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

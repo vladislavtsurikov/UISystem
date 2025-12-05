@@ -79,7 +79,7 @@ namespace OdinSerializer
 
                         value.Add(ObjectSerializer.ReadValue(reader));
 
-                        if (reader.IsInArrayNode == false)
+                        if (!reader.IsInArrayNode)
                         {
                             // Something has gone wrong
                             reader.Context.Config.DebugContext.LogError("Reading array went wrong. Data dump: " +

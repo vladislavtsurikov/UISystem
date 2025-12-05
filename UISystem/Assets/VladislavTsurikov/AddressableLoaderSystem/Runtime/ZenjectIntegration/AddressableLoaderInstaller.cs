@@ -1,6 +1,5 @@
 ﻿#if ADDRESSABLE_LOADER_SYSTEM_ADDRESSABLES
 #if ADDRESSABLE_LOADER_SYSTEM_ZENJECT
-using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using Zenject;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.ZenjectIntegration
@@ -9,9 +8,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.ZenjectIntegration
     {
         public override void InstallBindings()
         {
-            var manager = new ResourceLoaderManager(Container);
-
-            Container.Bind<ResourceLoaderManager>().FromInstance(manager).AsSingle();
+            Container.BindInterfacesTo<ZenjectAddressableLoaderSystemInitializer>().AsSingle();
         }
     }
 }

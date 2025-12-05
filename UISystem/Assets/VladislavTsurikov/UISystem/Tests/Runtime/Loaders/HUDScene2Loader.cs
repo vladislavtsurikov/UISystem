@@ -7,6 +7,7 @@ namespace VladislavTsurikov.UISystem.Tests.Runtime
     [SceneFilter("TestScene_2")]
     public class HUDScene2Loader : PrefabResourceLoader
     {
+        [AutoLoad("HUDScene_2")]
         public override string PrefabAddress => "HUDScene_2";
     }
 }

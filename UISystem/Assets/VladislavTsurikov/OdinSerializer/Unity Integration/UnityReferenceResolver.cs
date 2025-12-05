@@ -69,9 +69,9 @@ namespace OdinSerializer
 
             var obj = value as Object;
 
-            if (ReferenceEquals(null, obj) == false)
+            if (!ReferenceEquals(null, obj))
             {
-                if (referenceIndexMapping.TryGetValue(obj, out index) == false)
+                if (!referenceIndexMapping.TryGetValue(obj, out index))
                 {
                     index = referencedUnityObjects.Count;
                     referenceIndexMapping.Add(obj, index);
@@ -130,7 +130,7 @@ namespace OdinSerializer
 
             for (var i = 0; i < this.referencedUnityObjects.Count; i++)
             {
-                if (ReferenceEquals(this.referencedUnityObjects[i], null) == false)
+                if (!ReferenceEquals(this.referencedUnityObjects[i], null))
                 {
                     if (!referenceIndexMapping.ContainsKey(this.referencedUnityObjects[i]))
                     {

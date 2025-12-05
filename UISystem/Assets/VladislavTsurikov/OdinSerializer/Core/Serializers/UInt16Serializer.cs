@@ -39,7 +39,7 @@ namespace OdinSerializer
             if (entry == EntryType.Integer)
             {
                 ushort value;
-                if (reader.ReadUInt16(out value) == false)
+                if (!reader.ReadUInt16(out value))
                 {
                     reader.Context.Config.DebugContext.LogWarning(
                         "Failed to read entry '" + name + "' of type " + entry);

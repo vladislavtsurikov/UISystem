@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70112d279e9846bf9f691ffc1f0d575e, type: 3}
+  m_Name: TextureGroup_Images_SceneDataSystem
+  m_EditorClassIdentifier: 
+  _groupName: Images
+  _assetDefaultName: TextureGroup
+  _items:
+  - TextureName: Minus
+    TextureReference: {fileID: 2800000, guid: 65c2edf5bd9e5544ea252189ebb8dc5f, type: 3}
+  - TextureName: Plus
+    TextureReference: {fileID: 2800000, guid: c1a13badb18892d459fe4b74c82ac4de, type: 3}
+  _groupCategory: SceneDataSystem
+  _removePrefixFromTextureName: 

@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80c236e3ccb42b4b92a9fe5e866c9e8, type: 3}
+  m_Name: SelectableColorPalette_EditorUI
+  m_EditorClassIdentifier: 
+  _groupName: EditorUI
+  _assetDefaultName: SelectableColorPalette
+  _items:
+  - ColorName: ButtonContainer
+    Normal:
+      ColorOnDark: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
+      ColorOnLight: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 1}
+    Highlighted:
+      ColorOnDark: {r: 0.1254902, g: 0.1254902, b: 0.1254902, a: 1}
+      ColorOnLight: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 1}
+    Pressed:
+      ColorOnDark: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
+      ColorOnLight: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 1}
+    Selected:
+      ColorOnDark: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
+      ColorOnLight: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 1}
+    Disabled:
+      ColorOnDark: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 0.54901963}
+      ColorOnLight: {r: 0.9411765, g: 0.9411765, b: 0.9411765, a: 0.54901963}
+  - ColorName: ButtonIcon
+    Normal:
+      ColorOnDark: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
+      ColorOnLight: {r: 0.4392157, g: 0.4392157, b: 0.4392157, a: 1}
+    Highlighted:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Pressed:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Selected:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Disabled:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+  - ColorName: ButtonText
+    Normal:
+      ColorOnDark: {r: 0.84705883, g: 1, b: 0.2, a: 1}
+      ColorOnLight: {r: 0.4509804, g: 0.49803922, b: 0, a: 1}
+    Highlighted:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Pressed:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Selected:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Disabled:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+  - ColorName: Add
+    Normal:
+      ColorOnDark: {r: 0.4117647, g: 0.8784314, b: 0.54509807, a: 1}
+      ColorOnLight: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    Highlighted:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Pressed:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Selected:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Disabled:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+  - ColorName: Remove
+    Normal:
+      ColorOnDark: {r: 1, g: 0.101960786, b: 0.101960786, a: 1}
+      ColorOnLight: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    Highlighted:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Pressed:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Selected:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}
+    Disabled:
+      ColorOnDark: {r: 0, g: 0, b: 0, a: 0}
+      ColorOnLight: {r: 0, g: 0, b: 0, a: 0}

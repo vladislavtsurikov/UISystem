@@ -39,7 +39,7 @@ namespace OdinSerializer
             if (entry == EntryType.String)
             {
                 char value;
-                if (reader.ReadChar(out value) == false)
+                if (!reader.ReadChar(out value))
                 {
                     reader.Context.Config.DebugContext.LogWarning(
                         "Failed to read entry '" + name + "' of type " + entry);

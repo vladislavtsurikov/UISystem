@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements" editor="UnityEditor.UIElements"
+         noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style
+        src="project://database/Assets/VladislavTsurikov/UIElements/ScriptsEditor/EditorUI/Editor/Button.uss?fileID=7433441132597879392&amp;guid=dfa20f11eb1687249a5084e0bb547eb0&amp;type=3#Button"/>
+    <ui:VisualElement name="LayoutContainer" class="Button">
+        <ui:VisualElement name="ButtonContainer" class="Button" style="flex-direction: row;">
+            <ui:Image name="ButtonIcon" class="Fluid FieldIcon Button"/>
+            <ui:Label name="ButtonLabel" text="Text" class="FieldName Button"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

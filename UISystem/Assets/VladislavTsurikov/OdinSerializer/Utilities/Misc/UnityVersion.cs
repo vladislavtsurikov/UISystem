@@ -50,13 +50,13 @@ namespace OdinSerializer.Utilities
                 return;
             }
 
-            if (int.TryParse(version[0], out Major) == false)
+            if (!int.TryParse(version[0], out Major))
             {
                 Debug.LogError("Could not parse major part '" + version[0] + "' of Unity version '" +
                                Application.unityVersion + "'.");
             }
 
-            if (int.TryParse(version[1], out Minor) == false)
+            if (!int.TryParse(version[1], out Minor))
             {
                 Debug.LogError("Could not parse minor part '" + version[1] + "' of Unity version '" +
                                Application.unityVersion + "'.");

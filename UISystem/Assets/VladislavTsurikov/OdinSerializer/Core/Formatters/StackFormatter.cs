@@ -97,7 +97,7 @@ namespace OdinSerializer
 
                         value.Push(TSerializer.ReadValue(reader));
 
-                        if (reader.IsInArrayNode == false)
+                        if (!reader.IsInArrayNode)
                         {
                             // Something has gone wrong
                             reader.Context.Config.DebugContext.LogError("Reading array went wrong. Data dump: " +
@@ -220,7 +220,7 @@ namespace OdinSerializer
                         pushParams[0] = ElementSerializer.ReadValueWeak(reader);
                         PushMethod.Invoke(value, pushParams);
 
-                        if (reader.IsInArrayNode == false)
+                        if (!reader.IsInArrayNode)
                         {
                             // Something has gone wrong
                             reader.Context.Config.DebugContext.LogError("Reading array went wrong. Data dump: " +

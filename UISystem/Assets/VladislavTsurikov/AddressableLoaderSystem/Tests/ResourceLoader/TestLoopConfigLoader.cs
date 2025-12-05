@@ -9,12 +9,13 @@ using Zenject;
 namespace VladislavTsurikov.AddressableLoaderSystem.Tests
 {
     [SceneFilter("TestScene_B")]
-    public class TestLoopConfigLoader : BindableResourceLoader
+    public class TestLoopConfigLoader : ZenjectResourceLoader
     {
         public TestLoopConfigLoader(DiContainer container) : base(container)
         {
         }
 
+        [AutoLoad("TestLoopConfig")]
         public TestLoopConfig Config { get; private set; }
 
         public override async UniTask LoadResourceLoader(CancellationToken token) =>

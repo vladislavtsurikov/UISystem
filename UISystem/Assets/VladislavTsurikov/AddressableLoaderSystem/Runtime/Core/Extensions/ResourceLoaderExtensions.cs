@@ -7,7 +7,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.Core
 {
-    public static class ResourceLoaderExtensions
+    public static partial class ResourceLoaderExtensions
     {
         public static UniTask<GameObject> InstantiateWithAutoLoad(this ResourceLoader loader,
             AssetReferenceGameObject prefabRef, Transform parent = null, CancellationToken cancellationToken = default)

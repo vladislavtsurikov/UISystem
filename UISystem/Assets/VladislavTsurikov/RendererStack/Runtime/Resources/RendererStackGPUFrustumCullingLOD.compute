@@ -1,0 +1,103 @@
+﻿#pragma kernel RendererStackGPUFrustumCullingLOD
+
+#include "Include/Params.hlsl"
+#include "Include/FrustumCulling.hlsl"
+#include "Include/Shadow.hlsl"
+#include "Include/DistanceCulling.hlsl"
+#include "Include/LODCalculation.hlsl"
+
+[numthreads(512, 1, 1)]
+void RendererStackGPUFrustumCullingLOD(uint3 id : SV_DispatchThreadID)
+{
+    const uint instance_id = id.x;
+
+    if (instance_id >= instanceCount)
+    {
+        return;
+    }
+
+    InstanceShaderData instanceData = positions[instance_id];
+    instanceData.AddFloatingOriginOffset(floatingOriginOffset.xyz);
+
+    float3 instancePosition = instanceData.Position();
+
+    const float random = RandomValueI(uint2(instancePosition.xz * 100.0));
+
+    const float maxScaleValue = MaxValueFloat3(instanceData.Scale());
+
+    if (startLOD != 0)
+    {
+        minDistance *= maxScaleValue;
+    }
+
+    if (DistanceCulling(instanceData, maxScaleValue, random))
+    {
+        return;
+    }
+
+    const float modifiedDistanceToCamera = GetModifiedDistanceToCamera(instanceData.Position(), maxScaleValue, random);
+
+    uint lod;
+    uint shadowLod;
+    float4 lodFade;
+
+    #define transformPosition mul(instanceData.positionMatrix, float4(0,0,0,1)).xyz
+    const float3 position = transformPosition + float3(0.0f, boundingSphereRadius * 0.5f, 0.0f);
+
+    if (FrustumCulling(position, cameraFrustumPlane0, cameraFrustumPlane1, cameraFrustumPlane2,
+                       cameraFrustumPlane3, cameraFrustumPlane4, cameraFrustumPlane5, boundingSphereRadius, 0))
+    {
+        if (AddAdditionalShadow(modifiedDistanceToCamera, position))
+        {
+            CalculateLODWithoutLODFade(modifiedDistanceToCamera, lod, shadowLod);
+
+            float4 lodFade;
+
+            if (isStandardRenderPipeline)
+            {
+                lodFade = float4(0, 0, 0, 0);
+            }
+            else
+            {
+                lodFade = float4(1, 0, 0, 0);
+            }
+
+            AddPositionShadow(instanceData, modifiedDistanceToCamera, shadowLod, lodFade);
+        }
+
+        return;
+    }
+
+    int oldLOD = instanceData.lodFade.w;
+
+
+    CalculateLOD(modifiedDistanceToCamera, 1, lod, shadowLod, lodFade);
+
+    if (lod != oldLOD)
+    {
+        instanceData.lodFade.z = time;
+    }
+    else
+    {
+        float progress = time - instanceData.lodFade.z / 0.2;
+        if (progress >= 1)
+        {
+            instanceData.lodFade.x = progress;
+        }
+    }
+
+    if (lod != 9)
+    {
+        if (useLODFade)
+        {
+            if (lodFade.x != 0)
+            {
+                AddPositionShadow(instanceData, modifiedDistanceToCamera, lod + 1, -lodFade);
+                AddPosition(instanceData, lod + 1, -lodFade);
+            }
+        }
+
+        AddPositionShadow(instanceData, modifiedDistanceToCamera, shadowLod, lodFade);
+        AddPosition(instanceData, lod, lodFade);
+    }
+}

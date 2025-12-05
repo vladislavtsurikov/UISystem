@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.ResourceManagement.ResourceProviders;
+using VladislavTsurikov.SceneUtility.Editor.Utility;
 using VladislavTsurikov.UISystem.Runtime.AddressableLoaderSystemIntegration;
 using Zenject;
 
@@ -61,9 +62,19 @@ namespace VladislavTsurikov.UISystem.Tests.Runtime
 
         private async UniTask SwitchToScene(string sceneName)
         {
-            _currentSceneInstance = await _sceneCompositionService.LoadAddressableScene(sceneName,
-                async handle => { await handle.ActivateAsync().ToUniTask(); });
-
+            if (BuildSceneUtility.IsSceneInBuildSettings(sceneName))
+            {
+                await _sceneCompositionService.LoadBuiltScene(sceneName,
+                    async () => {
+                        Debug.Log("Built scene loaded.");
+                        await UniTask.CompletedTask;
+                    });
+            }
+            else
+            {
+                _currentSceneInstance = await _sceneCompositionService.LoadAddressableScene(sceneName,
+                    async handle => { await handle.ActivateAsync().ToUniTask(); });
+            }
             await UniTask.CompletedTask;
         }
     }

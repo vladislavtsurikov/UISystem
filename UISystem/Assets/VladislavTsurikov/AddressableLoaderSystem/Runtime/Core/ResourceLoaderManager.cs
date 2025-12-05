@@ -18,7 +18,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.Core
         public ResourceLoaderManager(DiContainer container)
         {
             _container = container;
-            LoaderRegistrarUtility.RegisterLoaderInitializers(this);
+            //LoaderRegistrarUtility.RegisterLoaderInitializers(this);
         }
 
         public IReadOnlyList<ResourceLoader> GetAllLoaders() => _allLoaders;
