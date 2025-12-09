@@ -5,8 +5,6 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public abstract class ResourceLoaderDescriptorFill
     {
-        private ResourceLoaderDescriptor _descriptor;
-
         public abstract Type LoaderType { get; }
         public abstract Type LoaderDescriptorBaseType { get; }
 

@@ -21,7 +21,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
             {
                 var container = new ResourceLoaderDescriptorContainer();
 
-                var descriptor = ResourceLoaderDescriptorFillContainer.GetDescriptorForType(loaderType);
+                var descriptor = ResourceLoaderDescriptorFillContainer.Get(loaderType);
                 if (descriptor == null)
                 {
                     continue;

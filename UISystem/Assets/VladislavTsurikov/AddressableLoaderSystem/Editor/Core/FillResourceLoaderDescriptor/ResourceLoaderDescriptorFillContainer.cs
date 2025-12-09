@@ -7,9 +7,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public static class ResourceLoaderDescriptorFillContainer
     {
-        private static Dictionary<Type, ResourceLoaderDescriptor> s_resourceLoaderDescriptors = new Dictionary<Type, ResourceLoaderDescriptor>();
+        private static Dictionary<Type, ResourceLoaderDescriptorFill> s_fills = new Dictionary<Type, ResourceLoaderDescriptorFill>();
 
-        public static IReadOnlyDictionary<Type, ResourceLoaderDescriptor> ResourceLoaderDescriptors => s_resourceLoaderDescriptors;
+        public static IReadOnlyDictionary<Type, ResourceLoaderDescriptorFill> Fills => s_fills;
 
         static ResourceLoaderDescriptorFillContainer()
         {
@@ -18,24 +18,26 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
         private static void Refresh()
         {
-            s_resourceLoaderDescriptors.Clear();
+            s_fills.Clear();
 
-            foreach (ResourceLoaderDescriptor resourceLoaderDescriptor in ReflectionFactory.CreateAllInstances<ResourceLoaderDescriptor>())
+            foreach (ResourceLoaderDescriptorFill resourceLoaderDescriptorFill in ReflectionFactory.CreateAllInstances<ResourceLoaderDescriptorFill>())
             {
-                s_resourceLoaderDescriptors.Add(resourceLoaderDescriptor.BaseType, resourceLoaderDescriptor);
+                s_fills.Add(resourceLoaderDescriptorFill.LoaderType, resourceLoaderDescriptorFill);
             }
         }
 
-        public static ResourceLoaderDescriptor GetDescriptorForType(Type type)
+        public static ResourceLoaderDescriptor Get(Type resourceType)
         {
-            var descriptors = ResourceLoaderDescriptors;
+            Type current = resourceType;
 
-            while (type != null && type != typeof(object))
+            while (current != null)
             {
-                if (descriptors.TryGetValue(type, out var descriptor))
-                    return descriptor;
+                if (s_fills.TryGetValue(current, out ResourceLoaderDescriptorFill fill))
+                {
+                    return fill.Fill(resourceType);
+                }
 
-                type = type.BaseType;
+                current = current.BaseType;
             }
 
             return null;

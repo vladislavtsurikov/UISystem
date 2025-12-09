@@ -1,6 +1,5 @@
 ﻿#if UNITY_EDITOR
-using System.Linq;
-using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.UIElements;
 using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceLoaderDescriptorElements;
 
@@ -18,15 +17,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
         {
             _provider = provider;
 
-            var baseTypeNames = _provider.GetBaseTypeNames();
-            if (baseTypeNames.Count == 0)
-            {
-                var info = new Label("No ResourceLoaderGenerator found");
-                Debug.LogWarning("No ResourceLoaderGenerator found");
-                info.style.color = new Color(1f, 0.5f, 0.5f);
-                Add(info);
-                return;
-            }
+            List<string> baseTypeNames = _provider.GetBaseTypeNames();
 
             _selectedDescriptor = _provider.ActiveDescriptor;
 
