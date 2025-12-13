@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
@@ -30,7 +31,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                     ? null
                     : EditorResourceLoaderRegistry.Wrappers.FirstOrDefault(x =>
                         x.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0);
-                RefreshSearchResults();
+                RefreshSearchResults(query);
             });
             section.Add(_searchField);
 
@@ -40,11 +41,21 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             section.Add(_resultsContainer);
         }
 
-        public void RefreshSearchResults()
+        public void RefreshSearchResults(string query)
         {
             _resultsContainer.Clear();
 
-            if (_selectedLoader == null)
+            var type = ResourceLoaderTypeRegistry.GetTypeByName(query);
+
+            if (type != null && _selectedLoader == null)
+            {
+                var errorLabel = new Label($"No ResourceLoaderDescriptor found for {query}");
+                errorLabel.style.color = new Color(1f, 0.5f, 0.5f);
+                _resultsContainer.Add(errorLabel);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(query))
             {
                 var info = new Label("Type a ResourceLoader name to display it");
                 info.style.color = new Color(0.7f, 0.7f, 0.7f);
@@ -53,7 +64,10 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 return;
             }
 
-            _resultsContainer.Add(new LoaderSectionElement(_selectedLoader));
+            if (_selectedLoader != null)
+            {
+                _resultsContainer.Add(new LoaderSectionElement(_selectedLoader));
+            }
         }
     }
 }

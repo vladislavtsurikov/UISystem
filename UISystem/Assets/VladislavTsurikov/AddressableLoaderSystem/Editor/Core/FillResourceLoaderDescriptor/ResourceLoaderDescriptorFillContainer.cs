@@ -28,16 +28,25 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
         public static ResourceLoaderDescriptor Get(Type resourceType)
         {
-            Type current = resourceType;
-
-            while (current != null)
+            if (resourceType == null)
             {
-                if (s_fills.TryGetValue(current, out ResourceLoaderDescriptorFill fill))
-                {
-                    return fill.Fill(resourceType);
-                }
+                return null;
+            }
 
-                current = current.BaseType;
+            if (s_fills.TryGetValue(resourceType, out ResourceLoaderDescriptorFill fill))
+            {
+                return fill.Fill(resourceType);
+            }
+
+            Type baseType = resourceType.BaseType;
+            if (baseType == null)
+            {
+                return null;
+            }
+
+            if (s_fills.TryGetValue(baseType, out fill))
+            {
+                return fill.Fill(resourceType);
             }
 
             return null;

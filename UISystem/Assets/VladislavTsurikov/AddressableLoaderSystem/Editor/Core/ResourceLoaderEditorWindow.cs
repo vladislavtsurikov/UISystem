@@ -70,7 +70,6 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             EditorResourceLoaderRegistry.Refresh();
             UpdateWarningSection();
-            _searchSection.RefreshSearchResults();
         }
 
         private void UpdateWarningSection()
