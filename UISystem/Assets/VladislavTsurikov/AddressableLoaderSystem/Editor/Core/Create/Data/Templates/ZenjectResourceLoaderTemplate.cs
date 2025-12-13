@@ -4,7 +4,7 @@ using VladislavTsurikov.AddressableLoaderSystem.Runtime.ZenjectIntegration;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
 {
-    public class ZenjectResourceLoaderDescriptor : ResourceLoaderFieldDescriptor
+    public class ZenjectResourceLoaderTemplate : ResourceLoaderFieldTemplate
     {
         public override Type BaseType => typeof(ZenjectResourceLoader);
 

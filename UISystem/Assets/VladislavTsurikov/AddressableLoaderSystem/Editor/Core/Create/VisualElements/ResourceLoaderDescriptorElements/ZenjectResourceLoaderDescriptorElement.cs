@@ -1,10 +1,10 @@
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceLoaderDescriptorElements
 {
-    [LoaderBaseType(typeof(ZenjectResourceLoaderDescriptor))]
+    [LoaderBaseType(typeof(ZenjectResourceLoaderTemplate))]
     public class ZenjectResourceLoaderDescriptorElement : ResourceLoaderFieldDescriptorElement
     {
-        public ZenjectResourceLoaderDescriptorElement(ResourceLoaderDescriptor descriptor) : base(descriptor)
+        public ZenjectResourceLoaderDescriptorElement(ResourceLoaderTemplate template) : base(template)
         {
 
         }

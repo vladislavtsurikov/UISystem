@@ -9,7 +9,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
     public class CreateSectionElement : VisualElement
     {
         private readonly ResourceLoaderDescriptorContainer _provider;
-        private ResourceLoaderDescriptor _selectedDescriptor;
+        private ResourceLoaderTemplate _selectedTemplate;
         private Button _createButton;
 
         public CreateSectionElement(ResourceLoaderDescriptorContainer provider)
@@ -25,11 +25,11 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
             var providerElement = new ResourceLoaderDescriptorContainerElement(_provider);
             providerElement.ResourceLoaderDescriptorElement.OnClassNameChanged += EnableButtonIfNecessary;
 
-            _selectedDescriptor = _provider.ActiveDescriptor ?? _provider.Generators.FirstOrDefault();
+            _selectedTemplate = _provider.ActiveTemplate ?? _provider.Generators.FirstOrDefault();
 
             _createButton = new Button(CreateResourceLoader) { text = "Create" };
             _createButton.style.marginTop = 10;
-            _createButton.SetEnabled(!string.IsNullOrEmpty(_selectedDescriptor.ClassName));
+            _createButton.SetEnabled(!string.IsNullOrEmpty(_selectedTemplate.ClassName));
 
             providerElement.Add(_createButton);
             section.Add(providerElement);
@@ -37,19 +37,19 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
 
         private void CreateResourceLoader()
         {
-            if (string.IsNullOrEmpty(_selectedDescriptor.ClassName))
+            if (string.IsNullOrEmpty(_selectedTemplate.ClassName))
             {
                 EditorUtility.DisplayDialog("Error", "Please enter a class name.", "OK");
                 return;
             }
 
-            _selectedDescriptor.Run();
-            Debug.Log($"[CreateResourceLoader] Created: {_selectedDescriptor.ClassName}");
+            _selectedTemplate.Run();
+            Debug.Log($"[CreateResourceLoader] Created: {_selectedTemplate.ClassName}");
         }
 
         private void EnableButtonIfNecessary()
         {
-            _createButton?.SetEnabled(!string.IsNullOrEmpty(_selectedDescriptor?.ClassName));
+            _createButton?.SetEnabled(!string.IsNullOrEmpty(_selectedTemplate?.ClassName));
         }
     }
 }

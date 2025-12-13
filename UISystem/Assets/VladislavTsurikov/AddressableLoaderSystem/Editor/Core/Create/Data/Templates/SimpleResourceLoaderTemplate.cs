@@ -10,7 +10,7 @@ using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
 {
-    public class SimpleResourceLoaderDescriptor : ResourceLoaderFieldDescriptor
+    public class SimpleResourceLoaderTemplate : ResourceLoaderFieldTemplate
     {
         public override Type BaseType => typeof(ResourceLoader);
 

@@ -2,37 +2,73 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using UnityEngine;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
 {
     public class ResourceLoaderDescriptorContainer
     {
-        private readonly Dictionary<Type, ResourceLoaderDescriptor> _generatorMap = new();
+        private readonly Dictionary<Type, ResourceLoaderTemplate> _generatorMap = new();
 
         public ResourceLoaderDescriptorContainer()
         {
             Refresh();
             if (_generatorMap.Count > 0)
             {
-                KeyValuePair<Type, ResourceLoaderDescriptor> first = _generatorMap.First();
+                KeyValuePair<Type, ResourceLoaderTemplate> first = _generatorMap.First();
                 ActiveType = first.Key;
-                ActiveDescriptor = first.Value;
+                ActiveTemplate = first.Value;
             }
         }
 
-        public IReadOnlyList<ResourceLoaderDescriptor> Generators => _generatorMap.Values.ToList();
+        public IReadOnlyList<ResourceLoaderTemplate> Generators => _generatorMap.Values.ToList();
 
         public Type ActiveType { get; private set; }
-        public ResourceLoaderDescriptor ActiveDescriptor { get; private set; }
+        public ResourceLoaderTemplate ActiveTemplate { get; private set; }
+
+        public ResourceLoaderTemplate GetFilled(Type resourceType)
+        {
+            if (resourceType == null)
+            {
+                return null;
+            }
+
+            ResourceLoaderTemplate templateTemplate = GetByBaseType(resourceType);
+            if (templateTemplate != null)
+            {
+                return CreateFilledDescriptor(templateTemplate, resourceType);
+            }
+
+            Type baseType = resourceType.BaseType;
+            if (baseType == null)
+            {
+                return null;
+            }
+
+            templateTemplate = GetByBaseType(baseType);
+            if (templateTemplate != null)
+            {
+                return CreateFilledDescriptor(templateTemplate, resourceType);
+            }
+
+            return null;
+        }
+
+        private static ResourceLoaderTemplate CreateFilledDescriptor(ResourceLoaderTemplate template, Type loaderType)
+        {
+            Type descriptorType = template.GetType();
+            var descriptor = (ResourceLoaderTemplate)Activator.CreateInstance(descriptorType);
+
+            descriptor.BuildFrom(loaderType);
+
+            return descriptor;
+        }
 
         public void Refresh()
         {
             _generatorMap.Clear();
 
-            foreach (ResourceLoaderDescriptor descriptor in ReflectionFactory.CreateAllInstances<ResourceLoaderDescriptor>())
+            foreach (ResourceLoaderTemplate descriptor in ReflectionFactory.CreateAllInstances<ResourceLoaderTemplate>())
             {
                 _generatorMap.TryAdd(descriptor.BaseType, descriptor);
             }
@@ -44,16 +80,26 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
                 .Distinct()
                 .ToList();
 
-        public ResourceLoaderDescriptor GetByBaseTypeName(string baseTypeName)
+        public ResourceLoaderTemplate GetByBaseTypeName(string baseTypeName)
         {
-            KeyValuePair<Type, ResourceLoaderDescriptor> pair =
+            KeyValuePair<Type, ResourceLoaderTemplate> pair =
                 _generatorMap.FirstOrDefault(x => x.Key.Name == baseTypeName);
             return pair.Value;
         }
 
+        public ResourceLoaderTemplate GetByBaseType(Type baseType)
+        {
+            if (baseType == null)
+            {
+                return null;
+            }
+
+            return _generatorMap.GetValueOrDefault(baseType);
+        }
+
         public void SetActiveByBaseTypeName(string baseTypeName)
         {
-            KeyValuePair<Type, ResourceLoaderDescriptor> pair =
+            KeyValuePair<Type, ResourceLoaderTemplate> pair =
                 _generatorMap.FirstOrDefault(x => x.Key.Name == baseTypeName);
             if (pair.Key == null)
             {
@@ -61,12 +107,12 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
             }
 
             ActiveType = pair.Key;
-            ActiveDescriptor = pair.Value;
+            ActiveTemplate = pair.Value;
         }
 
-        public void ChangeResourceLoaderDescriptor(ResourceLoaderDescriptor descriptor)
+        public void ChangeResourceLoaderDescriptor(ResourceLoaderTemplate template)
         {
-            _generatorMap[descriptor.BaseType] = descriptor;
+            _generatorMap[template.BaseType] = template;
         }
     }
 }

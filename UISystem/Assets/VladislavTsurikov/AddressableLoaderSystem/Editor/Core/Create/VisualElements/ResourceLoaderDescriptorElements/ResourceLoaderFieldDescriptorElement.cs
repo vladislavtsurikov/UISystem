@@ -5,13 +5,13 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceL
     {
         private ResourceLoaderFieldsElement _fieldsElement;
 
-        public ResourceLoaderFieldDescriptorElement(ResourceLoaderDescriptor descriptor) : base(descriptor)
+        public ResourceLoaderFieldDescriptorElement(ResourceLoaderTemplate template) : base(template)
         {
         }
 
         protected override void OnGUI()
         {
-            var resourceLoaderFieldDescriptor = (ResourceLoaderFieldDescriptor)_descriptor;
+            var resourceLoaderFieldDescriptor = (ResourceLoaderFieldTemplate)Template;
 
             var fieldsBlock = CreateSectionBlock("Fields");
             _fieldsElement = new ResourceLoaderFieldsElement(resourceLoaderFieldDescriptor.Fields);

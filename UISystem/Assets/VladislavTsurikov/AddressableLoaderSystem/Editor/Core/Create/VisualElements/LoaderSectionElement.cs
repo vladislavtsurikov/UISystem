@@ -54,7 +54,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
         private void RunGenerator()
         {
-            var generator = _typeInfo.LoaderDescriptorContainer.ActiveDescriptor;
+            var generator = _typeInfo.LoaderDescriptorContainer.ActiveTemplate;
 
             if (generator == null)
             {

@@ -10,14 +10,14 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceL
         private TextField _classNameField;
 
         protected VisualElement _formContainer;
-        protected ResourceLoaderDescriptor _descriptor;
+        protected ResourceLoaderTemplate Template;
 
 
         public event Action OnClassNameChanged;
 
-        public ResourceLoaderDescriptorElement(ResourceLoaderDescriptor descriptor)
+        public ResourceLoaderDescriptorElement(ResourceLoaderTemplate template)
         {
-            _descriptor = descriptor;
+            Template = template;
 
             _formContainer = new VisualElement();
             _formContainer.style.marginTop = 10;
@@ -34,10 +34,10 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceL
             _formContainer.Clear();
 
             _classNameField = new TextField("Class Name");
-            _classNameField.value = _descriptor.ClassName;
+            _classNameField.value = Template.ClassName;
             _classNameField.RegisterValueChangedCallback(evt =>
             {
-                _descriptor.ClassName = evt.newValue;
+                Template.ClassName = evt.newValue;
                 OnClassNameChanged?.Invoke();
             });
             _formContainer.Add(_classNameField);
@@ -45,7 +45,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceL
             OnGUI();
 
             var behaviorsBlock = CreateSectionBlock("Behavior Attributes");
-            _behaviorsElement = new BehaviorAttributesElement(_descriptor.Behaviors);
+            _behaviorsElement = new BehaviorAttributesElement(Template.Behaviors);
             behaviorsBlock.Add(_behaviorsElement);
             _formContainer.Add(behaviorsBlock);
         }

@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using VladislavTsurikov.AddressableLoaderSystem.Editor.Core;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
@@ -21,7 +22,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
             {
                 var container = new ResourceLoaderDescriptorContainer();
 
-                var descriptor = ResourceLoaderDescriptorFillContainer.Get(loaderType);
+                var descriptor = container.GetFilled(loaderType);
                 if (descriptor == null)
                 {
                     continue;

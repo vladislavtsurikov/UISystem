@@ -8,9 +8,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
     {
         public Type LoaderType { get; }
         public ResourceLoaderDescriptorContainer LoaderDescriptorContainer { get; }
-        public ResourceLoaderDescriptor ActiveDescriptor => LoaderDescriptorContainer.ActiveDescriptor;
+        public ResourceLoaderTemplate ActiveTemplate => LoaderDescriptorContainer.ActiveTemplate;
 
-        public string Name => ActiveDescriptor?.ClassName ?? LoaderType?.Name ?? "Unknown";
+        public string Name => ActiveTemplate?.ClassName ?? LoaderType?.Name ?? "Unknown";
 
         public string CsFilePath { get; }
 

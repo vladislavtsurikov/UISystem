@@ -10,8 +10,8 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceL
     {
         private static readonly Dictionary<Type, Type> s_editorTypeMap = new();
 
-        private static readonly Dictionary<ResourceLoaderDescriptor, ResourceLoaderDescriptorElement> s_instanceMap =
-            new Dictionary<ResourceLoaderDescriptor, ResourceLoaderDescriptorElement>();
+        private static readonly Dictionary<ResourceLoaderTemplate, ResourceLoaderDescriptorElement> s_instanceMap =
+            new Dictionary<ResourceLoaderTemplate, ResourceLoaderDescriptorElement>();
 
         static ResourceLoaderDescriptorEditorStack()
         {
@@ -32,28 +32,28 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceL
             }
         }
 
-        public static ResourceLoaderDescriptorElement GetElement(ResourceLoaderDescriptor descriptor)
+        public static ResourceLoaderDescriptorElement GetElement(ResourceLoaderTemplate template)
         {
-            if (descriptor == null)
+            if (template == null)
             {
                 return null;
             }
 
-            if (s_instanceMap.TryGetValue(descriptor, out var existing))
+            if (s_instanceMap.TryGetValue(template, out var existing))
             {
                 return existing;
             }
 
-            Type descriptorType = descriptor.GetType();
+            Type descriptorType = template.GetType();
 
             if (!s_editorTypeMap.TryGetValue(descriptorType, out Type editorElementType))
             {
                 return null;
             }
 
-            var newElement = (ResourceLoaderDescriptorElement)Activator.CreateInstance(editorElementType, descriptor);
+            var newElement = (ResourceLoaderDescriptorElement)Activator.CreateInstance(editorElementType, template);
 
-            s_instanceMap.Add(descriptor, newElement);
+            s_instanceMap.Add(template, newElement);
 
             return newElement;
         }

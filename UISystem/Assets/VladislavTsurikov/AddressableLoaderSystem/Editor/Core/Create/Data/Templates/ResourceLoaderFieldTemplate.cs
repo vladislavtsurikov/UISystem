@@ -1,18 +1,19 @@
+#if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
 {
-    public abstract class ResourceLoaderFieldDescriptorFill : ResourceLoaderDescriptorFill
+    public abstract class ResourceLoaderFieldTemplate : ResourceLoaderTemplate
     {
-        public override ResourceLoaderDescriptor Fill(Type loaderType)
+        public List<ResourceLoaderFieldData> Fields  = new();
+
+        protected override void OnBuildFrom(Type loaderType)
         {
-            var descriptor = (ResourceLoaderFieldDescriptor)InstanceResourceLoaderDescriptor();
-            descriptor.ClassName = loaderType.Name;
-            descriptor.Fields.Clear();
+            Fields.Clear();
 
             MemberInfo[] members = loaderType
                 .GetMembers(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
@@ -33,12 +34,10 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 var hasAttr = attr != null;
                 var address = attr?.Address ?? string.Empty;
 
-                descriptor.Fields.Add(
+                Fields.Add(
                     new ResourceLoaderFieldData(member.Name, fieldType, address, hasAttr)
                 );
             }
-
-            return descriptor;
         }
 
         private static Type GetMemberType(MemberInfo member) =>
@@ -50,3 +49,4 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             };
     }
 }
+#endif
