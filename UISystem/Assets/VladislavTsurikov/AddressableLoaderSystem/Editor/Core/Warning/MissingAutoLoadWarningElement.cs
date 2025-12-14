@@ -23,15 +23,13 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Warning
             style.paddingRight = 10;
             style.marginBottom = 6;
 
-            var title = new Label("Warning: ResourceLoaders with fields missing [AutoLoadAttribute] detected");
+            var title = new Label("AutoLoadAttribute is deprecated for ResourceLoaders");
             title.style.color = new Color(1f, 0.9f, 0.3f);
             title.style.unityFontStyleAndWeight = FontStyle.Bold;
             title.style.marginBottom = 4;
             Add(title);
 
-            var hint = new Label(
-                "Add the [AutoLoad] attribute to fields so the system can validate that Addressable asset references are set correctly."
-            );
+            var hint = new Label("Validation no longer depends on [AutoLoad]; addresses should be provided explicitly where needed.");
             hint.style.whiteSpace = WhiteSpace.Normal;
             hint.style.color = new Color(1f, 0.9f, 0.3f);
             hint.style.marginBottom = 6;

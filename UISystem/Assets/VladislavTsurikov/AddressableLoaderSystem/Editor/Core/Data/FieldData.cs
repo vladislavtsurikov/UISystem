@@ -16,7 +16,6 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         public string FieldName { get; private set; }
         public Type FieldType { get; private set; }
         public string Address { get; private set; }
-        public bool HasAutoLoadAttribute { get; private set; }
 
         public Object Asset
         {
@@ -28,12 +27,11 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
         }
 
-        public FieldData(string fieldName, Type fieldType, string address, bool hasAutoLoad)
+        public FieldData(string fieldName, Type fieldType, string address)
         {
             FieldName = fieldName;
             FieldType = fieldType;
             Address = address;
-            HasAutoLoadAttribute = hasAutoLoad;
             _asset = AddressableEditorExtensions.FindAssetByAddress(address);
         }
 

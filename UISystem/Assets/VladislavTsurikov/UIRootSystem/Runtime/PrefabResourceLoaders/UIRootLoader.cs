@@ -7,7 +7,6 @@ namespace VladislavTsurikov.UIRootSystem.Runtime.PrefabResourceLoaders
     [SceneFilter("TestScene_1", "TestScene_2")]
     public class UIRootLoader : PrefabResourceLoader
     {
-        [AutoLoad("UI Root")]
         public override string PrefabAddress => "UI Root";
     }
 }
