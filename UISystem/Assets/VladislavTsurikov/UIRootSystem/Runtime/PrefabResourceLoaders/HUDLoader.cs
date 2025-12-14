@@ -7,7 +7,6 @@ namespace VladislavTsurikov.UIRootSystem.Runtime.PrefabResourceLoaders
     [SceneFilter("TestScene_1", "TestScene_2")]
     public class HUDLoader : PrefabResourceLoader
     {
-        [AutoLoad("HUD")]
         public override string PrefabAddress => "HUD";
     }
 }

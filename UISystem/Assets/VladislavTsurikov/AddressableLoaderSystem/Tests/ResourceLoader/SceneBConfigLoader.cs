@@ -15,16 +15,14 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Tests
         {
         }
 
-        [AutoLoad("ConfigSceneB")]
-        public ConfigSceneB Config { get; private set; }
+        public ConfigSceneB ConfigSceneB { get; private set; }
 
-        [AutoLoad("ConfigSceneB_WithAssetReference")]
-        public ConfigSceneBWithAssetReference ConfigWithReference { get; private set; }
+        public ConfigSceneBWithAssetReference ConfigSceneB_WithAssetReference { get; private set; }
 
         public override async UniTask LoadResourceLoader(CancellationToken token)
         {
-            Config = await LoadAndBind<ConfigSceneB>(token, "ConfigSceneB");
-            ConfigWithReference =
+            ConfigSceneB = await LoadAndBind<ConfigSceneB>(token, "ConfigSceneB");
+            ConfigSceneB_WithAssetReference =
                 await LoadAndBind<ConfigSceneBWithAssetReference>(token, "ConfigSceneB_WithAssetReference");
         }
     }
