@@ -58,7 +58,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 return null;
             }
 
-            return Create(templateType, null);
+            return Create(templateType);
         }
 
         public static ResourceLoaderTemplate CreateByBaseTypeName(string baseTypeName)
@@ -84,7 +84,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                     return null;
                 }
 
-                return Create(templateType, null);
+                return Create(templateType);
             }
 
             return null;
@@ -99,7 +99,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             }
 
             Type bestBaseType = null;
-            Type bestTemplateType = null;
+            Type templateType = null;
 
             foreach (KeyValuePair<Type, Type> pair in s_templateTypeByBaseType)
             {
@@ -112,34 +112,18 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 if (bestBaseType == null || bestBaseType.IsAssignableFrom(baseType))
                 {
                     bestBaseType = baseType;
-                    bestTemplateType = pair.Value;
+                    templateType = pair.Value;
                 }
             }
 
-            return Create(bestTemplateType, resourceType);
+            return Create(templateType);
         }
 
-        public static ResourceLoaderTemplate Create(Type templateType, Type resourceType)
+        public static ResourceLoaderTemplate Create(Type templateType)
         {
             if (templateType == null)
             {
                 Debug.LogWarning("[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.Create] Template type is null.");
-                return null;
-            }
-
-            if (resourceType != null)
-            {
-                ConstructorInfo ctorWithType = templateType.GetConstructor(new[] { typeof(Type) });
-                if (ctorWithType != null && ctorWithType.IsPublic)
-                {
-                    return Activator.CreateInstance(templateType, resourceType) as ResourceLoaderTemplate;
-                }
-            }
-
-            ConstructorInfo ctor = templateType.GetConstructor(Type.EmptyTypes);
-            if (ctor == null || !ctor.IsPublic)
-            {
-                Debug.LogWarning($"[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.Create] Public parameterless constructor not found for template '{templateType.Name}'.");
                 return null;
             }
 

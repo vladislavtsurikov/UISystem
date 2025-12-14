@@ -18,10 +18,8 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
             Type[] loaderTypes = AllTypesDerivedFrom<ResourceLoader>.Types;
 
-            for (int i = 0; i < loaderTypes.Length; i++)
+            foreach (var loaderType in loaderTypes)
             {
-                Type loaderType = loaderTypes[i];
-
                 ResourceLoaderTemplate template = ResourceLoaderTemplateTypeRegistry.CreateByResourceType(loaderType);
                 if (template == null)
                 {

@@ -35,18 +35,6 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
         public List<BehaviorAttributeData> Behaviors = new();
 
-        public ResourceLoaderTemplate()
-        {
-        }
-
-        public ResourceLoaderTemplate(Type loaderType)
-        {
-            LoaderType = loaderType;
-            CsFilePath = loaderType.GetSourceFilePath();
-
-            BuildFrom(loaderType);
-        }
-
         public abstract void Run();
 
         protected virtual void OnBuildFrom(Type loaderType)
@@ -55,6 +43,8 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
         public void BuildFrom(Type loaderType)
         {
+            LoaderType = loaderType;
+            CsFilePath = loaderType.GetSourceFilePath();
             _className = loaderType.Name;
 
             OnBuildFrom(loaderType);
