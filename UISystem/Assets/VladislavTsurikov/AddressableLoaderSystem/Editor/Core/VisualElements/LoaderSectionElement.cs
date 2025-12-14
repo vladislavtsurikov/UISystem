@@ -8,7 +8,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
     public sealed class LoaderSectionElement : VisualElement
     {
         private readonly Button _refreshButton;
-        private readonly ResourceLoaderTemplateElement _templateElement;
+        private readonly ResourceLoaderTemplateEditorStackElement _templateEditorStackElement;
 
         private ResourceLoaderTemplate _selectedTemplate;
 
@@ -30,9 +30,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 Add(openBtn);
             }
 
-            _templateElement = new ResourceLoaderTemplateElement();
-            _templateElement.SetTemplate(_selectedTemplate);
-            Add(_templateElement);
+            _templateEditorStackElement = new ResourceLoaderTemplateEditorStackElement();
+            _templateEditorStackElement.SetTemplate(_selectedTemplate);
+            Add(_templateEditorStackElement);
 
             _refreshButton = new Button(RunGenerator)
             {

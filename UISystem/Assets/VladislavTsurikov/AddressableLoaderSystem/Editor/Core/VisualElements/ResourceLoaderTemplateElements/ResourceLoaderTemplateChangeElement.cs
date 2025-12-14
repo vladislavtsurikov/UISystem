@@ -8,7 +8,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
     public sealed class ResourceLoaderTemplateChangeElement : VisualElement
     {
         private ResourceLoaderTemplate _selectedTemplate;
-        private ResourceLoaderTemplateElement _templateElement;
+        private ResourceLoaderTemplateEditorStackElement _templateEditorStackElement;
 
         public event Action<ResourceLoaderTemplate> TemplateChanged;
 
@@ -22,9 +22,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
             Add(CreatePopup());
 
-            _templateElement = new ResourceLoaderTemplateElement();
-            _templateElement.SetTemplate(_selectedTemplate);
-            Add(_templateElement);
+            _templateEditorStackElement = new ResourceLoaderTemplateEditorStackElement();
+            _templateEditorStackElement.SetTemplate(_selectedTemplate);
+            Add(_templateEditorStackElement);
 
             TemplateChanged?.Invoke(_selectedTemplate);
         }
@@ -51,7 +51,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
             _selectedTemplate = newTemplate;
 
-            _templateElement.SetTemplate(_selectedTemplate);
+            _templateEditorStackElement.SetTemplate(_selectedTemplate);
 
             TemplateChanged?.Invoke(_selectedTemplate);
         }

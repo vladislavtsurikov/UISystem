@@ -30,11 +30,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                     continue;
                 }
 
-                AutoLoadAttribute attr = member.GetCustomAttribute<AutoLoadAttribute>();
-                bool hasAttr = attr != null;
-                string address = attr?.Address ?? string.Empty;
+                string address = member.Name;
 
-                Fields.Add(new FieldData(member.Name, fieldType, address, hasAttr));
+                Fields.Add(new FieldData(member.Name, fieldType, address));
             }
         }
 

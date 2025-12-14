@@ -1,11 +1,11 @@
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
-    public abstract class ResourceLoaderFieldDescriptorElement : ResourceLoaderDescriptorElement
+    public abstract class ResourceLoaderFieldTemplateElement : ResourceLoaderTemplateElement
     {
         private ResourceLoaderFieldsElement _fieldsElement;
 
-        public ResourceLoaderFieldDescriptorElement(ResourceLoaderTemplate template) : base(template)
+        public ResourceLoaderFieldTemplateElement(ResourceLoaderTemplate template) : base(template)
         {
         }
 

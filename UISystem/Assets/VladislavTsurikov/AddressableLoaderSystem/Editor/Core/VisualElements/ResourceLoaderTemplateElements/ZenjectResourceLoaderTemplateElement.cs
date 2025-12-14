@@ -5,9 +5,9 @@ using VladislavTsurikov.Core.Editor;
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     [ElementEditor(typeof(ZenjectResourceLoaderTemplate))]
-    public class ZenjectResourceLoaderDescriptorElement : ResourceLoaderFieldDescriptorElement
+    public class ZenjectResourceLoaderTemplateElement : ResourceLoaderFieldTemplateElement
     {
-        public ZenjectResourceLoaderDescriptorElement(ResourceLoaderTemplate template) : base(template)
+        public ZenjectResourceLoaderTemplateElement(ResourceLoaderTemplate template) : base(template)
         {
 
         }

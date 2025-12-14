@@ -2,22 +2,21 @@
 using System;
 using System.Collections.Generic;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
 using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
-    public static class ResourceLoaderDescriptorEditorStack
+    public static class ResourceLoaderTemplateEditorStack
     {
         private static readonly Dictionary<Type, Type> s_editorTypeMap = new();
 
-        private static readonly Dictionary<ResourceLoaderTemplate, ResourceLoaderDescriptorElement> s_instanceMap =
-            new Dictionary<ResourceLoaderTemplate, ResourceLoaderDescriptorElement>();
+        private static readonly Dictionary<ResourceLoaderTemplate, ResourceLoaderTemplateElement> s_instanceMap =
+            new Dictionary<ResourceLoaderTemplate, ResourceLoaderTemplateElement>();
 
-        static ResourceLoaderDescriptorEditorStack()
+        static ResourceLoaderTemplateEditorStack()
         {
-            foreach (Type editorType in AllTypesDerivedFrom<ResourceLoaderDescriptorElement>.Types)
+            foreach (Type editorType in AllTypesDerivedFrom<ResourceLoaderTemplateElement>.Types)
             {
                 ElementEditorAttribute attr = editorType.GetAttribute<ElementEditorAttribute>();
                 if (attr == null)
@@ -34,7 +33,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             }
         }
 
-        public static ResourceLoaderDescriptorElement GetElement(ResourceLoaderTemplate template)
+        public static ResourceLoaderTemplateElement GetElement(ResourceLoaderTemplate template)
         {
             if (template == null)
             {
@@ -53,7 +52,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 return null;
             }
 
-            var newElement = (ResourceLoaderDescriptorElement)Activator.CreateInstance(editorElementType, template);
+            var newElement = (ResourceLoaderTemplateElement)Activator.CreateInstance(editorElementType, template);
 
             s_instanceMap.Add(template, newElement);
 

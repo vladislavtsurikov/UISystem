@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
-    public abstract class ResourceLoaderDescriptorElement : VisualElement
+    public abstract class ResourceLoaderTemplateElement : VisualElement
     {
         private BehaviorAttributesElement _behaviorsElement;
         private TextField _classNameField;
@@ -12,10 +12,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         protected VisualElement _formContainer;
         protected ResourceLoaderTemplate Template;
 
-
-        public event Action OnClassNameChanged;
-
-        public ResourceLoaderDescriptorElement(ResourceLoaderTemplate template)
+        public ResourceLoaderTemplateElement(ResourceLoaderTemplate template)
         {
             Template = template;
 
@@ -33,26 +30,36 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             _formContainer.Clear();
 
-            _classNameField = new TextField("Class Name");
-            _classNameField.value = Template.ClassName;
-            _classNameField.RegisterValueChangedCallback(evt =>
+            if (Template.LoaderType != null)
             {
-                Template.ClassName = evt.newValue;
-                OnClassNameChanged?.Invoke();
-            });
-            _formContainer.Add(_classNameField);
+                Label classNameLabel = new Label($"Class Name: {Template.ClassName}");
+                classNameLabel.style.marginBottom = 4;
+                _formContainer.Add(classNameLabel);
+            }
+            else
+            {
+                _classNameField = new TextField("Class Name");
+                _classNameField.value = Template.ClassName;
+                _classNameField.RegisterValueChangedCallback(OnClassNameChanged);
+                _formContainer.Add(_classNameField);
+            }
 
             OnGUI();
 
-            var behaviorsBlock = CreateSectionBlock("Behavior Attributes");
+            VisualElement behaviorsBlock = CreateSectionBlock("Behavior Attributes");
             _behaviorsElement = new BehaviorAttributesElement(Template.Behaviors);
             behaviorsBlock.Add(_behaviorsElement);
             _formContainer.Add(behaviorsBlock);
         }
 
+        private void OnClassNameChanged(ChangeEvent<string> evt)
+        {
+            Template.ClassName = evt.newValue;
+        }
+
         public VisualElement CreateSectionBlock(string title)
         {
-            var box = new VisualElement();
+            VisualElement box = new VisualElement();
             box.style.marginTop = 8;
             box.style.marginBottom = 10;
             box.style.paddingTop = 6;
@@ -66,7 +73,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             box.style.borderBottomColor = new Color(0.3f, 0.3f, 0.3f);
             box.style.flexDirection = FlexDirection.Column;
 
-            var header = new Label(title);
+            Label header = new Label(title);
             header.style.unityFontStyleAndWeight = FontStyle.Bold;
             header.style.marginBottom = 4;
             box.Add(header);

@@ -3,15 +3,15 @@ using UnityEngine.UIElements;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
-    public sealed class ResourceLoaderTemplateElement : VisualElement
+    public sealed class ResourceLoaderTemplateEditorStackElement : VisualElement
     {
         private ResourceLoaderTemplate _template;
-        private ResourceLoaderDescriptorElement _descriptorElement;
+        private ResourceLoaderTemplateElement _templateElement;
         private readonly VisualElement _descriptorRoot;
 
         public ResourceLoaderTemplate Template => _template;
 
-        public ResourceLoaderTemplateElement()
+        public ResourceLoaderTemplateEditorStackElement()
         {
             _descriptorRoot = new VisualElement();
             _descriptorRoot.name = "ResourceLoaderDescriptorRoot";
@@ -29,14 +29,14 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             _descriptorRoot.Clear();
 
-            _descriptorElement = ResourceLoaderDescriptorEditorStack.GetElement(_template);
-            if (_descriptorElement == null)
+            _templateElement = ResourceLoaderTemplateEditorStack.GetElement(_template);
+            if (_templateElement == null)
             {
                 return;
             }
 
-            _descriptorRoot.Add(_descriptorElement);
-            _descriptorElement.RefreshForm();
+            _descriptorRoot.Add(_templateElement);
+            _templateElement.RefreshForm();
         }
     }
 }
