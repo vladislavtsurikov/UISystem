@@ -15,11 +15,10 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Tests
         {
         }
 
-        [AutoLoad("TestLoopConfig")]
-        public TestLoopConfig Config { get; private set; }
+        public TestLoopConfig TestLoopConfig { get; private set; }
 
         public override async UniTask LoadResourceLoader(CancellationToken token) =>
-            Config = await LoadAndBind<TestLoopConfig>(token, "TestLoopConfig");
+            TestLoopConfig = await LoadAndBind<TestLoopConfig>(token, "TestLoopConfig");
     }
 }
 #endif

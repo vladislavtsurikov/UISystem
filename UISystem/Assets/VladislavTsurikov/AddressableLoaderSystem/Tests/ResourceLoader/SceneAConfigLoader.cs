@@ -19,21 +19,18 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Tests
         {
         }
 
-        [AutoLoad("ConfigSceneA")]
-        public ConfigSceneA Config { get; private set; }
-        
-        [AutoLoad("ConfigSceneA_WithAssetReference")]
-        public ConfigSceneAWithAssetReference ConfigWithReference { get; private set; }
-        
-        [AutoLoad("DictionarySpriteConfigSceneA")]
-        public DictionarySpriteConfigSceneA DictionarySpriteConfig { get; private set; }
+        public ConfigSceneA ConfigSceneA { get; private set; }
+
+        public ConfigSceneAWithAssetReference ConfigSceneA_WithAssetReference { get; private set; }
+
+        public DictionarySpriteConfigSceneA DictionarySpriteConfigSceneA { get; private set; }
 
         public override async UniTask LoadResourceLoader(CancellationToken token)
         {
-            Config = await LoadAndBind<ConfigSceneA>(token, "ConfigSceneA");
-            ConfigWithReference =
+            ConfigSceneA = await LoadAndBind<ConfigSceneA>(token, "ConfigSceneA");
+            ConfigSceneA_WithAssetReference =
                 await LoadAndBind<ConfigSceneAWithAssetReference>(token, "ConfigSceneA_WithAssetReference");
-            DictionarySpriteConfig =
+            DictionarySpriteConfigSceneA =
                 await LoadAndBind<DictionarySpriteConfigSceneA>(token, "DictionarySpriteConfigSceneA");
 
             ValidateSpriteReferences();
@@ -41,15 +38,15 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Tests
 
         private void ValidateSpriteReferences()
         {
-            if (DictionarySpriteConfig == null || DictionarySpriteConfig.Sprites == null ||
-                !DictionarySpriteConfig.Sprites.Any())
+            if (DictionarySpriteConfigSceneA == null || DictionarySpriteConfigSceneA.Sprites == null ||
+                !DictionarySpriteConfigSceneA.Sprites.Any())
             {
                 Debug.LogError(
                     "[SceneAConfigLoader] DictionarySpriteConfig or its ChapterImages dictionary is null or empty!");
                 return;
             }
 
-            foreach (KeyValuePair<string, AssetReferenceSprite> entry in DictionarySpriteConfig.Sprites)
+            foreach (KeyValuePair<string, AssetReferenceSprite> entry in DictionarySpriteConfigSceneA.Sprites)
             {
                 if (entry.Value.Asset == null)
                 {
