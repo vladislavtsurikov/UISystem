@@ -5,15 +5,15 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.Attributes;
 using VladislavTsurikov.CsCodeGenerator.Runtime;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
 {
+    [ResourceLoaderTemplateBaseType(typeof(ResourceLoader))]
     public class SimpleResourceLoaderTemplate : ResourceLoaderFieldTemplate
     {
-        public override Type BaseType => typeof(ResourceLoader);
-
         public override void Run()
         {
             if (string.IsNullOrEmpty(ClassName) || Fields == null || Fields.Count == 0)
@@ -25,7 +25,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
             var classModel = new ClassModel(ClassName)
             {
                 AccessModifier = AccessModifier.Public,
-                BaseClass = BaseType.Name
+                BaseClass = GetBaseTypeName()
             };
 
             var fields = new List<Field>();

@@ -14,7 +14,6 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         private VisualElement _warningContainer;
         private SearchSectionElement _searchSection;
         private CreateSectionElement _createSection;
-        private static ResourceLoaderDescriptorContainer _provider;
 
         [MenuItem("Tools/Addressable Loader/Resource Loader Editor")]
         public static void ShowWindow()
@@ -22,11 +21,6 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             var wnd = GetWindow<ResourceLoaderEditorWindow>();
             wnd.titleContent = new GUIContent("Resource Loader Editor");
             wnd.minSize = new Vector2(700, 500);
-        }
-
-        private void OnEnable()
-        {
-            _provider = new ResourceLoaderDescriptorContainer();
         }
 
         public void CreateGUI()
@@ -60,7 +54,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             mainScroll.Add(_searchSection);
 
             // CREATE SECTION
-            _createSection = new CreateSectionElement(_provider);
+            _createSection = new CreateSectionElement();
             mainScroll.Add(_createSection);
 
             RefreshRegistry();

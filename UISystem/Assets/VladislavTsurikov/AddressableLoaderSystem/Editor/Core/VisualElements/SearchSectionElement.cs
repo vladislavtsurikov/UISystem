@@ -12,27 +12,19 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
     {
         private TextField _searchField;
         private VisualElement _resultsContainer;
-        private ResourceLoaderTypeInfo _selectedLoader;
+        private ResourceLoaderTemplate _selectedTemplate;
 
         public SearchSectionElement()
         {
             style.flexDirection = FlexDirection.Column;
             style.marginBottom = 10;
 
-            var section = new SectionElement("Search ResourceLoader");
+            SectionElement section = new SectionElement("Search ResourceLoader");
             Add(section);
 
             _searchField = new TextField();
             _searchField.style.marginBottom = 8;
-            _searchField.RegisterValueChangedCallback(evt =>
-            {
-                var query = evt.newValue?.Trim();
-                _selectedLoader = string.IsNullOrEmpty(query)
-                    ? null
-                    : EditorResourceLoaderRegistry.Wrappers.FirstOrDefault(x =>
-                        x.Name.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0);
-                RefreshSearchResults(query);
-            });
+            _searchField.RegisterValueChangedCallback(OnSearchChanged);
             section.Add(_searchField);
 
             _resultsContainer = new VisualElement();
@@ -41,13 +33,26 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             section.Add(_resultsContainer);
         }
 
+        private void OnSearchChanged(ChangeEvent<string> evt)
+        {
+            string query = evt.newValue?.Trim();
+
+            _selectedTemplate = string.IsNullOrEmpty(query)
+                ? null
+                : EditorResourceLoaderRegistry.Templates.FirstOrDefault(x =>
+                    x.ClassName != null &&
+                    x.ClassName.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            RefreshSearchResults(query);
+        }
+
         public void RefreshSearchResults(string query)
         {
             _resultsContainer.Clear();
 
             var type = ResourceLoaderTypeRegistry.GetTypeByName(query);
 
-            if (type != null && _selectedLoader == null)
+            if (type != null && _selectedTemplate == null)
             {
                 var errorLabel = new Label($"No ResourceLoaderDescriptor found for {query}");
                 errorLabel.style.color = new Color(1f, 0.5f, 0.5f);
@@ -64,9 +69,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 return;
             }
 
-            if (_selectedLoader != null)
+            if (_selectedTemplate != null)
             {
-                _resultsContainer.Add(new LoaderSectionElement(_selectedLoader));
+                _resultsContainer.Add(new LoaderSectionElement(_selectedTemplate));
             }
         }
     }
