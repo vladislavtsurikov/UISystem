@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility.Runtime;
+using UnityEngine;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
@@ -24,6 +25,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 ResourceLoaderTemplate template = ResourceLoaderTemplateTypeRegistry.CreateByResourceType(loaderType);
                 if (template == null)
                 {
+                    Debug.LogWarning($"[AddressableLoaderSystem][EditorResourceLoaderRegistry.Refresh] Unable to create template for loader type '{loaderType?.Name ?? "Unknown"}'.");
                     continue;
                 }
 

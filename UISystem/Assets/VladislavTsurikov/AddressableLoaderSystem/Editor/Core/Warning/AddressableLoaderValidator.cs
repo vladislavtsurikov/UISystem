@@ -17,6 +17,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Warning
                 ResourceLoaderTemplate template = templates[i];
                 if (template == null)
                 {
+                    Debug.LogWarning("[AddressableLoaderSystem][AddressableLoaderValidator.ValidateAll] ResourceLoaderTemplate entry is null and was skipped.");
                     continue;
                 }
 

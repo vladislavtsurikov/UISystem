@@ -52,7 +52,10 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             if (asset != null)
             {
                 AssetDatabase.OpenAsset(asset);
+                return;
             }
+
+            Debug.LogWarning($"[AddressableLoaderSystem][LoaderSectionElement.OpenScript] Unable to load asset at path '{_selectedTemplate.CsFilePath}'.");
         }
 
         private void EnableRefresh()
@@ -64,7 +67,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             if (_selectedTemplate == null)
             {
-                Debug.LogWarning("[LoaderSection] No selected template found to refresh.");
+                Debug.LogWarning("[AddressableLoaderSystem][LoaderSectionElement.RunGenerator] No selected template found to refresh.");
                 return;
             }
 

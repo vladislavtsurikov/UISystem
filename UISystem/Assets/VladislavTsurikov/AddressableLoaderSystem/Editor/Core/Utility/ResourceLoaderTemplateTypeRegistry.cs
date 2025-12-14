@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using VladislavTsurikov.ReflectionUtility.Runtime;
+using UnityEngine;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
@@ -29,6 +30,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 Type baseType = attribute?.Type;
                 if (baseType == null)
                 {
+                    Debug.LogWarning($"[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry..cctor] Template type '{templateType?.Name}' is missing ResourceLoaderTemplateBaseTypeAttribute.");
                     continue;
                 }
 
@@ -44,6 +46,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             if (s_orderedBaseTypes.Count == 0)
             {
+                Debug.LogWarning("[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.CreateDefaultInstance] No base template types were registered.");
                 return null;
             }
 
@@ -51,6 +54,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             Type templateType;
             if (!s_templateTypeByBaseType.TryGetValue(baseType, out templateType))
             {
+                Debug.LogWarning($"[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.CreateDefaultInstance] Failed to find template type for base '{baseType.Name}'.");
                 return null;
             }
 
@@ -61,6 +65,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             if (string.IsNullOrEmpty(baseTypeName))
             {
+                Debug.LogWarning("[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.CreateByBaseTypeName] Base type name is null or empty.");
                 return null;
             }
 
@@ -75,6 +80,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 Type templateType;
                 if (!s_templateTypeByBaseType.TryGetValue(baseType, out templateType))
                 {
+                    Debug.LogWarning($"[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.CreateByBaseTypeName] Template type not found for base '{baseType.Name}'.");
                     return null;
                 }
 
@@ -88,6 +94,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             if (resourceType == null)
             {
+                Debug.LogWarning("[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.CreateByResourceType] Resource type is null.");
                 return null;
             }
 
@@ -116,6 +123,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             if (templateType == null)
             {
+                Debug.LogWarning("[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.Create] Template type is null.");
                 return null;
             }
 
@@ -131,6 +139,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             ConstructorInfo ctor = templateType.GetConstructor(Type.EmptyTypes);
             if (ctor == null || !ctor.IsPublic)
             {
+                Debug.LogWarning($"[AddressableLoaderSystem][ResourceLoaderTemplateTypeRegistry.Create] Public parameterless constructor not found for template '{templateType.Name}'.");
                 return null;
             }
 
