@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public static class EditorResourceLoaderRegistry
     {

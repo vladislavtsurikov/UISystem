@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using System;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.Attributes
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public sealed class ResourceLoaderTemplateBaseTypeAttribute : Attribute

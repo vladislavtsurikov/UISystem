@@ -1,8 +1,7 @@
 #if UNITY_EDITOR
 using UnityEngine.UIElements;
-using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceLoaderDescriptorElements;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public sealed class ResourceLoaderTemplateElement : VisualElement
     {

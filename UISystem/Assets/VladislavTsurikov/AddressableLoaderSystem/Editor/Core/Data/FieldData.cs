@@ -6,10 +6,10 @@ using UnityEditor.AddressableAssets.Settings;
 using VladislavTsurikov.AddressableUtility.Editor;
 using Object = UnityEngine.Object;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     [Serializable]
-    public class ResourceLoaderFieldData
+    public class FieldData
     {
         private Object _asset;
 
@@ -24,11 +24,11 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
             set => UpdateFromAsset(value);
         }
 
-        public ResourceLoaderFieldData()
+        public FieldData()
         {
         }
 
-        public ResourceLoaderFieldData(string fieldName, Type fieldType, string address, bool hasAutoLoad)
+        public FieldData(string fieldName, Type fieldType, string address, bool hasAutoLoad)
         {
             FieldName = fieldName;
             FieldType = fieldType;

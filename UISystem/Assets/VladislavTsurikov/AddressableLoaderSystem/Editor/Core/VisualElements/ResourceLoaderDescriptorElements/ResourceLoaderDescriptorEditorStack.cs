@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceLoaderDescriptorElements
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public static class ResourceLoaderDescriptorEditorStack
     {

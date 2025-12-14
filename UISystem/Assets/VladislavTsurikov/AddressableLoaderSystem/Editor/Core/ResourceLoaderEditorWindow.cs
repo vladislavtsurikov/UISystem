@@ -1,10 +1,10 @@
 ﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create;
 using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Warning;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
@@ -14,6 +14,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         private VisualElement _warningContainer;
         private SearchSectionElement _searchSection;
         private CreateSectionElement _createSection;
+        private ResourceLoaderTemplate _resourceLoaderTemplate;
 
         [MenuItem("Tools/Addressable Loader/Resource Loader Editor")]
         public static void ShowWindow()
@@ -21,6 +22,11 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             var wnd = GetWindow<ResourceLoaderEditorWindow>();
             wnd.titleContent = new GUIContent("Resource Loader Editor");
             wnd.minSize = new Vector2(700, 500);
+        }
+
+        private void OnEnable()
+        {
+            _resourceLoaderTemplate = ResourceLoaderTemplateTypeRegistry.CreateDefaultInstance();
         }
 
         public void CreateGUI()
@@ -54,7 +60,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             mainScroll.Add(_searchSection);
 
             // CREATE SECTION
-            _createSection = new CreateSectionElement();
+            _createSection = new CreateSectionElement(_resourceLoaderTemplate, OnTemplateChanged);
             mainScroll.Add(_createSection);
 
             RefreshRegistry();
@@ -84,6 +90,11 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
             var warningElement = new MissingAutoLoadWarningElement(invalidLoaders);
             _warningContainer.Add(warningElement);
+        }
+
+        private void OnTemplateChanged(ResourceLoaderTemplate template)
+        {
+            _resourceLoaderTemplate = template;
         }
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEditor.UIElements;
-using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public class ResourceLoaderFieldsElement : VisualElement
     {
-        private readonly List<ResourceLoaderFieldData> _fields;
+        private readonly List<FieldData> _fields;
         private readonly VisualElement _listContainer;
         private readonly Button _addButton;
 
-        public ResourceLoaderFieldsElement(List<ResourceLoaderFieldData> fields)
+        public ResourceLoaderFieldsElement(List<FieldData> fields)
         {
             _fields = fields;
             style.marginTop = 6;
@@ -70,7 +69,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
 
         private void AddField()
         {
-            _fields.Add(new ResourceLoaderFieldData());
+            _fields.Add(new FieldData());
             RefreshList();
         }
     }

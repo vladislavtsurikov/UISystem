@@ -5,11 +5,10 @@ using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.Attributes;
-using VladislavTsurikov.CsCodeGenerator.Runtime;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.CsCodeGenerator.Runtime;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     [ResourceLoaderTemplateBaseType(typeof(ResourceLoader))]
     public class SimpleResourceLoaderTemplate : ResourceLoaderFieldTemplate

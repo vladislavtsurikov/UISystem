@@ -1,11 +1,10 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
-using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.Attributes;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.Utility.Runtime.Extensions;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public abstract class ResourceLoaderTemplate
     {

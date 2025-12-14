@@ -2,7 +2,6 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {

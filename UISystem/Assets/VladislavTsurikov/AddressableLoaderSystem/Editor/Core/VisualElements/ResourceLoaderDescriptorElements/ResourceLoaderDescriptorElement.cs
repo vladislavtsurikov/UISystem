@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceLoaderDescriptorElements
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public abstract class ResourceLoaderDescriptorElement : VisualElement
     {

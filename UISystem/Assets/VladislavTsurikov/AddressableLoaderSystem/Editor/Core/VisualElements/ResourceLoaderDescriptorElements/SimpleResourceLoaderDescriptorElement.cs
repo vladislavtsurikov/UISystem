@@ -1,6 +1,4 @@
-using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
-
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceLoaderDescriptorElements
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     [LoaderBaseType(typeof(SimpleResourceLoaderTemplate))]
     public class SimpleResourceLoaderDescriptorElement : ResourceLoaderFieldDescriptorElement

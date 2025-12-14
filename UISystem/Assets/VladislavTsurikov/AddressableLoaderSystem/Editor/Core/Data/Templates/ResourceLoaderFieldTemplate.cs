@@ -5,11 +5,11 @@ using System.Linq;
 using System.Reflection;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public abstract class ResourceLoaderFieldTemplate : ResourceLoaderTemplate
     {
-        public List<ResourceLoaderFieldData> Fields  = new();
+        public List<FieldData> Fields  = new();
 
         protected override void OnBuildFrom(Type loaderType)
         {
@@ -35,7 +35,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
                 var address = attr?.Address ?? string.Empty;
 
                 Fields.Add(
-                    new ResourceLoaderFieldData(member.Name, fieldType, address, hasAttr)
+                    new FieldData(member.Name, fieldType, address, hasAttr)
                 );
             }
         }

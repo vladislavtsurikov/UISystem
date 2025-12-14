@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.Attributes;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public static class ResourceLoaderTemplateTypeRegistry
     {

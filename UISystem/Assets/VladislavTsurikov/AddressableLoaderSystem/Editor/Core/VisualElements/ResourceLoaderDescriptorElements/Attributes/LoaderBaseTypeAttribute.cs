@@ -1,6 +1,6 @@
 using System;
 
-namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Create.ResourceLoaderDescriptorElements
+namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class LoaderBaseTypeAttribute : Attribute
