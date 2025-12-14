@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.ComponentStack.Editor.Core;
 using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor;
 using VladislavTsurikov.RendererStack.Editor.Core.PrototypeRendererSystem.PrototypeSettings;
 using VladislavTsurikov.RendererStack.Runtime.Common.GlobalSettings;

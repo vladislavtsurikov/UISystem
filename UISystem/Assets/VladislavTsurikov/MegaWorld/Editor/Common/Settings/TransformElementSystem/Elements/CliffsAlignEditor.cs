@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSystem;
 

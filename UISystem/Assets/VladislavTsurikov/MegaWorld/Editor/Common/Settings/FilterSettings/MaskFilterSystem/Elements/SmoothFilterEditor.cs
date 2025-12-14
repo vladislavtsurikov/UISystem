@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.MaskFilterSystem;
 
 namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings.MaskFilterSystem

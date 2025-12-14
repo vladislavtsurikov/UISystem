@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using VladislavTsurikov.AttributeUtility.Runtime;
+using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
@@ -17,7 +19,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             foreach (Type editorType in AllTypesDerivedFrom<ResourceLoaderDescriptorElement>.Types)
             {
-                LoaderBaseTypeAttribute attr = editorType.GetAttribute<LoaderBaseTypeAttribute>();
+                ElementEditorAttribute attr = editorType.GetAttribute<ElementEditorAttribute>();
                 if (attr == null)
                 {
                     continue;

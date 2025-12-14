@@ -4,6 +4,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using VladislavTsurikov.ColorUtility.Runtime;
 using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor;
 using VladislavTsurikov.SceneManagerTool.Runtime.SceneTypeSystem;
 using VladislavTsurikov.SceneUtility.Runtime;

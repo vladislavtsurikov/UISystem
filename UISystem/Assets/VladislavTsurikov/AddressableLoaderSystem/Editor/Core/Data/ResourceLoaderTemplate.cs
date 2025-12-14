@@ -64,6 +64,10 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             return GetType().GetAttribute<ResourceLoaderTemplateBaseTypeAttribute>().Type.Name;
         }
+
+        public virtual void Validate(List<string> issues)
+        {
+        }
     }
 }
 #endif

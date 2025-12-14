@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -19,7 +18,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         [MenuItem("Tools/Addressable Loader/Resource Loader Editor")]
         public static void ShowWindow()
         {
-            var wnd = GetWindow<ResourceLoaderEditorWindow>();
+            ResourceLoaderEditorWindow wnd = GetWindow<ResourceLoaderEditorWindow>();
             wnd.titleContent = new GUIContent("Resource Loader Editor");
             wnd.minSize = new Vector2(700, 500);
         }
@@ -31,19 +30,19 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
         public void CreateGUI()
         {
-            var root = rootVisualElement;
+            VisualElement root = rootVisualElement;
             root.style.flexDirection = FlexDirection.Column;
             root.style.flexGrow = 1;
             root.style.paddingLeft = 10;
             root.style.paddingTop = 10;
 
-            var refreshButton = new Button(RefreshRegistry) { text = "Refresh" };
+            Button refreshButton = new Button(RefreshRegistry) { text = "Refresh" };
             refreshButton.style.width = 100;
             refreshButton.style.height = 24;
             refreshButton.style.unityFontStyleAndWeight = FontStyle.Bold;
             root.Add(refreshButton);
 
-            var mainScroll = new ScrollView(ScrollViewMode.Vertical)
+            ScrollView mainScroll = new ScrollView(ScrollViewMode.Vertical)
             {
                 style = { flexGrow = 1 }
             };
@@ -55,11 +54,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             _warningContainer.style.marginBottom = 10;
             mainScroll.Add(_warningContainer);
 
-            // SEARCH SECTION
             _searchSection = new SearchSectionElement();
             mainScroll.Add(_searchSection);
 
-            // CREATE SECTION
             _createSection = new CreateSectionElement(_resourceLoaderTemplate, OnTemplateChanged);
             mainScroll.Add(_createSection);
 
@@ -79,16 +76,18 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             List<AddressableLoaderValidator.ValidationResult> validationResults =
                 AddressableLoaderValidator.ValidateAll();
 
-            var invalidLoaders = validationResults
-                .Where(r => r.MissingAutoLoadFields.Count > 0)
+            List<string> invalidLoaders = validationResults
+                .Where(r => r.Issues != null && r.Issues.Count > 0 && r.LoaderType != null)
                 .Select(r => r.LoaderType.Name)
                 .Distinct()
                 .ToList();
 
             if (invalidLoaders.Count == 0)
+            {
                 return;
+            }
 
-            var warningElement = new MissingAutoLoadWarningElement(invalidLoaders);
+            MissingAutoLoadWarningElement warningElement = new MissingAutoLoadWarningElement(invalidLoaders);
             _warningContainer.Add(warningElement);
         }
 

@@ -2,6 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.MaskFilterSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.MaskFilterSystem.Noise;
 

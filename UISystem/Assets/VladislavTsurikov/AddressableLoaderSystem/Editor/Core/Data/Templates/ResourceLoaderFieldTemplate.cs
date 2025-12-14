@@ -9,7 +9,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
     public abstract class ResourceLoaderFieldTemplate : ResourceLoaderTemplate
     {
-        public List<FieldData> Fields  = new();
+        public List<FieldData> Fields = new();
 
         protected override void OnBuildFrom(Type loaderType)
         {
@@ -31,12 +31,38 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 }
 
                 AutoLoadAttribute attr = member.GetCustomAttribute<AutoLoadAttribute>();
-                var hasAttr = attr != null;
-                var address = attr?.Address ?? string.Empty;
+                bool hasAttr = attr != null;
+                string address = attr?.Address ?? string.Empty;
 
-                Fields.Add(
-                    new FieldData(member.Name, fieldType, address, hasAttr)
-                );
+                Fields.Add(new FieldData(member.Name, fieldType, address, hasAttr));
+            }
+        }
+
+        public override void Validate(List<string> issues)
+        {
+            if (issues == null)
+            {
+                return;
+            }
+
+            if (Fields == null)
+            {
+                issues.Add("Fields list is null");
+                return;
+            }
+
+            for (int i = 0; i < Fields.Count; i++)
+            {
+                FieldData field = Fields[i];
+                if (field == null)
+                {
+                    continue;
+                }
+
+                if (field.Asset == null)
+                {
+                    issues.Add($"{field.FieldName} ({field.Address})");
+                }
             }
         }
 

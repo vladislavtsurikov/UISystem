@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
 namespace VladislavTsurikov.ComponentStack.Editor.Core
@@ -26,13 +27,13 @@ namespace VladislavTsurikov.ComponentStack.Editor.Core
             {
                 ElementEditorAttribute attribute = type.GetAttribute<ElementEditorAttribute>();
 
-                if (componentTypes.Contains(attribute.SettingsType))
+                if (componentTypes.Contains(attribute.Type))
                 {
-                    if (!Types.Keys.Contains(attribute.SettingsType))
+                    if (!Types.Keys.Contains(attribute.Type))
                     {
-                        Types.Add(attribute.SettingsType, type);
+                        Types.Add(attribute.Type, type);
 
-                        componentTypes.Remove(attribute.SettingsType);
+                        componentTypes.Remove(attribute.Type);
                     }
                 }
             }

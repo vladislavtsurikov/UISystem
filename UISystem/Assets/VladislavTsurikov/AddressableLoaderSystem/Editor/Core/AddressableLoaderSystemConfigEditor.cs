@@ -31,13 +31,14 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             _root = new VisualElement { style = { paddingTop = 6, paddingLeft = 6, paddingRight = 6 } };
 
-            var config = (AddressableLoaderSystemConfig)target;
+            AddressableLoaderSystemConfig config = (AddressableLoaderSystemConfig)target;
 
             _refreshButton = new Button(() =>
             {
                 config.Refresh();
                 UpdateWarningSection();
-            }) { text = "Refresh caches" };
+            })
+            { text = "Refresh caches" };
 
             _root.Add(_refreshButton);
             _root.Add(_warningContainer);
@@ -56,8 +57,8 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             List<AddressableLoaderValidator.ValidationResult> validationResults =
                 AddressableLoaderValidator.ValidateAll();
 
-            var invalidLoaders = validationResults
-                .Where(r => r.MissingAutoLoadFields.Count > 0)
+            List<string> invalidLoaders = validationResults
+                .Where(r => r.Issues != null && r.Issues.Count > 0 && r.LoaderType != null)
                 .Select(r => r.LoaderType.Name)
                 .Distinct()
                 .ToList();
@@ -67,7 +68,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 return;
             }
 
-            var warningElement = new MissingAutoLoadWarningElement(invalidLoaders);
+            MissingAutoLoadWarningElement warningElement = new MissingAutoLoadWarningElement(invalidLoaders);
             _warningContainer.Add(warningElement);
         }
     }

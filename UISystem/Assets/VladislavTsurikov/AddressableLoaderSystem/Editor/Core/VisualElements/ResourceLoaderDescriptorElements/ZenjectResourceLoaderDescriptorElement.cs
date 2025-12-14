@@ -1,7 +1,10 @@
 
+using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
+
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
-    [LoaderBaseType(typeof(ZenjectResourceLoaderTemplate))]
+    [ElementEditor(typeof(ZenjectResourceLoaderTemplate))]
     public class ZenjectResourceLoaderDescriptorElement : ResourceLoaderFieldDescriptorElement
     {
         public ZenjectResourceLoaderDescriptorElement(ResourceLoaderTemplate template) : base(template)

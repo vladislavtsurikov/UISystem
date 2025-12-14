@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.RendererStack.Editor.Core.PrototypeRendererSystem;
 using VladislavTsurikov.RendererStack.Editor.Core.RendererSystem;
 

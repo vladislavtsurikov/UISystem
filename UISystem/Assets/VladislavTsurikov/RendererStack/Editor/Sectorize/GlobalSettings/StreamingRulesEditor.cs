@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.RendererStack.Runtime.Sectorize.GlobalSettings.StreamingRules;
