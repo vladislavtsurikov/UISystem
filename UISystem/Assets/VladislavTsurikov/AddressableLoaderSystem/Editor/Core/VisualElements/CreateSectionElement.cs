@@ -58,12 +58,14 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             if (_selectedTemplate == null)
             {
                 EditorUtility.DisplayDialog("Error", "Template is not selected.", "OK");
+                Debug.LogWarning("[AddressableLoaderSystem][CreateSectionElement.CreateResourceLoader] Template is not selected.");
                 return;
             }
 
             if (string.IsNullOrEmpty(_selectedTemplate.ClassName))
             {
                 EditorUtility.DisplayDialog("Error", "Please enter a class name.", "OK");
+                Debug.LogWarning("[AddressableLoaderSystem][CreateSectionElement.CreateResourceLoader] Class name is empty.");
                 return;
             }
 

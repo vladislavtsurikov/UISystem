@@ -53,6 +53,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
             if (type != null && _selectedTemplate == null)
             {
+                Debug.LogWarning($"[AddressableLoaderSystem][SearchSectionElement.RefreshSearchResults] No ResourceLoaderDescriptor found for query '{query}'.");
                 var errorLabel = new Label($"No ResourceLoaderDescriptor found for {query}");
                 errorLabel.style.color = new Color(1f, 0.5f, 0.5f);
                 _resultsContainer.Add(errorLabel);

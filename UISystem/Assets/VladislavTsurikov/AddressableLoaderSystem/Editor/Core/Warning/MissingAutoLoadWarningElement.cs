@@ -13,6 +13,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core.Warning
         {
             if (invalidResourceLoaders == null || invalidResourceLoaders.Count == 0)
             {
+                Debug.LogWarning("[AddressableLoaderSystem][MissingAutoLoadWarningElement..ctor] Invalid resource loader list is null or empty.");
                 return;
             }
 
