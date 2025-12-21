@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core.Behavior;
@@ -12,6 +13,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
     {
         private readonly List<BehaviorAttributeData> _behaviors;
         private readonly VisualElement _listContainer;
+        private readonly Button _addButton;
 
         public BehaviorAttributesElement(List<BehaviorAttributeData> behaviors)
         {
@@ -20,15 +22,20 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
             _listContainer = new VisualElement();
             Add(_listContainer);
 
-            var addButton = new Button(AddBehavior) { text = "+ Add Behavior" };
-            addButton.style.marginTop = 4;
-            Add(addButton);
+            _addButton = new Button(AddBehavior) { text = "+ Add Behavior" };
+            _addButton.style.marginTop = 4;
+            Add(_addButton);
 
             RefreshList();
         }
 
         private void AddBehavior()
         {
+            if (!HasBehaviorTypes())
+            {
+                return;
+            }
+
             _behaviors.Add(new BehaviorAttributeData());
             RefreshList();
         }
@@ -36,6 +43,19 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         private void RefreshList()
         {
             _listContainer.Clear();
+
+            if (!TryGetBehaviorTypes(out var behaviorTypes))
+            {
+                _addButton.style.display = DisplayStyle.None;
+
+                var warning = new HelpBox(
+                    "No LoaderBehavior implementations found. Create a class that inherits from LoaderBehavior to add behaviors.",
+                    HelpBoxMessageType.Warning);
+                _listContainer.Add(warning);
+                return;
+            }
+
+            _addButton.style.display = DisplayStyle.Flex;
 
             for (int i = 0; i < _behaviors.Count; i++)
             {
@@ -48,9 +68,6 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 box.style.paddingTop = 4;
                 box.style.paddingBottom = 4;
 
-                var behaviorTypes = AllTypesDerivedFrom<LoaderBehavior>.Types
-                    .Where(t => t.IsClass && !t.IsAbstract)
-                    .ToList();
                 var choices = behaviorTypes.Select(t => t.Name).ToList();
 
                 int selectedIndex = 0;
@@ -112,6 +129,20 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 box.Add(contextsField);
                 _listContainer.Add(box);
             }
+        }
+
+        private static bool TryGetBehaviorTypes(out List<System.Type> behaviorTypes)
+        {
+            behaviorTypes = AllTypesDerivedFrom<LoaderBehavior>.Types
+                .Where(t => t.IsClass && !t.IsAbstract)
+                .ToList();
+
+            return behaviorTypes.Count > 0;
+        }
+
+        private static bool HasBehaviorTypes()
+        {
+            return AllTypesDerivedFrom<LoaderBehavior>.Types.Any(t => t.IsClass && !t.IsAbstract);
         }
     }
 }
