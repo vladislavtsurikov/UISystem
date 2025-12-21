@@ -18,6 +18,8 @@ namespace VladislavTsurikov.UISystem.Runtime.AddressableLoaderSystemIntegration
 
         public GameObject LoadedPrefab { get; private set; }
 
+        public string PrefabAddress => _prefabAddress;
+
         public override async UniTask LoadResourceLoader(CancellationToken token)
         {
             if (LoadOnStartup)
