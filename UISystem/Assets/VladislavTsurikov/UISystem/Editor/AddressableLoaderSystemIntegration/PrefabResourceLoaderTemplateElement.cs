@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using VladislavTsurikov.Core.Editor;
 
@@ -7,7 +8,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
     [ElementEditor(typeof(PrefabResourceLoaderTemplate))]
     public class PrefabResourceLoaderTemplateElement : ResourceLoaderTemplateElement
     {
-        private TextField _prefabAddressField;
+        private ObjectField _prefabObjectField;
 
         public PrefabResourceLoaderTemplateElement(ResourceLoaderTemplate template) : base(template)
         {
@@ -19,16 +20,19 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 
             VisualElement addressBlock = CreateSectionBlock("Prefab");
 
-            _prefabAddressField = new TextField("Address")
+            _prefabObjectField = new ObjectField("Prefab")
             {
-                value = prefabTemplate.PrefabAddress
+                value = prefabTemplate.FieldData.Asset,
+                objectType = typeof(UnityEngine.Object),
+                allowSceneObjects = false
             };
-            _prefabAddressField.RegisterValueChangedCallback(evt =>
+            _prefabObjectField.RegisterValueChangedCallback(evt =>
             {
-                prefabTemplate.PrefabAddress = evt.newValue;
+                prefabTemplate.FieldData.Asset = evt.newValue;
+                prefabTemplate.UpdatePrefabAddressFromFieldData();
             });
 
-            addressBlock.Add(_prefabAddressField);
+            addressBlock.Add(_prefabObjectField);
             _formContainer.Add(addressBlock);
         }
     }
