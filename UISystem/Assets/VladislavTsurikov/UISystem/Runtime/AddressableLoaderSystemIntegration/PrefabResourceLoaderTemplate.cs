@@ -14,10 +14,19 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
     [ResourceLoaderTemplateBaseType(typeof(PrefabResourceLoader))]
     public class PrefabResourceLoaderTemplate : ResourceLoaderTemplate
     {
-        public string PrefabAddress;
+        public FieldData FieldData { get; private set; } = new FieldData();
+
+        public string PrefabAddress { get; private set; }
+
+        public void UpdatePrefabAddressFromFieldData()
+        {
+            PrefabAddress = FieldData?.Address ?? string.Empty;
+        }
 
         public override void Run()
         {
+            UpdatePrefabAddressFromFieldData();
+
             if (string.IsNullOrWhiteSpace(ClassName) || string.IsNullOrWhiteSpace(PrefabAddress))
             {
                 Debug.LogError("[PrefabResourceLoaderGenerator] Invalid generator data");
@@ -132,6 +141,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
         {
             PrefabAddressAttribute prefabAddressAttribute = loaderType.GetAttribute<PrefabAddressAttribute>();
             PrefabAddress = prefabAddressAttribute?.Address ?? string.Empty;
+
+            FieldData = new FieldData("Prefab", typeof(Object), PrefabAddress);
+            UpdatePrefabAddressFromFieldData();
         }
 
         public override void Validate(List<string> issues)
@@ -141,9 +153,11 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(PrefabAddress))
+            UpdatePrefabAddressFromFieldData();
+
+            if (FieldData?.Asset == null)
             {
-                issues.Add("Prefab address is empty.");
+                issues.Add("Prefab asset is empty.");
             }
         }
     }
