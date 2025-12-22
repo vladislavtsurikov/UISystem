@@ -6,13 +6,14 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Behavior;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.ZenjectIntegration;
 using Zenject;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Tests
 {
-    [SceneFilter("TestScene_A")]
+    [Behavior(typeof(SceneBehavior), "TestScene_A")]
     public class SceneAConfigLoader : ZenjectResourceLoader
     {
         public SceneAConfigLoader(DiContainer container) : base(container)

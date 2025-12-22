@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.Core
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class BehaviorAttribute : Attribute
+    public class BehaviorAttribute : FilterAttribute
     {
         public Type BehaviorType { get; }
         public string[] Contexts { get; }
@@ -11,7 +12,10 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.Core
         public BehaviorAttribute(Type behaviorType, params string[] contexts)
         {
             BehaviorType = behaviorType;
-            Contexts = contexts;
+            Contexts = contexts ?? Array.Empty<string>();
         }
+
+        public bool Matches(string context) =>
+            Contexts != null && Contexts.Contains(context, StringComparer.OrdinalIgnoreCase);
     }
 }
