@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Behavior;
 using Zenject;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Tests
@@ -61,7 +62,9 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Tests
         private async UniTask LoadSceneWithFilters(string sceneName)
         {
             await _resourceLoaderManager.Load(attr =>
-                attr is SceneFilterAttribute s && s.Matches(sceneName));
+                attr is BehaviorAttribute { BehaviorType: var behaviorType } behavior &&
+                behaviorType == typeof(SceneBehavior) &&
+                behavior.Matches(sceneName));
 
             SceneManager.LoadScene(sceneName);
         }

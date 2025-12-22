@@ -48,7 +48,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.Behavior
                     continue;
                 }
 
-                if (attr.BehaviorType == typeof(SceneBehavior) && attr.Contexts.Contains(sceneName))
+                if (attr.BehaviorType == typeof(SceneBehavior) && attr.Matches(sceneName))
                 {
                     yield return loader;
                 }

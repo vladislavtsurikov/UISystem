@@ -2,13 +2,14 @@
 #if ADDRESSABLE_LOADER_SYSTEM_ZENJECT
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Behavior;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.ZenjectIntegration;
 using Zenject;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Tests
 {
-    [SceneFilter("TestScene_B")]
+    [Behavior(typeof(SceneBehavior), "TestScene_B")]
     public class TestLoopConfigLoader : ZenjectResourceLoader
     {
         public TestLoopConfigLoader(DiContainer container) : base(container)

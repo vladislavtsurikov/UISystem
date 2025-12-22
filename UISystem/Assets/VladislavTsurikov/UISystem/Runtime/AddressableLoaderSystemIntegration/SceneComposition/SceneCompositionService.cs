@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Behavior;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using VladislavTsurikov.UISystem.Runtime.Core;
 using VladislavTsurikov.ZenjectUtility.Runtime;
@@ -28,8 +29,22 @@ namespace VladislavTsurikov.UISystem.Runtime.AddressableLoaderSystemIntegration
             _sceneLoader = sceneLoader;
         }
 
-        protected virtual bool IsFilterMatch(FilterAttribute attr, string sceneName) =>
-            attr is SceneFilterAttribute s && s.Matches(sceneName);
+        protected virtual bool IsFilterMatch(FilterAttribute attr, string sceneName)
+        {
+            if (attr is BehaviorAttribute { BehaviorType: var behaviorType } behavior &&
+                behaviorType == typeof(SceneBehavior) &&
+                behavior.Matches(sceneName))
+            {
+                return true;
+            }
+
+            if (attr is SceneFilterAttribute sceneFilter)
+            {
+                return sceneFilter.Matches(sceneName);
+            }
+
+            return false;
+        }
 
         protected virtual void ExtraBindingsLate(DiContainer container)
         {
