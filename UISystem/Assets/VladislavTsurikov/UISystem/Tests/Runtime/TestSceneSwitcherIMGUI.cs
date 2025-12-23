@@ -1,7 +1,7 @@
 ﻿#if UI_SYSTEM_ADDRESSABLE_LOADER_SYSTEM
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.ResourceManagement.ResourceProviders;
+using UnityEngine.SceneManagement;
 using VladislavTsurikov.SceneUtility.Editor.Utility;
 using VladislavTsurikov.UISystem.Runtime.AddressableLoaderSystemIntegration;
 using Zenject;
@@ -10,14 +10,12 @@ namespace VladislavTsurikov.UISystem.Tests.Runtime
 {
     public class TestSceneSwitcherIMGUI : MonoBehaviour
     {
-        private SceneInstance _currentSceneInstance;
-
         [Inject]
         private SceneCompositionService _sceneCompositionService;
 
         private void OnGUI()
         {
-            var currentScene = _currentSceneInstance.Scene.name;
+            var currentScene = SceneManager.GetActiveScene().name;
 
             var width = 500;
             var height = 150;
@@ -72,8 +70,8 @@ namespace VladislavTsurikov.UISystem.Tests.Runtime
             }
             else
             {
-                _currentSceneInstance = await _sceneCompositionService.LoadAddressableScene(sceneName,
-                    async handle => { await handle.ActivateAsync().ToUniTask(); });
+                await _sceneCompositionService.LoadAddressableScene(sceneName,
+                    handle => UniTask.CompletedTask);
             }
             await UniTask.CompletedTask;
         }

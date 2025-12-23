@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core.Behavior;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Behavior;
 using Zenject;
 
@@ -12,7 +13,15 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Tests
     public class TestSceneSwitcherIMGUI : MonoBehaviour
     {
         [Inject]
-        private ResourceLoaderManager _resourceLoaderManager;
+        private SceneBehavior _sceneBehavior;
+
+        private readonly LoaderBehaviorBatch _loaderBehaviorBatch = new();
+        private string _currentSceneContext;
+
+        private void Start()
+        {
+            _currentSceneContext = SceneManager.GetActiveScene().name;
+        }
 
         private void OnGUI()
         {
@@ -61,10 +70,27 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Tests
 
         private async UniTask LoadSceneWithFilters(string sceneName)
         {
-            await _resourceLoaderManager.Load(attr =>
-                attr is BehaviorAttribute { BehaviorType: var behaviorType } behavior &&
-                behaviorType == typeof(SceneBehavior) &&
-                behavior.Matches(sceneName));
+            if (_sceneBehavior == null)
+            {
+                Debug.LogError("[TestSceneSwitcherIMGUI] SceneBehavior is not resolved.");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(_currentSceneContext))
+            {
+                if (_currentSceneContext == sceneName)
+                {
+                    return;
+                }
+
+                _loaderBehaviorBatch.Unload(_sceneBehavior, _currentSceneContext);
+            }
+
+            _loaderBehaviorBatch.Load(_sceneBehavior, sceneName);
+
+            await _loaderBehaviorBatch.Run(this.GetCancellationTokenOnDestroy());
+
+            _currentSceneContext = sceneName;
 
             SceneManager.LoadScene(sceneName);
         }
