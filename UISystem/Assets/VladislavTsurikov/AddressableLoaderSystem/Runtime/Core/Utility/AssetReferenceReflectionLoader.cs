@@ -214,7 +214,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Runtime.Core
 
         private static bool ShouldSkipField(FieldInfo field, object value) =>
             value == null ||
-            field.IsDefined(typeof(IgnoreResourceAutoload), true) ||
+            field.IsDefined(typeof(IgnoreResourceAutoLoad), true) ||
             (value is Object uObj && uObj == null);
 
         private static bool IsEnumerableButNotStringOrTransform(FieldInfo field, object value) =>

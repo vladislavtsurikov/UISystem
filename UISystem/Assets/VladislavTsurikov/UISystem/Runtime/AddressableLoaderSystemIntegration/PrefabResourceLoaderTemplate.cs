@@ -8,6 +8,7 @@ using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
 using VladislavTsurikov.CsCodeGenerator.Runtime;
 using VladislavTsurikov.UISystem.Runtime.AddressableLoaderSystemIntegration;
 using VladislavTsurikov.UISystem.Runtime.AddressableLoaderSystemIntegration.Attributes;
+using Object = UnityEngine.Object;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
