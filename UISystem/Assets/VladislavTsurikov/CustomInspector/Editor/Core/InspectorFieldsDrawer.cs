@@ -14,6 +14,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
         private readonly BindingFlags _bindingFlags;
         private readonly List<Type> _excludedDeclaringTypes;
         private readonly bool _excludeInternal;
+        private readonly Dictionary<Type, List<ProcessedField>> _cachedFields = new();
 
         protected InspectorFieldsDrawer(
             List<Type> excludedDeclaringTypes = null,
@@ -28,30 +29,51 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
         protected IEnumerable<(TDrawer fieldDrawer, FieldInfo field, string fieldName, object value)>
             GetProcessedFields(object target)
         {
+            List<ProcessedField> processedFields = GetOrCreateProcessedFields(target.GetType());
+
+            foreach (ProcessedField processedField in processedFields)
+            {
+                if (!IsFieldVisible(processedField.Field))
+                {
+                    continue;
+                }
+
+                TDrawer drawer = processedField.Drawer;
+
+                var value = drawer == null || drawer.ShouldCreateInstanceIfNull()
+                    ? FieldUtility.GetOrCreateFieldInstance(processedField.Field, target)
+                    : processedField.Field.GetValue(target);
+
+                yield return (drawer, processedField.Field, processedField.FieldName, value);
+            }
+        }
+
+        private List<ProcessedField> GetOrCreateProcessedFields(Type targetType)
+        {
+            if (_cachedFields.TryGetValue(targetType, out List<ProcessedField> processedFields))
+            {
+                return processedFields;
+            }
+
             FieldInfo[] fields = FieldUtility.GetSerializableFields(
-                target.GetType(),
+                targetType,
                 _bindingFlags,
                 _excludeInternal,
                 _excludedDeclaringTypes.ToArray()
             );
 
+            processedFields = new List<ProcessedField>(fields.Length);
+
             foreach (FieldInfo field in fields)
             {
-                if (!IsFieldVisible(field))
-                {
-                    continue;
-                }
-
-                TDrawer drawer = FieldDrawerResolver<TDrawer>.GetFieldDrawer(field.FieldType);
-
-                var value = drawer == null || drawer.ShouldCreateInstanceIfNull()
-                    ? FieldUtility.GetOrCreateFieldInstance(field, target)
-                    : field.GetValue(target);
-
-                var fieldName = FieldUtility.GetFieldLabel(field);
-
-                yield return (drawer, field, fieldName, value);
+                TDrawer drawer = FieldDrawerResolver<TDrawer>.CreateDrawer(field.FieldType);
+                string fieldName = FieldUtility.GetFieldLabel(field);
+                processedFields.Add(new ProcessedField(field, fieldName, drawer));
             }
+
+            _cachedFields[targetType] = processedFields;
+
+            return processedFields;
         }
 
         private bool IsFieldVisible(FieldInfo field)
@@ -62,6 +84,20 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             }
 
             return field.GetAttribute<HideInInspector>() == null;
+        }
+
+        private sealed class ProcessedField
+        {
+            public ProcessedField(FieldInfo field, string fieldName, TDrawer drawer)
+            {
+                Field = field;
+                FieldName = fieldName;
+                Drawer = drawer;
+            }
+
+            public FieldInfo Field { get; }
+            public string FieldName { get; }
+            public TDrawer Drawer { get; }
         }
     }
 }

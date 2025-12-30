@@ -2,14 +2,19 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
+    public sealed class SpriteFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) => fieldType == typeof(Sprite);
+        public override Type DrawerType => typeof(SpriteFieldDrawer);
+    }
+
     public class SpriteFieldDrawer : IMGUIFieldDrawer
     {
         private const float ObjectFieldSize = 50f;
-
-        public override bool CanDraw(Type type) => typeof(Sprite).IsAssignableFrom(type);
 
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
         {

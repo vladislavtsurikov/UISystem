@@ -4,13 +4,18 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Localization;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
+    public sealed class LocalizedStringFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) => fieldType == typeof(LocalizedString);
+        public override Type DrawerType => typeof(LocalizedStringFieldDrawer);
+    }
+
     public class LocalizedStringFieldDrawer : IMGUIFieldDrawer
     {
-        public override bool CanDraw(Type type) => type == typeof(LocalizedString);
-
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
         {
             if (value == null)

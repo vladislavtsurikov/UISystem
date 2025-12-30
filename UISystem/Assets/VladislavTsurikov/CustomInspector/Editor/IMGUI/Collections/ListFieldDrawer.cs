@@ -5,10 +5,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
 
 namespace VladislavTsurikov.CustomInspector.Editor.Collections
 {
+    public sealed class ListFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) =>
+            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>);
+
+        public override Type DrawerType => typeof(ListFieldDrawer);
+    }
+
     public sealed class ListFieldDrawer : IMGUIFieldDrawer
     {
         private readonly IMGUIInspectorFieldsDrawer _fieldsDrawer = new IMGUIInspectorFieldsDrawer(
@@ -32,7 +41,19 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
         public override float GetFieldsHeight(object target)
         {
-            return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            if (target is not IList list)
+            {
+                return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            }
+
+            if (_reorderableList == null || !ReferenceEquals(_list, list))
+            {
+                Setup(list, target.GetType(), _label ?? GUIContent.none);
+            }
+
+            return _reorderableList != null
+                ? _reorderableList.GetHeight()
+                : EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
         }
 
         private void Setup(IList list, Type fieldType, GUIContent label)
@@ -177,10 +198,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             return CreateDefaultElement(elementType);
         }
 
-        public override bool CanDraw(Type fieldType)
-        {
-            return fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>);
-        }
     }
 }
 #endif
