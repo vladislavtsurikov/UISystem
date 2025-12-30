@@ -110,6 +110,17 @@ namespace VladislavTsurikov.EntityDataActionFramework.Editor
             EditorGUI.LabelField(labelRect, missingText, GetMissingStyle());
         }
 
+        protected override void DrawElement(Rect totalRect, int index, float iconSize, Color prevColor, ActionReorderableListComponentEditor componentEditor)
+        {
+            Type actionType = Stack.ElementList[index].GetType();
+            bool requirementsMet = RequiresDataUtility.IsRequirementsMet(_data, actionType);
+
+            if (requirementsMet)
+            {
+                base.DrawElement(totalRect, index, iconSize, prevColor, componentEditor);
+            }
+        }
+
         public override float ElementHeightCB(int index)
         {
             Type actionType = Stack.ElementList[index].GetType();

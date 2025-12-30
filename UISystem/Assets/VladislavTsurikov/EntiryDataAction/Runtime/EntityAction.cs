@@ -1,5 +1,8 @@
-﻿using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
+﻿using System;
+using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
+using UnityEngine;
 using VladislavTsurikov.ActionFlow.Runtime.Actions;
+using Action = VladislavTsurikov.ActionFlow.Runtime.Actions.Action;
 
 namespace VladislavTsurikov.EntityDataActionFramework
 {
@@ -27,6 +30,16 @@ namespace VladislavTsurikov.EntityDataActionFramework
             }
 
             return (T)Entity.Data.GetElement(typeof(T));
+        }
+
+        protected TComponent[] GetComponentsInChildren<TComponent>(bool includeInactive) where TComponent : Component
+        {
+            if (Entity == null)
+            {
+                return Array.Empty<TComponent>();
+            }
+
+            return Entity.GetComponentsInChildren<TComponent>(includeInactive);
         }
     }
 }

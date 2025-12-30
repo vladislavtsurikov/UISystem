@@ -31,6 +31,8 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         public bool DuplicateSupport = true;
         public bool RenameSupport = false;
         public bool ShowActiveToggle = true;
+        public bool RemoveSupport = true;
+        public bool ReorderSupport = true;
 
         public ReorderableListStackEditor(AdvancedComponentStack<T> stack) : base(stack)
         {
@@ -123,12 +125,49 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             }
         }
 
+        protected virtual void DrawElement(Rect totalRect, int index, float iconSize, Color prevColor, N componentEditor)
+        {
+            using (new EditorGUI.DisabledScope(!Stack.ElementList[index].Active))
+            {
+                float rectX;
+
+                if (ReorderSupport)
+                {
+                    rectX = 35f;
+                }
+                else
+                {
+                    rectX = 35f - iconSize;
+                }
+
+                totalRect.x += rectX;
+                totalRect.y += EditorGUIUtility.singleLineHeight + 3;
+                totalRect.width -= rectX + 15;
+                totalRect.height = EditorGUIUtility.singleLineHeight;
+
+                GUI.color = prevColor;
+
+                if (componentEditor.Target.SelectSettingsFoldout)
+                {
+                    try
+                    {
+                        componentEditor.OnGUI(totalRect, index);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError("ComponentEditor has an error: " + ex.Message);
+                        Debug.LogError("Stack trace: " + ex.StackTrace);
+                    }
+                }
+            }
+        }
+
         protected virtual void Menu(T component, int index)
         {
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent("Reset"), false, () => Stack.Reset(index));
 
-            if (component.IsDeletable())
+            if (RemoveSupport && component.IsDeletable())
             {
                 menu.AddItem(new GUIContent("Remove"), false, () => Stack.Remove(index));
             }
@@ -198,6 +237,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 Stack.IsDirty = false;
             }
 
+            _reorderableList.draggable = ReorderSupport;
             Rect rect = EditorGUILayout.GetControlRect(true, _reorderableList.GetHeight());
             rect = EditorGUI.IndentedRect(rect);
 
@@ -213,6 +253,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 Stack.IsDirty = false;
             }
 
+            _reorderableList.draggable = ReorderSupport;
             OnReorderableListStackGUI(rect);
         }
 
@@ -384,26 +425,29 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
             Color prevColor = GUI.color;
 
-            // modify total rect so it hides the builtin list UI
-            totalRect.xMin -= 20f;
-            totalRect.xMax += 4f;
+            if (ReorderSupport)
+            {
+                totalRect.xMin -= 20f;
+                totalRect.xMax += 4f;
+            }
+            else
+            {
+                totalRect.xMin -= 6f;
+                totalRect.xMax += 3f;
+            }
 
             var containsMouse = totalRect.Contains(Event.current.mousePosition);
 
-            // modify currently selected element if mouse down in this elements GUI rect
             if (containsMouse && Event.current.type == EventType.MouseDown)
             {
                 _reorderableList.index = index;
             }
 
-            // draw list element separator
             Rect separatorRect = totalRect;
-            // separatorRect.height = dividerSize;
             GUI.color = dividerColor;
             GUI.DrawTexture(separatorRect, Texture2D.whiteTexture, ScaleMode.StretchToFill);
             GUI.color = prevColor;
 
-            // Draw BG texture to hide ReorderableList highlight
             totalRect.yMin += dividerSize;
             totalRect.xMin += dividerSize;
             totalRect.xMax -= dividerSize;
@@ -438,17 +482,17 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 return;
             }
 
-            var moveRect = new Rect(totalRect.xMin + paddingH, totalRect.yMin + paddingV, iconSize, iconSize);
-
-            // draw move handle rect
-            EditorGUIUtility.AddCursorRect(moveRect, MouseCursor.Pan);
-            GUI.DrawTexture(moveRect, Styles.Move, ScaleMode.StretchToFill);
+            if (ReorderSupport)
+            {
+                var moveRect = new Rect(totalRect.xMin + paddingH, totalRect.yMin + paddingV, iconSize, iconSize);
+                EditorGUIUtility.AddCursorRect(moveRect, MouseCursor.Pan);
+                GUI.DrawTexture(moveRect, Styles.Move, ScaleMode.StretchToFill);
+            }
 
             GUI.color = new Color(1f, 1f, 1f, 1f);
 
             DrawHeaderElement(totalRect, index, componentEditor);
 
-            // update dragging state
             if (containsMouse && isSelected)
             {
                 if (Event.current.type == EventType.MouseDrag && !_dragging && isFocused)
@@ -466,33 +510,11 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 }
             }
 
-            using (new EditorGUI.DisabledScope(!Stack.ElementList[index].Active))
-            {
-                float rectX = 35;
-
-                totalRect.x += rectX;
-                totalRect.y += EditorGUIUtility.singleLineHeight + 3;
-                totalRect.width -= rectX + 15;
-                totalRect.height = EditorGUIUtility.singleLineHeight;
-
-                GUI.color = prevColor;
-
-                if (componentEditor.Target.SelectSettingsFoldout)
-                {
-                    try
-                    {
-                        componentEditor.OnGUI(totalRect, index);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError("ComponentEditor has an error: " + ex.Message);
-                        Debug.LogError("Stack trace: " + ex.StackTrace);
-                    }
-                }
-            }
+            DrawElement(totalRect, index, iconSize, prevColor, componentEditor);
 
             GUI.color = prevColor;
         }
+
 
         private void RenameComponent(Component componentElement)
         {

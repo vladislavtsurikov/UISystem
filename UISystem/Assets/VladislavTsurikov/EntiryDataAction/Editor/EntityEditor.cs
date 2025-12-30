@@ -8,7 +8,7 @@ using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 
 namespace Plugins.VladislavTsurikov.EntiryDataAction.Editor
 {
-    [CustomEditor(typeof(Entity))]
+    [CustomEditor(typeof(Entity), true)]
     public sealed class EntityEditor : UnityEditor.Editor
     {
         private Entity _entity;
@@ -34,6 +34,34 @@ namespace Plugins.VladislavTsurikov.EntiryDataAction.Editor
             EditorGUI.BeginChangeCheck();
 
             GUILayout.Space(3);
+            bool isDerived = _entity.GetType() != typeof(Entity);
+            if (isDerived)
+            {
+                _dataEditor.DisplayPlusButton = false;
+                _dataEditor.DuplicateSupport = false;
+                _dataEditor.RemoveSupport = false;
+                _dataEditor.ReorderSupport = false;
+
+                _actionsEditor.DisplayPlusButton = false;
+                _actionsEditor.DuplicateSupport = false;
+                _actionsEditor.RemoveSupport = false;
+                _actionsEditor.ReorderSupport = false;
+
+                EditorGUILayout.HelpBox("Component lists are locked for Entity subclasses.", MessageType.Info);
+            }
+            else
+            {
+                _dataEditor.DisplayPlusButton = true;
+                _dataEditor.DuplicateSupport = true;
+                _dataEditor.RemoveSupport = true;
+                _dataEditor.ReorderSupport = true;
+
+                _actionsEditor.DisplayPlusButton = true;
+                _actionsEditor.DuplicateSupport = true;
+                _actionsEditor.RemoveSupport = true;
+                _actionsEditor.ReorderSupport = true;
+            }
+
             _dataEditor.OnGUI();
 
             GUILayout.Space(3);

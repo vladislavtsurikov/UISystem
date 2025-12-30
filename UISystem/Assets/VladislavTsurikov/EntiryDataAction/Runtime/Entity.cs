@@ -1,12 +1,13 @@
-﻿using OdinSerializer;
+﻿using System;
+using OdinSerializer;
 using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
 using UnityEngine;
-using VladislavTsurikov.ActionFlow.Runtime.Actions;
+using Action = VladislavTsurikov.ActionFlow.Runtime.Actions.Action;
 
 namespace VladislavTsurikov.EntityDataActionFramework
 {
     [ExecuteInEditMode]
-    public sealed class Entity : SerializedMonoBehaviour
+    public class Entity : SerializedMonoBehaviour
     {
         [OdinSerialize]
         private EntityDataCollection _data = new EntityDataCollection();
@@ -62,17 +63,13 @@ namespace VladislavTsurikov.EntityDataActionFramework
             }
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            _actions ??= new EntityActionCollection();
-            _data ??= new EntityDataCollection();
-            _actions.Entity = this;
-            _data.Entity = this;
-
             DirtyRunner ??= new DirtyActionRunner(this, _data, _actions);
             DirtyRunner.Setup();
 
-            RefreshActions();
+            _actions ??= new EntityActionCollection();
+            _actions.Entity = this;
 
             if (Active)
             {
@@ -81,12 +78,14 @@ namespace VladislavTsurikov.EntityDataActionFramework
 
                 _data.ElementAdded += HandleDataChanged;
                 _data.ElementRemoved += HandleDataChanged;
-
-                DirtyRunner.TriggerAll();
             }
+
+            CreateDefaultData();
+            CreateDefaultActions();
+            RefreshActions();
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             _data.ElementAdded -= HandleDataChanged;
             _data.ElementRemoved -= HandleDataChanged;
@@ -116,6 +115,43 @@ namespace VladislavTsurikov.EntityDataActionFramework
                 bool isAvailable = RequiresDataUtility.IsRequirementsMet(_data, action.GetType());
                 action.Active = isAvailable;
             }
+        }
+
+        protected virtual Type[] ComponentDataTypesToCreate()
+        {
+            return Array.Empty<Type>();
+        }
+
+        protected virtual Type[] ActionTypesToCreate()
+        {
+            return Array.Empty<Type>();
+        }
+
+        private void CreateDefaultData()
+        {
+            Type[] types = ComponentDataTypesToCreate();
+            if (types == null || types.Length == 0)
+            {
+                return;
+            }
+
+            _data.CreateIfMissingType(types);
+        }
+
+        private void CreateDefaultActions()
+        {
+            if (_actions == null)
+            {
+                return;
+            }
+
+            Type[] types = ActionTypesToCreate();
+            if (types == null || types.Length == 0)
+            {
+                return;
+            }
+
+            _actions.CreateComponentsIfMissingType(types);
         }
     }
 }
