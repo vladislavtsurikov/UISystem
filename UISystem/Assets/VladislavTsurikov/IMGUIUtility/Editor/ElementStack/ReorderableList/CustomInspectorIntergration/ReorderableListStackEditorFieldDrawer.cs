@@ -1,22 +1,26 @@
 #if UNITY_EDITOR
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
 using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 {
+    public sealed class ReorderableListStackEditorFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) =>
+            fieldType.TryGetGenericArgument(typeof(AdvancedComponentStack<>)) != null;
+
+        public override Type DrawerType => typeof(ReorderableListStackEditorFieldDrawer);
+    }
+
     public class ReorderableListStackEditorFieldDrawer : IMGUIFieldDrawer
     {
-        private readonly Dictionary<object, object> _cachedEditors = new();
-
-        public override bool CanDraw(Type type) => type.TryGetGenericArgument(typeof(AdvancedComponentStack<>)) != null;
-
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
         {
             if (value == null)
@@ -24,7 +28,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 return null;
             }
 
-            var collectionEditor = GetOrCreateEditor(value, fieldType, label);
+            var collectionEditor = CreateEditor(value, fieldType, label);
 
             if (collectionEditor == null)
             {
@@ -48,7 +52,13 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
         public override float GetFieldsHeight(object target)
         {
-            if (!_cachedEditors.TryGetValue(target, out var collectionEditor) ||
+            if (target == null)
+            {
+                return EditorGUIUtility.singleLineHeight;
+            }
+
+            var collectionEditor = CreateEditor(target, target.GetType(), GUIContent.none);
+            if (collectionEditor == null ||
                 collectionEditor.GetType().GetMethod("GetElementStackHeight") is not { } getHeightMethod)
             {
                 Debug.LogWarning("GetFieldsHeight: Missing collectionEditor or GetElementStackHeight method.");
@@ -58,35 +68,29 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             return (float)getHeightMethod.Invoke(collectionEditor, null);
         }
 
-        private object GetOrCreateEditor(object value, Type fieldType, GUIContent label)
+        private static object CreateEditor(object value, Type fieldType, GUIContent label)
         {
-            if (!_cachedEditors.TryGetValue(value, out var collectionEditor))
+            Type componentType = fieldType.TryGetGenericArgument(typeof(ComponentStack<>));
+
+            if (componentType == null)
             {
-                Type componentType = fieldType.TryGetGenericArgument(typeof(ComponentStack<>));
-
-                if (componentType == null)
-                {
-                    Debug.LogError($"GetOrCreateEditor: Unable to determine componentType for {fieldType.FullName}.");
-                    return null;
-                }
-
-                Type editorType = typeof(ReorderableListStackEditor<,>).MakeGenericType(
-                    componentType,
-                    typeof(ReorderableListComponentEditor)
-                );
-
-                collectionEditor = Activator.CreateInstance(
-                    editorType,
-                    label,
-                    value,
-                    true
-                );
-
-                _cachedEditors[value] = collectionEditor;
+                Debug.LogError($"CreateEditor: Unable to determine componentType for {fieldType.FullName}.");
+                return null;
             }
 
-            return collectionEditor;
+            Type editorType = typeof(ReorderableListStackEditor<,>).MakeGenericType(
+                componentType,
+                typeof(ReorderableListComponentEditor)
+            );
+
+            return Activator.CreateInstance(
+                editorType,
+                label,
+                value,
+                true
+            );
         }
     }
+
 }
 #endif

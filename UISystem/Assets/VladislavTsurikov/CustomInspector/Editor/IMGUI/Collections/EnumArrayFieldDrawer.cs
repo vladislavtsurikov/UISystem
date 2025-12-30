@@ -3,14 +3,20 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
-    public class EnumArrayFieldDrawer : IMGUIFieldDrawer
+    public sealed class EnumArrayFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
         public override bool CanDraw(Type fieldType) =>
-            fieldType.IsArray && fieldType.GetElementType().BaseType == typeof(Enum);
+            fieldType.IsArray && fieldType.GetElementType()?.IsEnum == true;
 
+        public override Type DrawerType => typeof(EnumArrayFieldDrawer);
+    }
+
+    public class EnumArrayFieldDrawer : IMGUIFieldDrawer
+    {
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
         {
             Type enumType = fieldType.GetElementType();

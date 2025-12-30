@@ -2,13 +2,18 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
+    public sealed class StringFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) => fieldType == typeof(string);
+        public override Type DrawerType => typeof(StringFieldDrawer);
+    }
+
     public class StringFieldDrawer : IMGUIFieldDrawer
     {
-        public override bool CanDraw(Type type) => type == typeof(string);
-
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value) =>
             EditorGUI.TextField(rect, label, value as string);
     }

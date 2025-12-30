@@ -5,10 +5,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
 
 namespace VladislavTsurikov.CustomInspector.Editor.Collections
 {
+    public sealed class ListFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) =>
+            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>);
+
+        public override Type DrawerType => typeof(ListFieldDrawer);
+    }
+
     public sealed class ListFieldDrawer : IMGUIFieldDrawer
     {
         private readonly IMGUIInspectorFieldsDrawer _fieldsDrawer = new IMGUIInspectorFieldsDrawer(
@@ -177,10 +186,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             return CreateDefaultElement(elementType);
         }
 
-        public override bool CanDraw(Type fieldType)
-        {
-            return fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>);
-        }
     }
 }
 #endif

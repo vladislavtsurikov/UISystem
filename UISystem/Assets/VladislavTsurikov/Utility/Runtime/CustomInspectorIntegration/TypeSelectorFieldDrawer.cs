@@ -4,16 +4,22 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
 using VladislavTsurikov.Utility.Runtime.CustomInspectorIntegration;
 
 namespace VladislavTsurikov.ReflectionUtility.Runtime.CustomInspectorIntegration
 {
+    public sealed class TypeSelectorFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) =>
+            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(TypeSelector<>);
+
+        public override Type DrawerType => typeof(TypeSelectorFieldDrawer);
+    }
+
     public class TypeSelectorFieldDrawer : IMGUIFieldDrawer
     {
-        public override bool CanDraw(Type type) =>
-            type.IsGenericType && type.GetGenericTypeDefinition() == typeof(TypeSelector<>);
-
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
         {
             if (value == null)
@@ -62,5 +68,6 @@ namespace VladislavTsurikov.ReflectionUtility.Runtime.CustomInspectorIntegration
             }
         }
     }
+
 }
 #endif

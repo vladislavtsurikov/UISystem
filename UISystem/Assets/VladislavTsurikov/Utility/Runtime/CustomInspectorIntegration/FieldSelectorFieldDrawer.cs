@@ -5,15 +5,20 @@ using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
 using VladislavTsurikov.Utility.Runtime.CustomInspectorIntegration;
 
 namespace QuestsSystem.IntegrationActionFlow.Pointer
 {
+    public sealed class FieldSelectorFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) => typeof(FieldSelector).IsAssignableFrom(fieldType);
+        public override Type DrawerType => typeof(FieldSelectorFieldDrawer);
+    }
+
     public class FieldSelectorFieldDrawer : IMGUIFieldDrawer
     {
-        public override bool CanDraw(Type type) => typeof(FieldSelector).IsAssignableFrom(type);
-
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
         {
             if (value == null)
@@ -69,5 +74,6 @@ namespace QuestsSystem.IntegrationActionFlow.Pointer
                 .ToList();
         }
     }
+
 }
 #endif

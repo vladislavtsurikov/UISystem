@@ -3,16 +3,22 @@ using System;
 using Assemblies.VladislavTsurikov.ComponentStack.Runtime.SingleElementStack;
 using UnityEditor;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackEditor.CustomInspectorIntegration
 {
+    public sealed class SingleElementStackFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
+    {
+        public override bool CanDraw(Type fieldType) =>
+            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(SingleElementStack<>);
+
+        public override Type DrawerType => typeof(SingleElementStackFieldDrawer);
+    }
+
     public class SingleElementStackFieldDrawer : IMGUIFieldDrawer
     {
-        public override bool CanDraw(Type type) =>
-            type.IsGenericType && type.GetGenericTypeDefinition() == typeof(SingleElementStack<>);
-
         public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
         {
             if (value == null)
@@ -58,5 +64,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
             menu.ShowAsContext();
         }
     }
+
 }
 #endif
