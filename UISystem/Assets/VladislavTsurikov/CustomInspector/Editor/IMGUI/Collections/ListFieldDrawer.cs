@@ -41,7 +41,19 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
         public override float GetFieldsHeight(object target)
         {
-            return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            if (target is not IList list)
+            {
+                return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            }
+
+            if (_reorderableList == null || !ReferenceEquals(_list, list))
+            {
+                Setup(list, target.GetType(), _label ?? GUIContent.none);
+            }
+
+            return _reorderableList != null
+                ? _reorderableList.GetHeight()
+                : EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
         }
 
         private void Setup(IList list, Type fieldType, GUIContent label)
