@@ -4,6 +4,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Common.TerrainSystem
 {

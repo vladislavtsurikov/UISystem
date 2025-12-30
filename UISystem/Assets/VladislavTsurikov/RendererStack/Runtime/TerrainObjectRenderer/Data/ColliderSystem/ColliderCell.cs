@@ -3,6 +3,7 @@ using VladislavTsurikov.Math.Runtime;
 using VladislavTsurikov.QuadTree.Runtime;
 using VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.ColliderSystem
 {

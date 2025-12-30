@@ -11,33 +11,32 @@ using VladislavTsurikov.ComponentStack.Runtime.Core;
 using VladislavTsurikov.DeepCopy.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ReflectionUtility.Runtime;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 {
     public class ReorderableListStackEditor<T, N> : ComponentStackEditor<T, N>
-        where T : Runtime_Core_Component
+        where T : Component
         where N : ReorderableListComponentEditor
     {
         private readonly UnityEditorInternal.ReorderableList _reorderableList;
         private readonly GUIContent _reorderableListName;
-        private Runtime_Core_Component _copyComponentElement;
+        private Component _copyComponentElement;
         private bool _displayAddButton;
         private bool _dragging;
         protected bool CopySettings = true;
 
         public bool DisplayHeaderText = true;
         public bool DisplayPlusButton = true;
-        protected bool DuplicateSupport = true;
-        protected bool RenameSupport = false;
-
-        protected bool ShowActiveToggle = true;
+        public bool DuplicateSupport = true;
+        public bool RenameSupport = false;
+        public bool ShowActiveToggle = true;
 
         public ReorderableListStackEditor(AdvancedComponentStack<T> stack) : base(stack)
         {
             _reorderableListName = new GUIContent("");
             _reorderableList =
-                new UnityEditorInternal.ReorderableList(stack.ReorderableElementList, typeof(T), true, true, false,
+                new UnityEditorInternal.ReorderableList(stack.List, typeof(T), true, true, false,
                     false);
 
             SetupCallbacks();
@@ -47,7 +46,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             bool displayHeader) : base(stack)
         {
             _reorderableListName = reorderableListName;
-            _reorderableList = new UnityEditorInternal.ReorderableList(stack.ReorderableElementList, typeof(T), true,
+            _reorderableList = new UnityEditorInternal.ReorderableList(stack.List, typeof(T), true,
                 displayHeader, false, false);
 
             SetupCallbacks();
@@ -98,18 +97,23 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
         protected virtual void AddCB(UnityEditorInternal.ReorderableList list) => ShowAddMenu();
 
-        protected virtual void DrawHeaderElement(Rect headerRect, int index, N componentEditor)
+        protected virtual void DrawHeaderElement(Rect totalRect, int index, N componentEditor)
         {
+            Rect headerRect = totalRect;
+
+            headerRect.x += 15;
+            headerRect.height = EditorGUIUtility.singleLineHeight * 1.3f;
+
             if (ShowActiveToggle && componentEditor.Target.ShowActiveToggle())
             {
-                var temporaryActive = ((Runtime_Core_Component)componentEditor.Target).Active;
+                var temporaryActive = ((Component)componentEditor.Target).Active;
 
                 componentEditor.Target.SelectSettingsFoldout = CustomEditorGUI.HeaderWithMenu(headerRect,
                     componentEditor.Target.Name,
                     componentEditor.Target.SelectSettingsFoldout, ref temporaryActive,
                     () => Menu(Stack.ElementList[index], index));
 
-                ((Runtime_Core_Component)componentEditor.Target).Active = temporaryActive;
+                ((Component)componentEditor.Target).Active = temporaryActive;
             }
             else
             {
@@ -269,7 +273,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             GUI.color = color;
         }
 
-        private float ElementHeightCB(int index)
+        public virtual float ElementHeightCB(int index)
         {
             if (Editors.Count == 0)
             {
@@ -440,14 +444,9 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             EditorGUIUtility.AddCursorRect(moveRect, MouseCursor.Pan);
             GUI.DrawTexture(moveRect, Styles.Move, ScaleMode.StretchToFill);
 
-            Rect headerRect = totalRect;
-
-            headerRect.x += 15;
-            headerRect.height = EditorGUIUtility.singleLineHeight * 1.3f;
-
             GUI.color = new Color(1f, 1f, 1f, 1f);
 
-            DrawHeaderElement(headerRect, index, componentEditor);
+            DrawHeaderElement(totalRect, index, componentEditor);
 
             // update dragging state
             if (containsMouse && isSelected)
@@ -495,7 +494,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             GUI.color = prevColor;
         }
 
-        private void RenameComponent(Runtime_Core_Component componentElement)
+        private void RenameComponent(Component componentElement)
         {
             componentElement.Renaming = !componentElement.Renaming;
             componentElement.RenamingName = componentElement.Name;
@@ -553,7 +552,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         {
             public static readonly Texture2D Move;
 
-            static Styles() => Move = Resources.Load<Texture2D>("Images/move");
+            static Styles() => Move = Resources.Load<Texture2D>("move");
         }
     }
 }

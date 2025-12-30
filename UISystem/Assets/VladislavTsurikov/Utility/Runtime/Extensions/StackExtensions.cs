@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VladislavTsurikov.Utility.Runtime
+namespace VladislavTsurikov.Utility.Runtime.Extensions
 {
     public static class StackExtensions
     {
@@ -15,7 +15,7 @@ namespace VladislavTsurikov.Utility.Runtime
 
             while (stack.Count > 0)
             {
-                T top = stack.Pop();
+                var top = stack.Pop();
                 if (EqualityComparer<T>.Default.Equals(top, item))
                 {
                     break;

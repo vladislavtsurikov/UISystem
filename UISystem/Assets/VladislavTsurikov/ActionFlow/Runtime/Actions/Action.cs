@@ -6,7 +6,7 @@ namespace VladislavTsurikov.ActionFlow.Runtime.Actions
 {
     public abstract class Action : Component
     {
-        internal async UniTask<bool> RunAction(CancellationToken token)
+        public async UniTask<bool> RunAction(CancellationToken token)
         {
             if (Active)
             {

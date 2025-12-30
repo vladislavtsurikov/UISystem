@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.UnityUtility.Runtime
 {

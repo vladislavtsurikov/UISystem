@@ -14,7 +14,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Utility.Spawn
 {
     public static class SpawnGroup
     {
-        public static void SpawnTerrainDetails(Group group, CallbackList<Prototype> protoTerrainDetailList,
+        public static void SpawnTerrainDetails(Group group, ObservableList<Prototype> protoTerrainDetailList,
             BoxArea boxArea)
         {
             if (TerrainResourcesController.IsSyncError(group, Terrain.activeTerrain))

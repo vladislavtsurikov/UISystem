@@ -20,7 +20,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
         protected readonly TabStackEditor _tabStackEditor;
 
         public TabComponentStackEditor(AdvancedComponentStack<T> stack) : base(stack) =>
-            _tabStackEditor = new TabStackEditor(stack.ReorderableElementList, true, false)
+            _tabStackEditor = new TabStackEditor(stack.List, true, false)
             {
                 AddCallback = ShowAddManu,
                 AddTabMenuCallback = TabMenu,

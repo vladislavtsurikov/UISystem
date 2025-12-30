@@ -23,7 +23,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Stamper.AutoRespawn
         {
             var area = (Area)StamperTool.GetElement(typeof(Area));
 
-            var protoTerrainDetailList = new CallbackList<Prototype>();
+            var protoTerrainDetailList = new ObservableList<Prototype>();
             protoTerrainDetailList.Add(_modifiedTerrainDetailProto);
             UnspawnTerrainDetail.Unspawn(protoTerrainDetailList, false);
 

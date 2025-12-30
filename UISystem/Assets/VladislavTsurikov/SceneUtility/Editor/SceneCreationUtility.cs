@@ -2,6 +2,7 @@
 using System.IO;
 using UnityEditor;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.SceneUtility.Editor
 {

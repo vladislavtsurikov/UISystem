@@ -6,20 +6,25 @@ using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace VladislavTsurikov.Utility.Runtime.Extensions
 {
-    public static class UnityAsyncExtensions
+    public static partial class UnityAsyncExtensions
     {
-        public static AddressableAsyncOperationAwaiter GetAwaiter(
-            this AsyncOperationHandle<SceneInstance> asyncOperation) => new(asyncOperation);
+        public static AddressableAsyncOperationAwaiter GetAwaiter(this AsyncOperationHandle<SceneInstance> asyncOperation)
+        {
+            return new AddressableAsyncOperationAwaiter(asyncOperation);
+        }
     }
 
     public class AddressableAsyncOperationAwaiter : INotifyCompletion
     {
         private AsyncOperationHandle<SceneInstance> _asyncOperationHandle;
 
-        public AddressableAsyncOperationAwaiter(AsyncOperationHandle<SceneInstance> asyncOperationHandle) =>
+        public AddressableAsyncOperationAwaiter(AsyncOperationHandle<SceneInstance> asyncOperationHandle)
+        {
             _asyncOperationHandle = asyncOperationHandle;
-
+        }
+        
         public bool IsCompleted => _asyncOperationHandle.IsDone;
+        public void GetResult() { }
 
         public void OnCompleted(Action continuation)
         {
@@ -37,10 +42,6 @@ namespace VladislavTsurikov.Utility.Runtime.Extensions
                     }
                 };
             }
-        }
-
-        public void GetResult()
-        {
         }
     }
 }

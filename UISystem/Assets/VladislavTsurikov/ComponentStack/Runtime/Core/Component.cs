@@ -1,3 +1,4 @@
+using System;
 using OdinSerializer;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
@@ -6,6 +7,9 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
 {
     public abstract class Component : Element, ISelectable, IRemovable
     {
+        [NonSerialized]
+        private bool _isDirty;
+
         [OdinSerialize]
         protected bool _active = true;
 
@@ -13,6 +17,8 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         protected bool _selected;
 
         protected internal object Stack;
+
+        public event Action<Component> Dirtied;
 
         public virtual bool Active
         {
@@ -92,5 +98,23 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         }
 
         public virtual bool DeleteElement() => true;
+
+        public bool IsDirty => _isDirty;
+
+        protected void MarkDirty()
+        {
+            if (_isDirty)
+            {
+                return;
+            }
+
+            _isDirty = true;
+            Dirtied?.Invoke(this);
+        }
+
+        internal void ClearDirtyInternal()
+        {
+            _isDirty = false;
+        }
     }
 }

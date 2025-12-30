@@ -6,6 +6,7 @@ using UnityEngine;
 using VladislavTsurikov.AutoUnmanagedPropertiesDispose.Runtime;
 using VladislavTsurikov.UnityUtility.Runtime;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Common.TerrainSystem
 {

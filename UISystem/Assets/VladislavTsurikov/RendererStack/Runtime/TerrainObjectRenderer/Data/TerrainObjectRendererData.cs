@@ -14,6 +14,7 @@ using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.Collide
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.RendererData;
 using VladislavTsurikov.SceneDataSystem.Runtime;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data
 {

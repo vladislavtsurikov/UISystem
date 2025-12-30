@@ -484,6 +484,13 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             GUI.color = color;
         }
 
+        public static void WarningHeaderWithMenu(Rect rect, string content, Action menu)
+        {
+            DrawMenu(rect, menu);
+
+            DrawWarningHeader(rect, content, menu);
+        }
+
         public static bool HeaderWithMenu(Rect rect, string content, bool foldout, ref bool active, Action menu)
         {
             DrawMenu(rect, menu);
@@ -607,6 +614,34 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             }
 
             return foldout;
+        }
+
+        internal static void DrawWarningHeader(Rect rect, string content, Action menu)
+        {
+            Rect labelRect = rect;
+            labelRect.x += EditorGUIUtility.singleLineHeight;
+            labelRect.width = rect.width - EditorGUIUtility.singleLineHeight;
+
+            GUIStyle labelStyle = GetStyle(StyleName.LabelFoldout);
+            Color initialColor = labelStyle.normal.textColor;
+
+            labelStyle.normal.textColor = new Color(1f, 0.35f, 0.35f, 1f);
+            EditorGUI.LabelField(labelRect, content, labelStyle);
+            labelStyle.normal.textColor = initialColor;
+
+            Event e = Event.current;
+
+            if (e.type == EventType.MouseDown)
+            {
+                if (rect.Contains(e.mousePosition))
+                {
+                    if (e.button != 0 && menu != null)
+                    {
+                        menu();
+                        e.Use();
+                    }
+                }
+            }
         }
 
         internal static bool DrawHeader(Rect rect, string content, bool foldout)

@@ -1,0 +1,21 @@
+{
+    "name": "LoadTimeAnalyzer.Tests.Editor",
+    "rootNamespace": "",
+    "references": [
+        "LoadTimeAnalyzer",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "GraphRuntime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

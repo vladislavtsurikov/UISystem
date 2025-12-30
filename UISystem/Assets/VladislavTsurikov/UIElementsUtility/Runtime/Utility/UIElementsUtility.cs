@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine.UIElements;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.UIElementsUtility.Runtime.Utility
 {

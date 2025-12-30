@@ -7,6 +7,7 @@ using VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.ColliderSystem;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.RendererData;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data
 {

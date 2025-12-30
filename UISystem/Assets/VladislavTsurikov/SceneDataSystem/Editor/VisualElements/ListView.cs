@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 using VladislavTsurikov.UIElementsUtility.Editor.Groups.SelectableColors;
 using VladislavTsurikov.UIElementsUtility.Runtime;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 using VisualElementExtensions = VladislavTsurikov.UIElementsUtility.Runtime.Utility.VisualElementExtensions;
 
 namespace VladislavTsurikov.SceneDataSystem.Editor.VisualElements

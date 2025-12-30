@@ -12,7 +12,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 {
     public class ReorderableListComponentEditor : ElementEditor
     {
-        private readonly IMGUIInspectorFieldsDrawer _fieldsRenderer = new(
+        protected readonly IMGUIInspectorFieldsDrawer _fieldsRenderer = new(
             new List<Type> { typeof(Runtime_Core_Component), typeof(Element) }
         );
 

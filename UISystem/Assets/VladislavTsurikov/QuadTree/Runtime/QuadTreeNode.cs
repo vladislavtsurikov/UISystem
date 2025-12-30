@@ -5,6 +5,7 @@ using OdinSerializer;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.QuadTree.Runtime
 {
@@ -89,7 +90,7 @@ namespace VladislavTsurikov.QuadTree.Runtime
             //List<T> results = new List<T>();
 
             // this quad contains items that are not entirely contained by
-            // it's four sub-quads. Iterate through the items in this quad 
+            // it's four sub-quads. Iterate through the items in this quad
             // to see if they intersect.
             foreach (T item in _contentList)
             {
@@ -125,7 +126,7 @@ namespace VladislavTsurikov.QuadTree.Runtime
             //List<T> results = new List<T>();
 
             // this quad contains items that are not entirely contained by
-            // it's four sub-quads. Iterate through the items in this quad 
+            // it's four sub-quads. Iterate through the items in this quad
             // to see if they intersect.
             foreach (T item in _contentList)
             {
@@ -151,10 +152,10 @@ namespace VladislavTsurikov.QuadTree.Runtime
                     break;
                 }
 
-                // Case 2: Sub-quad completely contained by search area 
+                // Case 2: Sub-quad completely contained by search area
                 // if the query area completely contains a sub-quad,
-                // just add all the contents of that quad and it's children 
-                // to the result set. You need to continue the loop to test 
+                // just add all the contents of that quad and it's children
+                // to the result set. You need to continue the loop to test
                 // the other quads
                 if (queryArea.Contains(node.Rect))
                 {
@@ -206,7 +207,7 @@ namespace VladislavTsurikov.QuadTree.Runtime
 
             // if we make it to here, either
             // 1) none of the subnodes completely contained the item. or
-            // 2) we're at the smallest subnode size allowed 
+            // 2) we're at the smallest subnode size allowed
             // add the item to this node's contents.
             _contentList.Add(item);
         }
@@ -227,7 +228,7 @@ namespace VladislavTsurikov.QuadTree.Runtime
         /// </summary>
         private void CreateSubNodes()
         {
-            // the smallest subnode has an area 
+            // the smallest subnode has an area
             if (_rect.height * _rect.width <= 10)
             {
                 return;

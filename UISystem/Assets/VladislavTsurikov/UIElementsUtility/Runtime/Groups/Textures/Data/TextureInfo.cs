@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.UIElementsUtility.Runtime.Groups.Textures
 {

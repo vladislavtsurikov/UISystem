@@ -13,6 +13,7 @@ using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.DefaultCompo
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Utility;
 using VladislavTsurikov.ReflectionUtility;
+using VladislavTsurikov.Utility.Runtime;
 using Object = UnityEngine.Object;
 using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 
@@ -36,7 +37,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group
         private bool _selected;
 
         [OdinSerialize]
-        public AdvancedElementList<Prototype> PrototypeList = new();
+        public ObservableList<Prototype> PrototypeList = new();
 
         public DefaultGroupComponentStack DefaultGroupComponentStack => _defaultGroupComponentStack;
 

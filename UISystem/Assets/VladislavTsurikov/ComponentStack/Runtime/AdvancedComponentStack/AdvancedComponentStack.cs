@@ -4,6 +4,7 @@ using OdinSerializer.Utilities;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.ComponentStack.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility.Runtime;
+using VladislavTsurikov.Utility.Runtime;
 
 namespace VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack
 {
@@ -13,7 +14,7 @@ namespace VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack
         /// <summary>
         ///     A public link to the list is required for UnityEditorInternal.ReorderableList
         /// </summary>
-        public AdvancedElementList<T> ReorderableElementList => _elementList;
+        public ObservableList<T> List => _elementList;
 
         private protected override void CreateElements()
         {

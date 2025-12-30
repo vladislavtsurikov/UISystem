@@ -49,7 +49,7 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         {
         }
 
-        protected virtual void FirstSetupComponent(object[] setupData = null)
+        protected virtual void OnFirstSetupComponent(object[] setupData = null)
         {
         }
 
@@ -79,7 +79,7 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
 
             if (!IsSetup)
             {
-                FirstSetupComponent(setupData);
+                OnFirstSetupComponent(setupData);
             }
 
             SetupComponent(setupData);

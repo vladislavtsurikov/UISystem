@@ -11,6 +11,7 @@ using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.Rendere
 using VladislavTsurikov.SceneDataSystem.Runtime;
 using VladislavTsurikov.SceneDataSystem.Runtime.StreamingUtility;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.ColliderSystem
 {

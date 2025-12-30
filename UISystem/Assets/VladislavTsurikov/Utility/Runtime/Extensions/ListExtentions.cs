@@ -4,37 +4,17 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Random = UnityEngine.Random;
 
-namespace VladislavTsurikov.Utility.Runtime
+namespace VladislavTsurikov.Utility.Runtime.Extensions
 {
     public static class ListExtensions
     {
-        public static T[] GetInternalArray<T>(this List<T> list)
-        {
-#if ENABLE_IL2CPP || NET_STANDARD_2_0
-            return (T[])ArrayAccessor<T>.AotGetter(list);
-#else
-            return ArrayAccessor<T>.Getter(list);
-#endif
-        }
-
-        public static T GetRandomItem<T>(this List<T> items)
-        {
-            if (items == null || items.Count == 0)
-            {
-                return default;
-            }
-
-            var randomIndex = Random.Range(0, items.Count);
-            return items[randomIndex];
-        }
-
         private static class ArrayAccessor<T>
         {
 #if ENABLE_IL2CPP || NET_STANDARD_2_0
             public static readonly FieldInfo FieldInfo;
             public static readonly Func<List<T>, object> AotGetter;
 #else
-            public static readonly Func<List<T>, T[]> Getter;
+            public static readonly Func<List<T>, T[]> Getter;       
 #endif
             static ArrayAccessor()
             {
@@ -56,6 +36,26 @@ namespace VladislavTsurikov.Utility.Runtime
                 Getter = (Func<List<T>, T[]>)dm.CreateDelegate(typeof(Func<List<T>, T[]>));
 #endif
             }
+        }
+
+        public static T[] GetInternalArray<T>(this List<T> list)
+        {
+#if ENABLE_IL2CPP || NET_STANDARD_2_0
+            return (T[])ArrayAccessor<T>.AotGetter(list);
+#else
+            return ArrayAccessor<T>.Getter(list);
+#endif
+        }
+        
+        public static T GetRandomItem<T>(this List<T> items)
+        {
+            if (items == null || items.Count == 0)
+            {
+                return default;
+            }
+            
+            int randomIndex = Random.Range(0, items.Count);
+            return items[randomIndex];
         }
     }
 }

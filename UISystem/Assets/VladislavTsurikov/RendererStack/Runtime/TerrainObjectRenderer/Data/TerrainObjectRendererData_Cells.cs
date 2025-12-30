@@ -12,6 +12,7 @@ using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.Rendere
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.SceneSettings.Camera;
 using VladislavTsurikov.SceneDataSystem.Runtime.Utility;
 using VladislavTsurikov.Utility.Runtime;
+using VladislavTsurikov.Utility.Runtime.Extensions;
 
 namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data
 {

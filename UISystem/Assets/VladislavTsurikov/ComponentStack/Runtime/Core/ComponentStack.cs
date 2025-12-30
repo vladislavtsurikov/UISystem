@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
- 
 using OdinSerializer;
 using OdinSerializer.Utilities;
 using VladislavTsurikov.AttributeUtility.Runtime;
+using VladislavTsurikov.Utility.Runtime;
 
 namespace VladislavTsurikov.ComponentStack.Runtime.Core
 {
@@ -12,7 +12,7 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
     public abstract class ComponentStack<T> where T : Component
     {
         [OdinSerialize]
-        protected AdvancedElementList<T> _elementList = new();
+        protected ObservableList<T> _elementList = new();
 
         [NonSerialized]
         public bool IsDirty = true;
@@ -28,10 +28,11 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         public event Action<int> ElementAdded;
         public event Action<int> ElementRemoved;
         public event Action ListChanged;
+        public event Action<T> ElementDirtied;
 
         public void Setup(bool force = true, object[] setupData = null)
         {
-            _elementList ??= new AdvancedElementList<T>();
+            _elementList ??= new ObservableList<T>();
 
             _elementList.OnAdded += HandleElementAdded;
             _elementList.OnRemoved += HandleElementRemoved;
@@ -49,6 +50,9 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
             {
                 element.Stack = this;
                 element.SetupWithSetupData(force, setupData);
+
+                element.Dirtied -= HandleElementDirtied;
+                element.Dirtied += HandleElementDirtied;
             }
 
             IsDirty = true;
@@ -58,9 +62,10 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         {
             IsSetup = false;
 
-            for (var i = 0; i < _elementList.Count; i++)
+            foreach (var element in _elementList)
             {
-                ((IDisableable)_elementList[i]).OnDisable();
+                element.Dirtied -= HandleElementDirtied;
+                ((IDisableable)element).OnDisable();
             }
 
             _elementList.OnAdded -= HandleElementAdded;
@@ -272,6 +277,18 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         private void HandleElementRemoved(int index) => ElementRemoved?.Invoke(index);
 
         private void HandleListChanged() => ListChanged?.Invoke();
+
+        private void HandleElementDirtied(Component component)
+        {
+            T element = component as T;
+            if (element == null)
+            {
+                return;
+            }
+
+            IsDirty = true;
+            ElementDirtied?.Invoke(element);
+        }
 
         protected virtual void OnSetup()
         {
