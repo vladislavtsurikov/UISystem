@@ -28,7 +28,6 @@ namespace VladislavTsurikov.EntityDataActionFramework
 
         public void Setup()
         {
-            _data.ElementDirtied -= HandleDataDirtied;
             _data.ElementDirtied += HandleDataDirtied;
         }
 

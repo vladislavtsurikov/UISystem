@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OdinSerializer.Utilities;
 using VladislavTsurikov.AttributeUtility.Runtime;
@@ -40,6 +41,70 @@ namespace VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack
             {
                 CreateElementIfMissingType(type);
             }
+        }
+
+        public void SyncToTypes(Type[] types)
+        {
+            RemoveInvalidElements();
+
+            if (types == null)
+            {
+                return;
+            }
+
+            IsDirty = true;
+
+            Dictionary<Type, Queue<T>> pool = new Dictionary<Type, Queue<T>>();
+
+            for (int i = 0; i < _elementList.Count; i++)
+            {
+                T element = _elementList[i];
+                Type elementType = element.GetType();
+
+                if (!pool.TryGetValue(elementType, out Queue<T> queue))
+                {
+                    queue = new Queue<T>();
+                    pool.Add(elementType, queue);
+                }
+
+                queue.Enqueue(element);
+            }
+
+            List<T> newList = new List<T>(types.Length);
+
+            for (int i = 0; i < types.Length; i++)
+            {
+                Type type = types[i];
+
+                if (pool.TryGetValue(type, out Queue<T> queue) && queue.Count > 0)
+                {
+                    newList.Add(queue.Dequeue());
+                    continue;
+                }
+
+                int beforeCount = _elementList.Count;
+
+                Create(type);
+
+                int afterCount = _elementList.Count;
+                if (afterCount > beforeCount)
+                {
+                    newList.Add(_elementList[afterCount - 1]);
+                }
+            }
+
+            HashSet<T> keep = new HashSet<T>(newList);
+
+            for (int i = _elementList.Count - 1; i >= 0; i--)
+            {
+                if (!keep.Contains(_elementList[i]))
+                {
+                    Remove(i);
+                }
+            }
+
+            _elementList.Clear();
+            _elementList.AddRange(newList);
         }
 
         protected T CreateElementIfMissingType(Type type)

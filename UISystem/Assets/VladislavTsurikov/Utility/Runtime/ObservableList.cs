@@ -174,5 +174,16 @@ namespace VladislavTsurikov.Utility.Runtime
         {
             return _list.FindAll(match);
         }
+
+        public void AddRange(List<T> newList)
+        {
+            foreach (var item in newList)
+            {
+                _list.Add(item);
+                OnAdded?.Invoke(_list.Count - 1);
+            }
+
+            OnListChanged?.Invoke();
+        }
     }
 }

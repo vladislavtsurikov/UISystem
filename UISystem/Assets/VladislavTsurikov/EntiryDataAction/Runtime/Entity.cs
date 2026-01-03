@@ -1,4 +1,5 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
 using OdinSerializer;
 using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
 using UnityEngine;
@@ -11,10 +12,10 @@ namespace VladislavTsurikov.EntityDataActionFramework
     {
         [OdinSerialize]
         private EntityDataCollection _data = new EntityDataCollection();
-        private bool _active;
-
         [OdinSerialize]
         private EntityActionCollection _actions;
+        [NonSerialized]
+        private bool _active;
 
         internal DirtyActionRunner DirtyRunner;
 
@@ -65,24 +66,30 @@ namespace VladislavTsurikov.EntityDataActionFramework
 
         protected virtual void OnEnable()
         {
-            DirtyRunner ??= new DirtyActionRunner(this, _data, _actions);
-            DirtyRunner.Setup();
-
+            _data ??= new EntityDataCollection();
+            _data.Entity = this;
             _actions ??= new EntityActionCollection();
             _actions.Entity = this;
 
-            if (Active)
-            {
-                _data.Setup(false);
-                _actions.Setup(false);
-
-                _data.ElementAdded += HandleDataChanged;
-                _data.ElementRemoved += HandleDataChanged;
-            }
+            DirtyRunner ??= new DirtyActionRunner(this, _data, _actions);
+            DirtyRunner.Setup();
 
             CreateDefaultData();
             CreateDefaultActions();
             RefreshActions();
+
+            if (Active)
+            {
+                _data.Setup();
+                _actions.Setup();
+
+                _data.ElementAdded += HandleDataChanged;
+                _data.ElementRemoved += HandleDataChanged;
+
+                _actions.Run().Forget();
+
+                //DirtyRunner?.TriggerAll();
+            }
         }
 
         protected virtual void OnDisable()
@@ -90,21 +97,17 @@ namespace VladislavTsurikov.EntityDataActionFramework
             _data.ElementAdded -= HandleDataChanged;
             _data.ElementRemoved -= HandleDataChanged;
 
-            if (DirtyRunner != null)
-            {
-                DirtyRunner.OnDisable();
-                DirtyRunner = null;
-            }
+            _data.OnDisable();
+            _actions.OnDisable();
+
+            DirtyRunner?.OnDisable();
         }
 
         private void HandleDataChanged(int index)
         {
             RefreshActions();
 
-            if (DirtyRunner != null)
-            {
-                DirtyRunner.TriggerAll();
-            }
+            DirtyRunner?.TriggerAll();
         }
 
         private void RefreshActions()
@@ -119,23 +122,23 @@ namespace VladislavTsurikov.EntityDataActionFramework
 
         protected virtual Type[] ComponentDataTypesToCreate()
         {
-            return Array.Empty<Type>();
+            return null;
         }
 
         protected virtual Type[] ActionTypesToCreate()
         {
-            return Array.Empty<Type>();
+            return null;
         }
 
         private void CreateDefaultData()
         {
             Type[] types = ComponentDataTypesToCreate();
-            if (types == null || types.Length == 0)
+            if (types == null)
             {
                 return;
             }
 
-            _data.CreateIfMissingType(types);
+            _data.SyncToTypes(types);
         }
 
         private void CreateDefaultActions()
@@ -146,12 +149,12 @@ namespace VladislavTsurikov.EntityDataActionFramework
             }
 
             Type[] types = ActionTypesToCreate();
-            if (types == null || types.Length == 0)
+            if (types == null)
             {
                 return;
             }
 
-            _actions.CreateComponentsIfMissingType(types);
+            _actions.SyncToTypes(types);
         }
     }
 }

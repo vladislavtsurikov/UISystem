@@ -23,7 +23,12 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 return;
             }
 
+            EditorGUI.BeginChangeCheck();
             _fieldsRenderer.DrawFields(Target, rect);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Target.MarkDirty();
+            }
         }
 
         public virtual float GetElementHeight(int index)
@@ -35,6 +40,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
             return _fieldsRenderer.GetFieldsHeight(Target);
         }
+
     }
 }
 #endif

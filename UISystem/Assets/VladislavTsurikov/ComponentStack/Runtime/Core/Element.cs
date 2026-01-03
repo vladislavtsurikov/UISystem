@@ -23,6 +23,11 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         [field: NonSerialized]
         public bool IsHappenedReset { get; internal set; }
 
+        [NonSerialized]
+        private bool _isDirty;
+
+        public bool IsDirty => _isDirty;
+
         void IDisableable.OnDisable()
         {
             IsSetup = false;
@@ -87,5 +92,20 @@ namespace VladislavTsurikov.ComponentStack.Runtime.Core
         }
 
         internal void OnReset(Element oldElement) => OnResetElement(oldElement);
+
+        public void MarkDirty()
+        {
+            _isDirty = true;
+            OnDirtied();
+        }
+
+        internal void ClearDirtyInternal()
+        {
+            _isDirty = false;
+        }
+
+        protected virtual void OnDirtied()
+        {
+        }
     }
 }
