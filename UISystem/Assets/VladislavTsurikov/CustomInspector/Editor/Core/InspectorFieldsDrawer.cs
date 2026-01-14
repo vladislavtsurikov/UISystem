@@ -75,7 +75,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             fields = fields.OrderBy(field =>
             {
                 var orderAttribute = field.GetCustomAttribute<OrderAttribute>();
-                return orderAttribute?.Order ?? int.MaxValue;
+                return orderAttribute?.Value ?? int.MaxValue;
             }).ToArray();
 
             processedFields = new List<ProcessedField>(fields.Length);
@@ -117,7 +117,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 return true;
             }
 
-            FieldInfo conditionField = target.GetType().GetField(showIfAttribute.FieldName,
+            FieldInfo conditionField = target.GetType().GetField(showIfAttribute.ConditionMemberName,
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             if (conditionField == null)
@@ -126,7 +126,30 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             }
 
             object conditionValue = conditionField.GetValue(target);
-            return Equals(conditionValue, showIfAttribute.Value);
+            bool result = IsTruthy(conditionValue);
+            return showIfAttribute.Inverse ? !result : result;
+        }
+
+        private bool IsTruthy(object value)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+
+            if (value is bool boolValue)
+            {
+                return boolValue;
+            }
+
+            // For UnityEngine.Object types, check if it's not null
+            if (value is UnityEngine.Object unityObject)
+            {
+                return unityObject != null;
+            }
+
+            // For other types, non-null is considered truthy
+            return true;
         }
 
         protected sealed class ProcessedField
