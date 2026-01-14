@@ -30,6 +30,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
         private List<object> _keys;
         private List<object> _values;
         private Vector2 _scrollPosition;
+        private bool _isAddingElement;
+        private object _newKey;
+        private object _newValue;
 
         public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
@@ -79,7 +82,28 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
             Rect headerRect = new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight);
 
-            Foldout = EditorGUI.Foldout(headerRect, Foldout, $"{label.text} (Count: {count})", true);
+            // Button + on the right
+            float addButtonWidth = 25;
+            Rect addButtonRect = new Rect(headerRect.xMax - addButtonWidth, headerRect.y, addButtonWidth, headerRect.height);
+            if (GUI.Button(addButtonRect, "+"))
+            {
+                _isAddingElement = !_isAddingElement;
+                if (_isAddingElement)
+                {
+                    _newKey = CreateDefaultValue(_keyType);
+                    _newValue = CreateDefaultValue(_valueType);
+                }
+            }
+
+            // Items count in the middle
+            string countText = $"{count} items";
+            Vector2 countSize = EditorStyles.label.CalcSize(new GUIContent(countText));
+            Rect countRect = new Rect(headerRect.xMax - addButtonWidth - countSize.x - 10, headerRect.y, countSize.x, headerRect.height);
+            EditorGUI.LabelField(countRect, countText);
+
+            // Foldout on the left
+            Rect foldoutRect = new Rect(headerRect.x, headerRect.y, countRect.x - headerRect.x - 5, headerRect.height);
+            Foldout = EditorGUI.Foldout(foldoutRect, Foldout, label.text, true);
 
             if (!Foldout)
             {
@@ -90,27 +114,17 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
             EditorGUI.indentLevel++;
 
-            float buttonHeight = EditorGUIUtility.singleLineHeight;
-            Rect addButtonRect = new Rect(contentRect.x, contentRect.y, contentRect.width, buttonHeight);
-
-            if (GUI.Button(addButtonRect, "Add Element"))
+            // Draw add element form if in adding mode
+            if (_isAddingElement)
             {
-                object defaultKey = CreateDefaultValue(_keyType);
-                object defaultValue = CreateDefaultValue(_valueType);
+                float addFormHeight = GetAddFormHeight();
+                Rect addFormRect = new Rect(contentRect.x, contentRect.y, contentRect.width, addFormHeight);
 
-                var addMethod = dictionaryType.GetMethod("Add");
-                try
-                {
-                    addMethod.Invoke(value, new[] { defaultKey, defaultValue });
-                }
-                catch
-                {
-                    Debug.LogWarning("Failed to add element. Key might already exist.");
-                }
+                DrawAddForm(addFormRect, dictionaryType, value);
+
+                contentRect.y += addFormHeight + EditorGUIUtility.standardVerticalSpacing;
+                contentRect.height -= addFormHeight + EditorGUIUtility.standardVerticalSpacing;
             }
-
-            contentRect.y += buttonHeight + EditorGUIUtility.standardVerticalSpacing;
-            contentRect.height -= buttonHeight + EditorGUIUtility.standardVerticalSpacing;
 
             float scrollViewHeight = contentRect.height;
             float totalContentHeight = CalculateTotalContentHeight();
@@ -132,31 +146,29 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             for (int i = 0; i < _keys.Count; i++)
             {
                 float elementHeight = GetElementHeight(i);
-                Rect elementRect = new Rect(0, currentY, viewRect.width - 40, elementHeight);
+                float deleteButtonWidth = 20;
+                Rect elementRect = new Rect(0, currentY, viewRect.width - deleteButtonWidth - 4, elementHeight);
 
                 GUI.Box(elementRect, GUIContent.none, EditorStyles.helpBox);
 
                 float keyHeight = GetFieldHeight(_keyType, _keys[i]);
                 float valueHeight = GetFieldHeight(_valueType, _values[i]);
 
-                Rect keyLabelRect = new Rect(elementRect.x + 4, elementRect.y + 2, 50, EditorGUIUtility.singleLineHeight);
-                EditorGUI.LabelField(keyLabelRect, "Key:");
-
-                Rect keyFieldRect = new Rect(keyLabelRect.xMax + 4, keyLabelRect.y, elementRect.width - 60 - 50, keyHeight);
-                object newKey = DrawField(keyFieldRect, _keyType, _keys[i]);
-
-                Rect valueLabelRect = new Rect(elementRect.x + 4, keyFieldRect.yMax + 2, 50, EditorGUIUtility.singleLineHeight);
-                EditorGUI.LabelField(valueLabelRect, "Value:");
-
-                Rect valueFieldRect = new Rect(valueLabelRect.xMax + 4, valueLabelRect.y, elementRect.width - 60 - 50, valueHeight);
-                object newValue = DrawField(valueFieldRect, _valueType, _values[i]);
-
-                Rect removeButtonRect = new Rect(elementRect.xMax + 4, elementRect.y, 30, EditorGUIUtility.singleLineHeight);
-                if (GUI.Button(removeButtonRect, "X"))
+                // Delete button in top-right corner
+                Rect removeButtonRect = new Rect(elementRect.xMax + 4, elementRect.y + 2, deleteButtonWidth, 18);
+                if (GUI.Button(removeButtonRect, "×"))
                 {
                     keyToRemove = _keys[i];
                     shouldRemove = true;
                 }
+
+                // Key field at the top
+                Rect keyFieldRect = new Rect(elementRect.x + 4, elementRect.y + 2, elementRect.width - 8, keyHeight);
+                object newKey = DrawField(keyFieldRect, _keyType, _keys[i]);
+
+                // Value field below key with small indent
+                Rect valueFieldRect = new Rect(elementRect.x + 8, keyFieldRect.yMax + 2, elementRect.width - 12, valueHeight);
+                object newValue = DrawField(valueFieldRect, _valueType, _values[i]);
 
                 if (!Equals(newKey, _keys[i]))
                 {
@@ -178,7 +190,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                     indexer.SetValue(value, newValue, new[] { newKey });
                 }
 
-                currentY += elementHeight + EditorGUIUtility.standardVerticalSpacing;
+                currentY += elementHeight + 2; // Minimal spacing between elements
             }
 
             if (shouldRemove && keyToRemove != null)
@@ -219,7 +231,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             float totalHeight = 0;
             for (int i = 0; i < _keys.Count; i++)
             {
-                totalHeight += GetElementHeight(i) + EditorGUIUtility.standardVerticalSpacing;
+                totalHeight += GetElementHeight(i) + 2; // Minimal spacing between elements
             }
             return totalHeight;
         }
@@ -234,11 +246,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             float keyHeight = GetFieldHeight(_keyType, _keys[index]);
             float valueHeight = GetFieldHeight(_valueType, _values[index]);
 
-            float height = 4;
-            height += EditorGUIUtility.singleLineHeight;
-            height += keyHeight + 2;
-            height += EditorGUIUtility.singleLineHeight;
-            height += valueHeight + 2;
+            // Top padding + key height + spacing + value height + bottom padding
+            float height = 4 + keyHeight + 2 + valueHeight + 2;
 
             return height;
         }
@@ -336,6 +345,75 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             }
 
             return value;
+        }
+
+        private float GetAddFormHeight()
+        {
+            float keyHeight = GetFieldHeight(_keyType, _newKey);
+            float valueHeight = GetFieldHeight(_valueType, _newValue);
+
+            // Box padding + Key label + key field + Value label + value field + buttons + spacing
+            return 8 + EditorGUIUtility.singleLineHeight + keyHeight + 4 + EditorGUIUtility.singleLineHeight + valueHeight + 4;
+        }
+
+        private void DrawAddForm(Rect rect, Type dictionaryType, object dictionary)
+        {
+            GUI.Box(rect, GUIContent.none, EditorStyles.helpBox);
+
+            float currentY = rect.y + 4;
+            float buttonWidth = 25;
+            float spacing = 4;
+
+            // Confirm button (✓)
+            Rect confirmButtonRect = new Rect(rect.xMax - buttonWidth - spacing - buttonWidth - spacing, currentY, buttonWidth, EditorGUIUtility.singleLineHeight);
+            if (GUI.Button(confirmButtonRect, "✓"))
+            {
+                var addMethod = dictionaryType.GetMethod("Add");
+                var containsKeyMethod = dictionaryType.GetMethod("ContainsKey");
+
+                bool keyExists = (bool)containsKeyMethod.Invoke(dictionary, new[] { _newKey });
+                if (!keyExists)
+                {
+                    try
+                    {
+                        addMethod.Invoke(dictionary, new[] { _newKey, _newValue });
+                        _isAddingElement = false;
+                    }
+                    catch
+                    {
+                        Debug.LogWarning("Failed to add element.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Key already exists.");
+                }
+            }
+
+            // Cancel button (×)
+            Rect cancelButtonRect = new Rect(rect.xMax - buttonWidth - spacing, currentY, buttonWidth, EditorGUIUtility.singleLineHeight);
+            if (GUI.Button(cancelButtonRect, "×"))
+            {
+                _isAddingElement = false;
+            }
+
+            // Key label and field
+            Rect keyLabelRect = new Rect(rect.x + 4, currentY, 40, EditorGUIUtility.singleLineHeight);
+            EditorGUI.LabelField(keyLabelRect, "Key:");
+
+            float keyHeight = GetFieldHeight(_keyType, _newKey);
+            Rect keyFieldRect = new Rect(keyLabelRect.xMax + 4, currentY, confirmButtonRect.x - keyLabelRect.xMax - 8, keyHeight);
+            _newKey = DrawField(keyFieldRect, _keyType, _newKey);
+
+            currentY += keyHeight + 4;
+
+            // Value label and field
+            Rect valueLabelRect = new Rect(rect.x + 4, currentY, 40, EditorGUIUtility.singleLineHeight);
+            EditorGUI.LabelField(valueLabelRect, "Value:");
+
+            float valueHeight = GetFieldHeight(_valueType, _newValue);
+            Rect valueFieldRect = new Rect(valueLabelRect.xMax + 4, currentY, rect.width - valueLabelRect.xMax - 8, valueHeight);
+            _newValue = DrawField(valueFieldRect, _valueType, _newValue);
         }
 
         private static object EnsureFieldInstance(Type fieldType, object value)
