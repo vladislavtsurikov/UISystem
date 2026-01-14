@@ -71,7 +71,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 _excludedDeclaringTypes.ToArray()
             );
 
-            // Sort fields by OrderAttribute
             fields = fields.OrderBy(field =>
             {
                 var orderAttribute = field.GetCustomAttribute<OrderAttribute>();
@@ -85,7 +84,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 TFieldDrawer drawer = FieldDrawerResolver<TFieldDrawer>.CreateDrawer(field.FieldType);
                 string fieldName = FieldUtility.GetFieldLabel(field);
 
-                // Collect decorators using the resolver
                 List<TDecoratorDrawer> decorators = DecoratorDrawerResolver<TDecoratorDrawer>.CreateDrawers(field);
 
                 var tooltipAttribute = field.GetCustomAttribute<TooltipAttribute>();
@@ -117,7 +115,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 return true;
             }
 
-            FieldInfo conditionField = target.GetType().GetField(showIfAttribute.FieldName,
+            FieldInfo conditionField = target.GetType().GetField(showIfAttribute.ConditionMemberName,
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
             if (conditionField == null)
