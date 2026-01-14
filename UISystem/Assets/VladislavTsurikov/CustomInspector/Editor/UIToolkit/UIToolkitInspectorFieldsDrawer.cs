@@ -57,7 +57,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                     var recursiveElement = _recursiveFieldsDrawer.DrawRecursiveFields(
                         value,
                         field,
-                        (obj, cont) => DrawFieldsRecursive(obj, cont));
+                        DrawFieldsRecursive);
 
                     container.Add(recursiveElement);
                 }

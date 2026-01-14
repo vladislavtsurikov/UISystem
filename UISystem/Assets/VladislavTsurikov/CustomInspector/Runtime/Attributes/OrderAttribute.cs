@@ -5,11 +5,11 @@ namespace VladislavTsurikov.CustomInspector.Runtime
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public sealed class OrderAttribute : Attribute
     {
-        public OrderAttribute(int value)
+        public OrderAttribute(int order)
         {
-            Value = value;
+            Order = order;
         }
 
-        public int Value { get; }
+        public int Order { get; }
     }
 }

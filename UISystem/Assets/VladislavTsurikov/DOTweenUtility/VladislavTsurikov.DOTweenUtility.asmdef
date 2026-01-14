@@ -1,6 +1,7 @@
 {
     "name": "VladislavTsurikov.DOTweenUtility",
     "references": [
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:c430e8b7a6a84f5b8d2181e23c5549c3"
     ]
 }

@@ -5,13 +5,13 @@ namespace VladislavTsurikov.CustomInspector.Runtime
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public sealed class ShowIfAttribute : Attribute
     {
-        public ShowIfAttribute(string conditionMemberName, bool inverse = false)
+        public string ConditionMemberName { get; }
+        public bool Value { get; }
+
+        public ShowIfAttribute(string conditionMemberName, bool value = false)
         {
             ConditionMemberName = conditionMemberName;
-            Inverse = inverse;
+            Value = value;
         }
-
-        public string ConditionMemberName { get; }
-        public bool Inverse { get; }
     }
 }
