@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
+using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 {
@@ -41,14 +42,33 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                 return;
             }
 
-            foreach ((UIToolkitFieldDrawer drawer, FieldInfo field, var fieldName, var value) in GetProcessedFields(target))
+            foreach (var processedField in GetProcessedFields(target))
             {
+                UIToolkitFieldDrawer drawer = processedField.Drawer;
+                FieldInfo field = processedField.Field;
+                string fieldName = processedField.FieldName;
+                object value = processedField.Value;
+
                 if (drawer != null)
                 {
                     var fieldElement = drawer.CreateField(fieldName, field.FieldType, value, newValue =>
                     {
                         field.SetValue(target, newValue);
                     });
+
+                    bool isReadOnly = field.GetCustomAttribute<ReadOnlyAttribute>() != null;
+                    bool isDisabled = EvaluateDisableIfCondition(field, target);
+                    if (isReadOnly || isDisabled)
+                    {
+                        fieldElement.SetEnabled(false);
+                    }
+
+                    var guiColorAttribute = field.GetCustomAttribute<GUIColorAttribute>();
+                    if (guiColorAttribute != null)
+                    {
+                        var color = guiColorAttribute.GetColor(target);
+                        fieldElement.style.backgroundColor = new StyleColor(color);
+                    }
 
                     container.Add(fieldElement);
                 }
@@ -62,6 +82,46 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                     container.Add(recursiveElement);
                 }
             }
+        }
+
+        private bool EvaluateDisableIfCondition(FieldInfo field, object target)
+        {
+            var disableIfAttribute = field.GetCustomAttribute<DisableIfAttribute>();
+            if (disableIfAttribute == null)
+            {
+                return false;
+            }
+
+            FieldInfo conditionField = target.GetType().GetField(disableIfAttribute.ConditionMemberName,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (conditionField == null)
+            {
+                return false;
+            }
+
+            object conditionValue = conditionField.GetValue(target);
+            return IsTruthy(conditionValue);
+        }
+
+        private bool IsTruthy(object value)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+
+            if (value is bool boolValue)
+            {
+                return boolValue;
+            }
+
+            if (value is UnityEngine.Object unityObject)
+            {
+                return unityObject != null;
+            }
+
+            return true;
         }
     }
 }

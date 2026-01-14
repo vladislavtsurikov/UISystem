@@ -5,6 +5,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
+using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
@@ -33,6 +34,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
             _totalHeight = 0;
 
             DrawFieldsRecursive(target, rect, elementIndex);
+
+            // Draw buttons at the end
+            ButtonDrawer.DrawButtons(target, ref rect);
         }
 
         private void DrawFieldsRecursive(object target, Rect rect, int? elementIndex)
@@ -69,6 +73,17 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                     var fieldHeight = drawer.GetFieldsHeight(value);
                     Rect fieldRect = EditorGUI.IndentedRect(new Rect(rect.x, rect.y, rect.width, fieldHeight));
 
+                    bool isReadOnly = field.GetCustomAttribute<ReadOnlyAttribute>() != null;
+                    bool isDisabled = EvaluateDisableIfCondition(field, target);
+                    var guiColorAttribute = field.GetCustomAttribute<GUIColorAttribute>();
+
+                    Color originalColor = GUI.color;
+                    if (guiColorAttribute != null)
+                    {
+                        GUI.color = guiColorAttribute.GetColor(target);
+                    }
+
+                    EditorGUI.BeginDisabledGroup(isReadOnly || isDisabled);
                     EditorGUI.BeginChangeCheck();
 
                     var newValue = drawer.Draw(fieldRect, fieldLabel, field, value);
@@ -76,6 +91,13 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                     if (EditorGUI.EndChangeCheck())
                     {
                         field.SetValue(target, newValue);
+                    }
+
+                    EditorGUI.EndDisabledGroup();
+
+                    if (guiColorAttribute != null)
+                    {
+                        GUI.color = originalColor;
                     }
 
                     rect.y += fieldHeight;
@@ -102,6 +124,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
             _totalHeight = 0;
             CalculateFieldsHeight(target, elementIndex);
+            _totalHeight += ButtonDrawer.GetButtonsHeight(target);
             return _totalHeight;
         }
 
@@ -130,6 +153,46 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                     _totalHeight += EditorGUIUtility.singleLineHeight;
                 }
             }
+        }
+
+        private bool EvaluateDisableIfCondition(FieldInfo field, object target)
+        {
+            var disableIfAttribute = field.GetCustomAttribute<DisableIfAttribute>();
+            if (disableIfAttribute == null)
+            {
+                return false;
+            }
+
+            FieldInfo conditionField = target.GetType().GetField(disableIfAttribute.ConditionMemberName,
+                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            if (conditionField == null)
+            {
+                return false;
+            }
+
+            object conditionValue = conditionField.GetValue(target);
+            return IsTruthy(conditionValue);
+        }
+
+        private bool IsTruthy(object value)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+
+            if (value is bool boolValue)
+            {
+                return boolValue;
+            }
+
+            if (value is UnityEngine.Object unityObject)
+            {
+                return unityObject != null;
+            }
+
+            return true;
         }
     }
 }

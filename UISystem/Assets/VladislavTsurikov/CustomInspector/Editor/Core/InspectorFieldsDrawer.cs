@@ -45,6 +45,11 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                     continue;
                 }
 
+                if (EvaluateHideIfCondition(processedField.Field, target))
+                {
+                    continue;
+                }
+
                 TFieldDrawer drawer = processedField.Drawer;
 
                 var value = drawer == null || drawer.ShouldCreateInstanceIfNull()
@@ -128,6 +133,26 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             object conditionValue = conditionField.GetValue(target);
             bool result = IsTruthy(conditionValue);
             return showIfAttribute.Inverse ? !result : result;
+        }
+
+        private bool EvaluateHideIfCondition(FieldInfo field, object target)
+        {
+            var hideIfAttribute = field.GetCustomAttribute<HideIfAttribute>();
+            if (hideIfAttribute == null)
+            {
+                return false;
+            }
+
+            FieldInfo conditionField = target.GetType().GetField(hideIfAttribute.ConditionMemberName,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (conditionField == null)
+            {
+                return false;
+            }
+
+            object conditionValue = conditionField.GetValue(target);
+            return IsTruthy(conditionValue);
         }
 
         private bool IsTruthy(object value)
