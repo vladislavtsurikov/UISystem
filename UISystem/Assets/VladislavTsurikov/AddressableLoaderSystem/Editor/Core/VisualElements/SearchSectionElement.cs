@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.Core.Runtime;
 
 namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
 {
@@ -40,7 +41,7 @@ namespace VladislavTsurikov.AddressableLoaderSystem.Editor.Core
                 ? null
                 : EditorResourceLoaderRegistry.Templates.FirstOrDefault(x =>
                     x.ClassName != null &&
-                    x.ClassName.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0);
+                    SearchUtility.Contains(x.ClassName, query));
 
             RefreshSearchResults(query);
         }

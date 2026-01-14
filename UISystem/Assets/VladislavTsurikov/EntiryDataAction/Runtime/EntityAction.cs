@@ -22,7 +22,7 @@ namespace VladislavTsurikov.EntityDataActionFramework
             }
         }
 
-        protected T Get<T>() where T : ComponentData
+        protected T Get<T>() where T : NodeData
         {
             if (Entity == null)
             {
@@ -32,7 +32,7 @@ namespace VladislavTsurikov.EntityDataActionFramework
             return (T)Entity.Data.GetElement(typeof(T));
         }
 
-        protected TComponent[] GetComponentsInChildren<TComponent>(bool includeInactive) where TComponent : Component
+        protected TComponent[] GetComponentsInChildren<TComponent>(bool includeInactive) where TComponent : Node
         {
             if (Entity == null)
             {

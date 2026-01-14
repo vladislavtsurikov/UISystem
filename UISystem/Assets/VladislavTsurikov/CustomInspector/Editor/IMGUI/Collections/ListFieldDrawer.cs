@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -29,11 +30,11 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
         private Type _elementType;
         private GUIContent _label;
 
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
             IList list = value as IList;
 
-            Setup(list, fieldType, label);
+            Setup(list, field.FieldType, label);
             _reorderableList.DoList(rect);
 
             return value;
@@ -130,7 +131,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                     GUIContent.none,
                     obj,
                     _elementType,
-                    false);
+                    true);
 
                 _list[index] = newObj;
                 return;

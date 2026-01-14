@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Area;
+using VladislavTsurikov.MegaWorld.Runtime.Core.PreferencesSystem;
 using VladislavTsurikov.ReflectionUtility;
 using Random = UnityEngine.Random;
 
@@ -12,8 +14,13 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.ScatterSystem
     [Name("Random Point")]
     public class RandomPoint : Scatter
     {
+        [HideInInspector]
         public int MaxChecks = 15;
+
+        [MinMaxSlider(1f, 15f, nameof(MaxChecks), MaxValueMemberName = nameof(MaxChecksLimit), LabelOverride = "Checks")]
         public int MinChecks = 15;
+
+        public int MaxChecksLimit => PreferenceElementSingleton<ScatterPreferenceSettings>.Instance.MaxChecks;
 
         public override async UniTask Samples(CancellationToken token, BoxArea boxArea, List<Vector2> samples,
             Action<Vector2> onSpawn = null)

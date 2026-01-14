@@ -1,15 +1,18 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using OdinSerializer.Utilities;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Runtime;
+using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.CustomInspector.Editor.Core
 {
-    public abstract class InspectorFieldsDrawer<TDrawer>
-        where TDrawer : FieldDrawer
+    public abstract class InspectorFieldsDrawer<TFieldDrawer, TDecoratorDrawer>
+        where TFieldDrawer : FieldDrawer
+        where TDecoratorDrawer : DecoratorDrawer
     {
         private readonly BindingFlags _bindingFlags;
         private readonly List<Type> _excludedDeclaringTypes;
@@ -26,8 +29,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             _bindingFlags = bindingFlags;
         }
 
-        protected IEnumerable<(TDrawer fieldDrawer, FieldInfo field, string fieldName, object value)>
-            GetProcessedFields(object target)
+        protected IEnumerable<ProcessedField> GetProcessedFields(object target)
         {
             List<ProcessedField> processedFields = GetOrCreateProcessedFields(target.GetType());
 
@@ -38,13 +40,20 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                     continue;
                 }
 
-                TDrawer drawer = processedField.Drawer;
+                if (!EvaluateShowIfCondition(processedField.Field, target))
+                {
+                    continue;
+                }
+
+                TFieldDrawer drawer = processedField.Drawer;
 
                 var value = drawer == null || drawer.ShouldCreateInstanceIfNull()
                     ? FieldUtility.GetOrCreateFieldInstance(processedField.Field, target)
                     : processedField.Field.GetValue(target);
 
-                yield return (drawer, processedField.Field, processedField.FieldName, value);
+                processedField.Value = value;
+
+                yield return processedField;
             }
         }
 
@@ -62,13 +71,27 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 _excludedDeclaringTypes.ToArray()
             );
 
+            // Sort fields by OrderAttribute
+            fields = fields.OrderBy(field =>
+            {
+                var orderAttribute = field.GetCustomAttribute<OrderAttribute>();
+                return orderAttribute?.Order ?? int.MaxValue;
+            }).ToArray();
+
             processedFields = new List<ProcessedField>(fields.Length);
 
             foreach (FieldInfo field in fields)
             {
-                TDrawer drawer = FieldDrawerResolver<TDrawer>.CreateDrawer(field.FieldType);
+                TFieldDrawer drawer = FieldDrawerResolver<TFieldDrawer>.CreateDrawer(field.FieldType);
                 string fieldName = FieldUtility.GetFieldLabel(field);
-                processedFields.Add(new ProcessedField(field, fieldName, drawer));
+
+                // Collect decorators using the resolver
+                List<TDecoratorDrawer> decorators = DecoratorDrawerResolver<TDecoratorDrawer>.CreateDrawers(field);
+
+                var tooltipAttribute = field.GetCustomAttribute<TooltipAttribute>();
+                string tooltip = tooltipAttribute?.tooltip ?? "";
+
+                processedFields.Add(new ProcessedField(field, fieldName, drawer, decorators, tooltip));
             }
 
             _cachedFields[targetType] = processedFields;
@@ -86,18 +109,43 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             return field.GetAttribute<HideInInspector>() == null;
         }
 
-        private sealed class ProcessedField
+        private bool EvaluateShowIfCondition(FieldInfo field, object target)
         {
-            public ProcessedField(FieldInfo field, string fieldName, TDrawer drawer)
+            var showIfAttribute = field.GetCustomAttribute<ShowIfAttribute>();
+            if (showIfAttribute == null)
+            {
+                return true;
+            }
+
+            FieldInfo conditionField = target.GetType().GetField(showIfAttribute.FieldName,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (conditionField == null)
+            {
+                return true;
+            }
+
+            object conditionValue = conditionField.GetValue(target);
+            return Equals(conditionValue, showIfAttribute.Value);
+        }
+
+        protected sealed class ProcessedField
+        {
+            public ProcessedField(FieldInfo field, string fieldName, TFieldDrawer drawer, List<TDecoratorDrawer> decorators, string tooltip)
             {
                 Field = field;
                 FieldName = fieldName;
                 Drawer = drawer;
+                Decorators = decorators;
+                Tooltip = tooltip;
             }
 
             public FieldInfo Field { get; }
             public string FieldName { get; }
-            public TDrawer Drawer { get; }
+            public TFieldDrawer Drawer { get; }
+            public List<TDecoratorDrawer> Decorators { get; }
+            public string Tooltip { get; }
+            public object Value { get; set; }
         }
     }
 }

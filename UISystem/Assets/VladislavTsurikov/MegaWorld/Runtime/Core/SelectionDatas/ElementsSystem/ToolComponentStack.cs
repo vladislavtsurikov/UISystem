@@ -1,12 +1,12 @@
 using System;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
 {
-    public class ToolComponentStack : Component
+    public class ToolComponentStack : Node
     {
-        public ComponentStackOnlyDifferentTypes<Component> ComponentStack = new();
+        public NodeStackOnlyDifferentTypes<Node> ComponentStack = new();
 
         public Type ToolType;
 

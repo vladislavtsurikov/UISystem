@@ -5,13 +5,13 @@ using VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings;
 using VladislavTsurikov.MegaWorld.Runtime.Core.PreferencesSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings
 {
     [Serializable]
     [Name("Simple Filter Settings")]
-    public class SimpleFilter : Component
+    public class SimpleFilter : Node
     {
         [SerializeField]
         public bool UseFalloff = true;

@@ -7,8 +7,11 @@ namespace VladislavTsurikov.MegaWorld.Editor.BrushModifyTool.ModifyTransformComp
     [Name("Vegetation Rotation")]
     public class VegetationRotation : ModifyTransformComponent
     {
+        [Range(0f, 20f)]
         public float RotationXZ = 3;
+        [Range(0f, 100f)]
         public float StrengthXY = 10;
+        [Range(0f, 20f)]
         public float StrengthY = 7;
 
         public override void ModifyTransform(ref Instance instance, ref ModifyInfo modifyInfo, float moveLenght,

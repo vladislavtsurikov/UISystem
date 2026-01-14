@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.UnityUtility.Runtime;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSystem
 {
     [Serializable]
-    public class TransformComponentStack : ComponentStackOnlyDifferentTypes<TransformComponent>
+    public class TransformComponentStack : NodeStackOnlyDifferentTypes<TransformComponent>
     {
         public void ManipulateTransform(ref Instance instance, float fitness, Vector3 normal)
         {

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.MonoBehaviour
 {
-    public class ComponentStack : ComponentStackOnlyDifferentTypes<Runtime_Core_Component>
+    public class ComponentStack : NodeStackOnlyDifferentTypes<Runtime_Core_Component>
     {
         private UnityEngine.MonoBehaviour _tool;
 

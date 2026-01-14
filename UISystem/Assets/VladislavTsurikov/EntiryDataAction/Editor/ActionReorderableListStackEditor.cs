@@ -6,8 +6,8 @@ using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.IMGUIUtility.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.ReflectionUtility;
@@ -17,12 +17,12 @@ namespace VladislavTsurikov.EntityDataActionFramework.Editor
 {
     public sealed class ActionReorderableListStackEditor : ReorderableListStackEditor<Action, ActionReorderableListComponentEditor>
     {
-        private readonly ComponentStackOnlyDifferentTypes<ComponentData> _data;
+        private readonly NodeStackOnlyDifferentTypes<ComponentData> _data;
         private static GUIStyle s_missingStyle;
 
         public ActionReorderableListStackEditor(
-            AdvancedComponentStack<Action> stack,
-            ComponentStackOnlyDifferentTypes<ComponentData> data)
+            AdvancedNodeStack<Action> stack,
+            NodeStackOnlyDifferentTypes<ComponentData> data)
             : base(new GUIContent("Actions"), stack, true)
         {
             _data = data;
@@ -39,7 +39,7 @@ namespace VladislavTsurikov.EntityDataActionFramework.Editor
                     continue;
                 }
 
-                if (actionType.GetAttribute<PersistentComponentAttribute>() != null ||
+                if (actionType.GetAttribute<PersistentNodeAttribute>() != null ||
                     actionType.GetAttribute<DontShowInAddMenuAttribute>() != null)
                 {
                     continue;
@@ -57,10 +57,10 @@ namespace VladislavTsurikov.EntityDataActionFramework.Editor
                     continue;
                 }
 
-                if (Stack is ComponentStackSupportSameType<Action> componentStackWithSameTypes)
+                if (Stack is NodeStackSupportSameType<Action> componentStackWithSameTypes)
                 {
                     menu.AddItem(new GUIContent(context), false,
-                        () => componentStackWithSameTypes.CreateComponent(actionType));
+                        () => componentStackWithSameTypes.CreateNode(actionType));
                 }
                 else
                 {

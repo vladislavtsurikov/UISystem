@@ -5,23 +5,22 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.DeepCopy.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ReflectionUtility.Runtime;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 {
-    public class ReorderableListStackEditor<T, N> : ComponentStackEditor<T, N>
-        where T : Component
+    public class ReorderableListStackEditor<T, N> : NodeStackEditor<T, N>
+        where T : Node
         where N : ReorderableListComponentEditor
     {
         private readonly UnityEditorInternal.ReorderableList _reorderableList;
         private readonly GUIContent _reorderableListName;
-        private Component _copyComponentElement;
+        private Node _copyNodeElement;
         private bool _displayAddButton;
         private bool _dragging;
         protected bool CopySettings = true;
@@ -34,7 +33,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         public bool RemoveSupport = true;
         public bool ReorderSupport = true;
 
-        public ReorderableListStackEditor(AdvancedComponentStack<T> stack) : base(stack)
+        public ReorderableListStackEditor(AdvancedNodeStack<T> stack) : base(stack)
         {
             _reorderableListName = new GUIContent("");
             _reorderableList =
@@ -44,7 +43,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             SetupCallbacks();
         }
 
-        public ReorderableListStackEditor(GUIContent reorderableListName, AdvancedComponentStack<T> stack,
+        public ReorderableListStackEditor(GUIContent reorderableListName, AdvancedNodeStack<T> stack,
             bool displayHeader) : base(stack)
         {
             _reorderableListName = reorderableListName;
@@ -65,7 +64,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                     continue;
                 }
 
-                if (settingsType.GetAttribute<PersistentComponentAttribute>() != null ||
+                if (settingsType.GetAttribute<PersistentNodeAttribute>() != null ||
                     settingsType.GetAttribute<DontShowInAddMenuAttribute>() != null)
                 {
                     continue;
@@ -73,12 +72,12 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
                 var context = settingsType.GetAttribute<NameAttribute>().Name;
 
-                if (Stack is ComponentStackSupportSameType<T> componentStackWithSameTypes)
+                if (Stack is NodeStackSupportSameType<T> componentStackWithSameTypes)
                 {
                     menu.AddItem(new GUIContent(context), false,
-                        () => componentStackWithSameTypes.CreateComponent(settingsType));
+                        () => componentStackWithSameTypes.CreateNode(settingsType));
                 }
-                else if (Stack is ComponentStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
+                else if (Stack is NodeStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
                 {
                     var exists = componentStackWithDifferentTypes.HasType(settingsType);
 
@@ -108,14 +107,14 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
             if (ShowActiveToggle && componentEditor.Target.ShowActiveToggle())
             {
-                var temporaryActive = ((Component)componentEditor.Target).Active;
+                var temporaryActive = ((Node)componentEditor.Target).Active;
 
                 componentEditor.Target.SelectSettingsFoldout = CustomEditorGUI.HeaderWithMenu(headerRect,
                     componentEditor.Target.Name,
                     componentEditor.Target.SelectSettingsFoldout, ref temporaryActive,
                     () => Menu(Stack.ElementList[index], index));
 
-                ((Component)componentEditor.Target).Active = temporaryActive;
+                ((Node)componentEditor.Target).Active = temporaryActive;
             }
             else
             {
@@ -162,37 +161,37 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             }
         }
 
-        protected virtual void Menu(T component, int index)
+        protected virtual void Menu(T node, int index)
         {
             var menu = new GenericMenu();
             menu.AddItem(new GUIContent("Reset"), false, () => Stack.Reset(index));
 
-            if (RemoveSupport && component.IsDeletable())
+            if (RemoveSupport && node.IsDeletable())
             {
                 menu.AddItem(new GUIContent("Remove"), false, () => Stack.Remove(index));
             }
 
             if (DuplicateSupport)
             {
-                menu.AddItem(new GUIContent("Duplicate"), false, () => DuplicateComponent(component, index + 1));
+                menu.AddItem(new GUIContent("Duplicate"), false, () => DuplicateComponent(node, index + 1));
             }
 
             if (RenameSupport)
             {
                 menu.AddSeparator("");
-                menu.AddItem(new GUIContent("Rename"), component.Renaming, () => RenameComponent(component));
+                menu.AddItem(new GUIContent("Rename"), node.Renaming, () => RenameComponent(node));
             }
 
             if (CopySettings)
             {
                 menu.AddSeparator("");
                 menu.AddItem(new GUIContent("Copy Settings"), false,
-                    () => _copyComponentElement = DeepCopier.Copy(component));
+                    () => _copyNodeElement = DeepCopier.Copy(node));
 
-                if (_copyComponentElement != null)
+                if (_copyNodeElement != null)
                 {
                     menu.AddItem(new GUIContent("Paste Settings"), false,
-                        () => Stack.ReplaceElement((T)DeepCopier.Copy(_copyComponentElement), index));
+                        () => Stack.ReplaceElement((T)DeepCopier.Copy(_copyNodeElement), index));
                 }
                 else
                 {
@@ -205,9 +204,9 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
         private void DuplicateComponent(T component, int index)
         {
-            if (Stack is ComponentStackSupportSameType<T> componentStackWithSameTypes)
+            if (Stack is NodeStackSupportSameType<T> componentStackWithSameTypes)
             {
-                componentStackWithSameTypes.CreateComponent(component.GetType(), index);
+                componentStackWithSameTypes.CreateNode(component.GetType(), index);
                 Stack.ReplaceElement(DeepCopier.Copy(component), index);
             }
         }
@@ -516,10 +515,10 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         }
 
 
-        private void RenameComponent(Component componentElement)
+        private void RenameComponent(Node node)
         {
-            componentElement.Renaming = !componentElement.Renaming;
-            componentElement.RenamingName = componentElement.Name;
+            node.Renaming = !node.Renaming;
+            node.RenamingName = node.Name;
         }
 
         private void RenameComponentGUI(Rect rect, Element stackElement)

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.ScriptingSystem.PrototypeSettings.Scripting;
@@ -14,9 +14,9 @@ namespace VladislavTsurikov.RendererStack.Editor.TerrainObjectRenderer.Scripting
 {
     public class ScriptStackEditor : ReorderableListStackEditor<Script, ReorderableListComponentEditor>
     {
-        private readonly ComponentStackSupportSameType<Script> _componentStackSupportSameType;
+        private readonly NodeStackSupportSameType<Script> _componentStackSupportSameType;
 
-        public ScriptStackEditor(ComponentStackSupportSameType<Script> list) : base(new GUIContent(""), list, true) =>
+        public ScriptStackEditor(NodeStackSupportSameType<Script> list) : base(new GUIContent(""), list, true) =>
             _componentStackSupportSameType = list;
 
         protected override void ShowAddMenu()
@@ -39,7 +39,7 @@ namespace VladislavTsurikov.RendererStack.Editor.TerrainObjectRenderer.Scripting
                 if (_componentStackSupportSameType.GetElement(extensionType) == null)
                 {
                     menu.AddItem(new GUIContent(context), false,
-                        () => _componentStackSupportSameType.CreateComponent(extensionType));
+                        () => _componentStackSupportSameType.CreateNode(extensionType));
                 }
                 else
                 {

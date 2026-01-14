@@ -7,11 +7,11 @@ using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.P
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.Utility;
 using VladislavTsurikov.PhysicsSimulator.Runtime;
 using VladislavTsurikov.UnityUtility.Runtime;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.PhysicsEffectsTool.PhysicsEffectsSystem
 {
-    public abstract class PhysicsEffect : Component
+    public abstract class PhysicsEffect : Node
     {
         public float PositionOffsetY = 0;
         public float Size = 10.0F;

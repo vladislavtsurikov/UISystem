@@ -2,13 +2,13 @@
 using System;
 using UnityEngine;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.BrushEraseTool.PrototypeElements
 {
     [Serializable]
     [Name("Additional Erase Settings")]
-    public class AdditionalEraseSetting : Component
+    public class AdditionalEraseSetting : Node
     {
         [Range(0, 100)]
         public float Success = 100f;

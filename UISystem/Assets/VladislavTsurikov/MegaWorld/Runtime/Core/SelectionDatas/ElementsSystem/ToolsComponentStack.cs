@@ -2,14 +2,14 @@
 using System.Linq;
 using OdinSerializer;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
 {
     [Serializable]
-    public class ToolsComponentStack : ComponentStackSupportSameType<ToolComponentStack>
+    public class ToolsComponentStack : NodeStackSupportSameType<ToolComponentStack>
     {
         [OdinSerialize]
         private Type _addElementsAttributeType;
@@ -44,7 +44,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
                         continue;
                     }
 
-                    toolComponentStack.ComponentStack.CreateIfMissingType(addComponentsAttribute.Types);
+                    toolComponentStack.Nody.CreateIfMissingType(addComponentsAttribute.Types);
                 }
             }
         }
@@ -68,10 +68,10 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
                     continue;
                 }
 
-                for (var i = toolComponentStack.ComponentStack.ElementList.Count - 1; i >= 0; i--)
+                for (var i = toolComponentStack.Nody.ElementList.Count - 1; i >= 0; i--)
                 {
-                    if (toolComponentStack.ComponentStack.ElementList[i] == null ||
-                        !IsElementBelongsToTool(toolComponentStack.ComponentStack.ElementList[i], toolType))
+                    if (toolComponentStack.Nody.ElementList[i] == null ||
+                        !IsElementBelongsToTool(toolComponentStack.Nody.ElementList[i], toolType))
                     {
                         Remove(i);
                     }
@@ -105,7 +105,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
             {
                 if (globalToolSettings.ToolType == toolType)
                 {
-                    foreach (Component element in globalToolSettings.ComponentStack.ElementList)
+                    foreach (Component element in globalToolSettings.Nody.ElementList)
                     {
                         if (element.GetType() == typeElement)
                         {

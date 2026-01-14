@@ -1,8 +1,8 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.Core;
+﻿using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings.Camera.CameraSettingsSystem
 {
-    public abstract class CameraComponent : Component
+    public abstract class CameraComponent : Node
     {
     }
 }

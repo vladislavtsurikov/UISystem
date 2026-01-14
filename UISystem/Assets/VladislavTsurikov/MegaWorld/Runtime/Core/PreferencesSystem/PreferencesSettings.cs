@@ -1,8 +1,8 @@
 ﻿using System;
 using OdinSerializer;
 using UnityEditor;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack;
 using VladislavTsurikov.ScriptableObjectUtility.Runtime;
 
@@ -12,7 +12,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.PreferencesSystem
     public class PreferencesSettings : SerializedScriptableObjectSingleton<PreferencesSettings>
     {
         [OdinSerialize]
-        private ComponentStackOnlyDifferentTypes<PreferenceSettings> _stack = new();
+        private NodeStackOnlyDifferentTypes<PreferenceSettings> _stack = new();
 
 #if UNITY_EDITOR
         public IMGUIComponentStackEditor<PreferenceSettings, IMGUIElementEditor> StackEditor;

@@ -1,0 +1,210 @@
+.header {
+    padding: 10px;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 16px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 5px;
+}
+
+.header-description {
+    font-size: 11px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    color: #999999;
+}
+
+.toolbar {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.toolbar-row {
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+
+.primary-button {
+    height: 30px;
+    width: 150px;
+    margin: 2px;
+}
+
+.secondary-button {
+    height: 25px;
+    width: 150px;
+    margin: 2px;
+}
+
+.export-button {
+    height: 25px;
+    width: 180px;
+    margin: 2px;
+}
+
+.cyclic-button {
+    height: 30px;
+    width: 220px;
+    margin: 2px;
+    background-color: rgba(255, 204, 102, 0.3);
+}
+
+.warning-label {
+    background-color: rgba(255, 76, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    -unity-text-align: middle-center;
+    border-radius: 3px;
+    width: 150px;
+    margin: 2px;
+}
+
+.toggle-view-button {
+    width: 130px;
+    margin: 2px;
+}
+
+.stats-row {
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.stats-label {
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+.assembly-item {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    margin: 2px;
+    border-radius: 5px;
+}
+
+.assembly-header {
+    flex-direction: row;
+    align-items: center;
+}
+
+.assembly-name {
+    -unity-font-style: bold;
+    flex-grow: 1;
+}
+
+.assembly-name-warning {
+    -unity-font-style: bold;
+    flex-grow: 1;
+    color: rgba(255, 153, 0, 1);
+}
+
+.badge-unused {
+    background-color: rgba(255, 76, 0, 0.9);
+    color: white;
+    padding: 2px 5px;
+    -unity-text-align: middle-center;
+    border-radius: 3px;
+    width: 80px;
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+.badge-ok {
+    background-color: rgba(0, 153, 0, 0.9);
+    color: white;
+    padding: 2px 5px;
+    -unity-text-align: middle-center;
+    border-radius: 3px;
+    width: 80px;
+    font-size: 10px;
+}
+
+.remove-button {
+    width: 70px;
+}
+
+.assembly-details {
+    flex-direction: row;
+    margin-top: 3px;
+}
+
+.assembly-detail-label {
+    font-size: 10px;
+    color: #999999;
+}
+
+.dependency-list {
+    margin-top: 3px;
+    margin-left: 20px;
+}
+
+.dependency-item {
+    font-size: 10px;
+    color: #999999;
+}
+
+.cycle-container {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.cycle-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    color: rgba(255, 76, 0, 1);
+    margin-bottom: 5px;
+}
+
+.cycle-item {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.cycle-header {
+    -unity-font-style: bold;
+    color: rgba(255, 153, 0, 1);
+    margin-bottom: 3px;
+}
+
+.cycle-step {
+    margin-left: 20px;
+    margin-top: 2px;
+}
+
+.cycle-step-start {
+    margin-left: 20px;
+    margin-top: 2px;
+    -unity-font-style: bold;
+    color: rgba(255, 128, 0, 1);
+}
+
+.cycle-step-end {
+    margin-left: 20px;
+    margin-top: 2px;
+    -unity-font-style: bold;
+    color: rgba(255, 76, 0, 1);
+}
+
+.cycle-suggestion {
+    margin-left: 20px;
+    margin-top: 5px;
+    font-size: 10px;
+    -unity-font-style: italic;
+    color: #999999;
+}
+
+.info-box {
+    background-color: rgba(90, 200, 250, 0.2);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    -unity-text-align: middle-center;
+}

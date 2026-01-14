@@ -1,12 +1,12 @@
 using System;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.ScatterSystem
 {
     [Serializable]
     [Name("Scatter Settings")]
-    public class ScatterComponentSettings : Component
+    public class ScatterComponentSettings : Node
     {
         public ScatterStack ScatterStack = new();
 

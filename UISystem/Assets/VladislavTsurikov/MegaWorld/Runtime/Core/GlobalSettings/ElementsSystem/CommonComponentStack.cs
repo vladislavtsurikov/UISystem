@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
 {
     [Serializable]
-    public class CommonComponentStack : ComponentStackOnlyDifferentTypes<Runtime_Core_Component>
+    public class CommonComponentStack : NodeStackOnlyDifferentTypes<Runtime_Core_Component>
     {
         protected override void OnCreateElements()
         {

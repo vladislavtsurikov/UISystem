@@ -1,11 +1,11 @@
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.MouseActions
 {
-    public abstract class MouseAction : Component
+    public abstract class MouseAction : Node
     {
         protected GameObject GameObject;
         protected Vector3 Normal;

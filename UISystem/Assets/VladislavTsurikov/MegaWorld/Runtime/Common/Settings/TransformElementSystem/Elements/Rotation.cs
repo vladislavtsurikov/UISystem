@@ -12,8 +12,11 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
     [Name("Rotation")]
     public class Rotation : TransformComponent
     {
+        [Range(0f, 100f)]
         public float RandomizeOrientationX = 5;
+        [Range(0f, 100f)]
         public float RandomizeOrientationY = 100;
+        [Range(0f, 100f)]
         public float RandomizeOrientationZ = 5;
 
         public override void SetInstanceData(ref Instance instance, float fitness, Vector3 normal)

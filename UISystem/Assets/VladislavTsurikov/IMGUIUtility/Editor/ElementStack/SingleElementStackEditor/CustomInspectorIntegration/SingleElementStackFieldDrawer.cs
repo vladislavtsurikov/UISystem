@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 using System;
-using Assemblies.VladislavTsurikov.ComponentStack.Runtime.SingleElementStack;
+using Assemblies.VladislavTsurikov.Nody.Runtime.SingleElementStack;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;

@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 #if UNITY_LOCALIZATION
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -16,7 +17,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
     public class LocalizedStringFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
             if (value == null)
             {

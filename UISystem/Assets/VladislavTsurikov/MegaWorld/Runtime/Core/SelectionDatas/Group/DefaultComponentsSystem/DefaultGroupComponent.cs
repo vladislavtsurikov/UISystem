@@ -1,9 +1,9 @@
 using Cysharp.Threading.Tasks;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.DefaultComponentsSystem
 {
-    public class DefaultGroupComponent : Component
+    public class DefaultGroupComponent : Node
     {
         protected Group Group;
 

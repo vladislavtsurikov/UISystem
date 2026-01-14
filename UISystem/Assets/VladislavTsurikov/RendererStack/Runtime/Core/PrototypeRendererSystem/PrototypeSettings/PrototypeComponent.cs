@@ -1,8 +1,8 @@
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.PrototypeSettings
 {
-    public abstract class PrototypeComponent : Component
+    public abstract class PrototypeComponent : Node
     {
         public Prototype Prototype { get; private set; }
 

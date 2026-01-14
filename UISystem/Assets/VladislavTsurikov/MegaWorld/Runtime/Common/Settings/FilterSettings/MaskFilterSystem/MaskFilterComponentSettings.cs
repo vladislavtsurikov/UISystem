@@ -2,12 +2,12 @@ using System;
 using OdinSerializer;
 using UnityEngine;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.MaskFilterSystem
 {
     [Name("Mask Filter Settings")]
-    public class MaskFilterComponentSettings : Component
+    public class MaskFilterComponentSettings : Node
     {
         [NonSerialized]
         public MaskFilterContext FilterContext;

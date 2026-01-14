@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using System.Linq;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack;
 using VladislavTsurikov.RendererStack.Runtime.Core;
 using VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings;
@@ -10,7 +10,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.SceneSettings
 {
     public class SceneComponentStackEditor : IMGUIComponentStackEditor<SceneComponent, IMGUIElementEditor>
     {
-        public SceneComponentStackEditor(AdvancedComponentStack<SceneComponent> stack) : base(stack)
+        public SceneComponentStackEditor(AdvancedNodeStack<SceneComponent> stack) : base(stack)
         {
         }
 

@@ -1,9 +1,9 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.Core;
+﻿using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.EntityDataActionFramework;
 
 namespace Plugins.VladislavTsurikov.EntiryDataAction.Runtime
 {
-    public abstract class ComponentData : Component
+    public abstract class ComponentData : Node
     {
         public Entity Entity
         {

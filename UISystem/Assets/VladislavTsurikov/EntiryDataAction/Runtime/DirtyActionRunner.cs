@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
-using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using Action = VladislavTsurikov.ActionFlow.Runtime.Actions.Action;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.EntityDataActionFramework
 {
     public sealed class DirtyActionRunner
     {
-        private readonly ComponentStackOnlyDifferentTypes<ComponentData> _data;
+        private readonly NodeStackOnlyDifferentTypes<ComponentData> _data;
         private readonly EntityActionCollection _actions;
 
         private readonly HashSet<Type> _pendingDirtyTypes = new HashSet<Type>();
         private bool _isProcessingDirty;
         private Entity _entity;
 
-        public DirtyActionRunner(Entity entity, ComponentStackOnlyDifferentTypes<ComponentData> data, EntityActionCollection actions)
+        public DirtyActionRunner(Entity entity, NodeStackOnlyDifferentTypes<ComponentData> data, EntityActionCollection actions)
         {
             _entity = entity;
             _data = data;

@@ -7,7 +7,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.BrushModifyTool.ModifyTransformComp
     [Name("Scale")]
     public class Scale : ModifyTransformComponent
     {
+        [Range(-1f, 1f)]
+        [Tooltip("Allows you to select positive or negative scale")]
         public float Strength = 0.3f;
+
+        [Range(0f, 100f)]
+        [Tooltip("Allows you to set how strong the influence of the random will be")]
         public float StrengthRandomize = 100;
 
         public override void ModifyTransform(ref Instance spawnInfo, ref ModifyInfo modifyInfo, float moveLenght,

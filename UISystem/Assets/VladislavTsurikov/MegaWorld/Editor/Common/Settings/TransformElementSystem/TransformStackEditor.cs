@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSystem.Attributes;
@@ -40,8 +40,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.TransformElementSys
             _useSimpleComponent = false;
         }
 
-        private ComponentStackOnlyDifferentTypes<TransformComponent> ComponentStackOnlyDifferentTypes =>
-            (ComponentStackOnlyDifferentTypes<TransformComponent>)Stack;
+        private NodeStackOnlyDifferentTypes<TransformComponent> ComponentStackOnlyDifferentTypes =>
+            (NodeStackOnlyDifferentTypes<TransformComponent>)Stack;
 
         protected override void ShowAddMenu()
         {

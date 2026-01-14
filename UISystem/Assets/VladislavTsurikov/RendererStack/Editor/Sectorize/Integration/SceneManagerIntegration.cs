@@ -50,7 +50,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize.Integration
                 activeSceneSettings.SceneReference = new SceneReference(scene);
 
                 var sectorizeStreamingScenesComponent =
-                    (SectorizeStreamingScenes)sceneCollection.SceneTypeComponentStack.CreateComponentIfMissingType(
+                    (SectorizeStreamingScenes)sceneCollection.SceneTypeComponentStack.CreateNodeIfMissingType(
                         typeof(SectorizeStreamingScenes));
 
                 foreach (Sector sector in
@@ -67,7 +67,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize.Integration
 
             if (profile.BuildSceneCollectionStack.ElementList.Count == 0)
             {
-                return (DefaultBuildSceneCollection)profile.BuildSceneCollectionStack.CreateComponent(
+                return (DefaultBuildSceneCollection)profile.BuildSceneCollectionStack.CreateNode(
                     typeof(DefaultBuildSceneCollection));
             }
 
@@ -77,7 +77,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize.Integration
             }
 
             var buildSceneCollection =
-                (DefaultBuildSceneCollection)profile.BuildSceneCollectionStack.CreateComponent(
+                (DefaultBuildSceneCollection)profile.BuildSceneCollectionStack.CreateNode(
                     typeof(DefaultBuildSceneCollection));
             profile.BuildSceneCollectionStack.ActiveBuildSceneCollection = buildSceneCollection;
             return buildSceneCollection;
@@ -113,7 +113,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize.Integration
             Scene scene = SectorLayerManager.Instance.SceneDataManager.Scene;
 
             SceneCollection newSceneCollection =
-                buildSceneCollection.SceneCollectionStack.CreateComponent(typeof(SceneCollection));
+                buildSceneCollection.SceneCollectionStack.CreateNode(typeof(SceneCollection));
             newSceneCollection.Name = scene.name;
 
             return newSceneCollection;

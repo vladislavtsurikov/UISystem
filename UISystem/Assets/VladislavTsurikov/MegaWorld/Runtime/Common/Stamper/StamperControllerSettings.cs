@@ -1,12 +1,12 @@
 ﻿using System;
  
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Stamper
 {
     [Name("Stamper Tool Controller")]
-    public class StamperControllerSettings : Component
+    public class StamperControllerSettings : Node
     {
         public bool AutoRespawn;
         public float DelayAutoRespawn = 0.1f;

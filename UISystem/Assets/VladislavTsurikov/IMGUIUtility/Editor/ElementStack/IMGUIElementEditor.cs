@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
 {
     public class IMGUIElementEditor : ElementEditor
     {
         private readonly IMGUIInspectorFieldsDrawer _fieldsDrawer = new(
-            new List<Type> { typeof(Runtime_Core_Component), typeof(Element) }
+            new List<Type> { typeof(Node), typeof(Element) }
         );
 
         public virtual void OnGUI()

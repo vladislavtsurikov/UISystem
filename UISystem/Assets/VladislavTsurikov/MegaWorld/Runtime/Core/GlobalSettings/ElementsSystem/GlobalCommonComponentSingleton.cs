@@ -1,8 +1,8 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.Core;
+﻿using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
 {
-    public static class GlobalCommonComponentSingleton<T> where T : Component
+    public static class GlobalCommonComponentSingleton<T> where T : Node
     {
         private static T _instance;
 

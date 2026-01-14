@@ -43,7 +43,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Templates
             filterSettings.MaskFilterComponentSettings.MaskFilterStack.Clear();
 
             var noiseFilter =
-                (NoiseFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateComponent(
+                (NoiseFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateNode(
                     typeof(NoiseFilter));
             noiseFilter.NoiseSettings = new NoiseSettings
             {
@@ -51,7 +51,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Templates
             };
 
             var remapFilter =
-                (MaskOperationsFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateComponent(
+                (MaskOperationsFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateNode(
                     typeof(MaskOperationsFilter));
             remapFilter.MaskOperations = MaskOperations.Remap;
             remapFilter.RemapRange.x = 0.44f;

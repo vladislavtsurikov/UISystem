@@ -4,7 +4,7 @@ using System.Threading;
 using OdinSerializer;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.RendererStack.Runtime.Common.GlobalSettings;
 using VladislavTsurikov.RendererStack.Runtime.Core.Preferences;
 using VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings.Camera.CameraSettingsSystem;
@@ -44,14 +44,14 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings.Camera
         private float _lastMaxDistance;
 
         [OdinSerialize]
-        public ComponentStackOnlyDifferentTypes<CameraComponent> CameraComponentStack = new();
+        public NodeStackOnlyDifferentTypes<CameraComponent> CameraComponentStack = new();
 
 #if UNITY_EDITOR
         public CameraComponentStackEditor CameraComponentStackEditor;
 #endif
 
         [NonSerialized]
-        public ComponentStackOnlyDifferentTypes<CameraTemporaryComponent> CameraTemporaryComponentStack;
+        public NodeStackOnlyDifferentTypes<CameraTemporaryComponent> CameraTemporaryComponentStack;
 
         public VirtualCamera(UnityEngine.Camera selectedCamera)
         {
@@ -63,12 +63,12 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings.Camera
 
         [OnDeserializing]
         private void OnDeserializing() =>
-            CameraComponentStack ??= new ComponentStackOnlyDifferentTypes<CameraComponent>();
+            CameraComponentStack ??= new NodeStackOnlyDifferentTypes<CameraComponent>();
 
         public void Setup()
         {
             OnDisable();
-            CameraTemporaryComponentStack = new ComponentStackOnlyDifferentTypes<CameraTemporaryComponent>();
+            CameraTemporaryComponentStack = new NodeStackOnlyDifferentTypes<CameraTemporaryComponent>();
             CameraTemporaryComponentStack.Setup(true, new object[] { this });
 
             CameraComponentStack.Setup();

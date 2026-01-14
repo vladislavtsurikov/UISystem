@@ -2,13 +2,13 @@ using System;
 using System.Linq;
 using System.Reflection;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 using VladislavTsurikov.RendererStack.Runtime.Core.RendererSystem;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings
 {
-    public class SceneComponentStack : ComponentStackOnlyDifferentTypes<SceneComponent>
+    public class SceneComponentStack : NodeStackOnlyDifferentTypes<SceneComponent>
     {
         protected override void OnCreateElements()
         {

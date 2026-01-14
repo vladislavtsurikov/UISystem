@@ -14,9 +14,11 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
         [Range(0.1f, 90f)]
         public float MaxSlope = 30;
 
+        [ShowIf("UniformScaleOffset", true)]
         [Min(0.1f)]
         public float MaxUniformScaleOffset = 2;
 
+        [ShowIf("UniformScaleOffset", false)]
         public Vector3 MaxScaleOffset = new(2, 2, 0.5f);
 
         public override void SetInstanceData(ref Instance instance, float fitness, Vector3 normal)

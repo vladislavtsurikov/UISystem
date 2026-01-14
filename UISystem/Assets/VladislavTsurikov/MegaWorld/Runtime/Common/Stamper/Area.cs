@@ -7,7 +7,7 @@ using VladislavTsurikov.Math.Runtime;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Area;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneDataSystem.Runtime.Utility;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 #if UNITY_EDITOR
 #endif
 

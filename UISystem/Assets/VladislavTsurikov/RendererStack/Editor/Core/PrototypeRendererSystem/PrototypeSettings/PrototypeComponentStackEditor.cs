@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.PrototypeSettings;
 
@@ -9,9 +9,9 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.PrototypeRendererSystem.Pr
     public class
         PrototypeComponentStackEditor : ReorderableListStackEditor<PrototypeComponent, PrototypeComponentEditor>
     {
-        private readonly ComponentStackOnlyDifferentTypes<PrototypeComponent> _componentStackOnlyDifferentTypes;
+        private readonly NodeStackOnlyDifferentTypes<PrototypeComponent> _componentStackOnlyDifferentTypes;
 
-        public PrototypeComponentStackEditor(ComponentStackOnlyDifferentTypes<PrototypeComponent> stack) :
+        public PrototypeComponentStackEditor(NodeStackOnlyDifferentTypes<PrototypeComponent> stack) :
             base(new GUIContent(""), stack, true) =>
             _componentStackOnlyDifferentTypes = stack;
     }

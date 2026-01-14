@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.MaskFilterSystem
 {
@@ -11,7 +11,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.Mas
     }
 
     [Serializable]
-    public class MaskFilterStack : ComponentStackSupportSameType<MaskFilter>
+    public class MaskFilterStack : NodeStackSupportSameType<MaskFilter>
     {
         public void Eval(MaskFilterContext maskFilterContext)
         {

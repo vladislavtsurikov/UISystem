@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.BrushModifyTool.ModifyTransformComponents
 {
     [Name("Modify Transform Components")]
-    public class ModifyTransformSettings : Component
+    public class ModifyTransformSettings : Node
     {
-        public ComponentStackOnlyDifferentTypes<ModifyTransformComponent> ModifyTransformComponentStack = new();
+        public NodeStackOnlyDifferentTypes<ModifyTransformComponent> ModifyTransformComponentStack = new();
 
         protected override void OnCreate() => ModifyTransformComponentStack.CreateIfMissingType(typeof(RandomizeScale));
 

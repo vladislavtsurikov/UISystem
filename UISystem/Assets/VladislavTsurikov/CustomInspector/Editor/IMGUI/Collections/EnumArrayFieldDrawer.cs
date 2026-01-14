@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -17,9 +18,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
     public class EnumArrayFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
-            Type enumType = fieldType.GetElementType();
+            Type enumType = field.FieldType.GetElementType();
             Array enumArray = (Array)value ?? Array.CreateInstance(enumType, 0);
 
             var mask = 0;

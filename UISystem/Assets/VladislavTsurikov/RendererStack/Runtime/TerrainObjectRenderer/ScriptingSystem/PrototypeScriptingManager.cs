@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.Math.Runtime;
 using VladislavTsurikov.RendererStack.Runtime.Core.Preferences;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data;

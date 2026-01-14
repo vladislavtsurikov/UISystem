@@ -1,6 +1,6 @@
 ﻿using OdinSerializer;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.PrototypeSettings;
 
@@ -13,7 +13,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Scriptin
         private float _maxDistance = 50;
 
         [OdinSerialize]
-        public ComponentStackSupportSameType<Script> ScriptStack = new();
+        public NodeStackSupportSameType<Script> ScriptStack = new();
 
         public float MaxDistance
         {

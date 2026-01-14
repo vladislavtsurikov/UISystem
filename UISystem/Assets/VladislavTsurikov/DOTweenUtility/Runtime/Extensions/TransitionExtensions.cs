@@ -1,3 +1,4 @@
+#if DOTWEEN_UTILITY
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 
@@ -19,3 +20,4 @@ namespace VladislavTsurikov.DOTweenUtility.Runtime
         }
     }
 }
+#endif

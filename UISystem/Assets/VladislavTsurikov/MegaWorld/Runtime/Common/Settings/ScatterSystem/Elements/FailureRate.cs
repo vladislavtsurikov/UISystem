@@ -12,6 +12,8 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.ScatterSystem
     [Name("Failure Rate")]
     public class FailureRate : Scatter
     {
+        [Range(0f, 100f)]
+        [Tooltip("Percentage of samples to remove (0-100%)")]
         public float Value = 70;
 
         public override async UniTask Samples(CancellationToken token, BoxArea boxArea, List<Vector2> samples,

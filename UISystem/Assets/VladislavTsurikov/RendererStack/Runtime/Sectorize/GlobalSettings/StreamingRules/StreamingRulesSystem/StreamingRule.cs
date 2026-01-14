@@ -1,11 +1,11 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+﻿using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Sectorize.GlobalSettings.StreamingRules.StreamingRulesSystem
 {
-    public abstract class StreamingRule : Component
+    public abstract class StreamingRule : Node
     {
-        protected ComponentStackOnlyDifferentTypes<StreamingRule> StreamingRuleComponentStack =>
-            (ComponentStackOnlyDifferentTypes<StreamingRule>)Stack;
+        protected NodeStackOnlyDifferentTypes<StreamingRule> StreamingRuleComponentStack =>
+            (NodeStackOnlyDifferentTypes<StreamingRule>)Stack;
     }
 }

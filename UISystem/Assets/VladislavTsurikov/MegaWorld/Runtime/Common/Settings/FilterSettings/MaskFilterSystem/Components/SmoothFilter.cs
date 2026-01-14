@@ -7,7 +7,11 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.Mas
     public class SmoothFilter : MaskFilter
     {
         private static Material _material;
+
+        [Range(0f, 10f)]
+        [Tooltip("Specifies the size of the blur kernel")]
         public float SmoothBlurRadius = 1f;
+
         public float SmoothVerticality;
 
         public static Material Material

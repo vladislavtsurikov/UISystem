@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Utility;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Editor;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group
 {
@@ -52,9 +52,9 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group
             return copiedComponents;
         }
 
-        private List<AdvancedComponentStack<Runtime_Core_Component>> GetGeneralStacks(List<IHasElementStack> objects)
+        private List<AdvancedNodeStack<Runtime_Core_Component>> GetGeneralStacks(List<IHasElementStack> objects)
         {
-            var stacks = new List<AdvancedComponentStack<Runtime_Core_Component>>();
+            var stacks = new List<AdvancedNodeStack<Runtime_Core_Component>>();
 
             foreach (IHasElementStack obj in objects)
             {
@@ -64,9 +64,9 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group
             return stacks;
         }
 
-        private List<AdvancedComponentStack<Runtime_Core_Component>> GetStacks(List<IHasElementStack> objects)
+        private List<AdvancedNodeStack<Runtime_Core_Component>> GetStacks(List<IHasElementStack> objects)
         {
-            var stacks = new List<AdvancedComponentStack<Runtime_Core_Component>>();
+            var stacks = new List<AdvancedNodeStack<Runtime_Core_Component>>();
 
             foreach (IHasElementStack obj in objects)
             foreach (ToolComponentStack toolComponentStack in obj.ComponentStackManager.ToolsComponentStack.ElementList)

@@ -2,13 +2,13 @@
 using System;
 using UnityEngine;
 using VladislavTsurikov.ColliderSystem.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.MouseActions
 {
     [Serializable]
-    [CreateComponents(new[] { typeof(MoveAlongDirection), typeof(Scale), typeof(Rotation) })]
-    public class MouseActionStack : ComponentStackOnlyDifferentTypes<MouseAction>
+    [CreateNodes(new[] { typeof(MoveAlongDirection), typeof(Scale), typeof(Rotation) })]
+    public class MouseActionStack : NodeStackOnlyDifferentTypes<MouseAction>
     {
         public bool IsAnyMouseActionActive
         {

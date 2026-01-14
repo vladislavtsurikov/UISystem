@@ -1,9 +1,9 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+﻿using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.EntityDataActionFramework;
 
 namespace Plugins.VladislavTsurikov.EntiryDataAction.Runtime
 {
-    public sealed class EntityDataCollection : ComponentStackOnlyDifferentTypes<ComponentData>
+    public sealed class EntityDataCollection : NodeStackOnlyDifferentTypes<ComponentData>
     {
         public Entity Entity { get; internal set; }
     }

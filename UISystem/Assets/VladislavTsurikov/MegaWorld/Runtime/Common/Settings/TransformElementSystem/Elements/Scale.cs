@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSystem.Attributes;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
@@ -13,7 +14,12 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
     public class Scale : TransformComponent
     {
         public bool UniformScale = true;
+
+        [MinMaxSlider(0f, 5f, nameof(MaxScale), UniformToggleFieldName = nameof(UniformScale),
+            LabelPreset = MinMaxSliderLabelPreset.ScaleZeroToFive, LabelOverride = "Scale")]
         public Vector3 MinScale = new(0.8f, 0.8f, 0.8f);
+
+        [HideInInspector]
         public Vector3 MaxScale = new(1.2f, 1.2f, 1.2f);
 
         public override void SetInstanceData(ref Instance instance, float fitness, Vector3 normal)

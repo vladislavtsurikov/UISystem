@@ -1,3 +1,4 @@
+#if DOTWEEN_UTILITY
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -38,3 +39,4 @@ namespace VladislavTsurikov.ActionFlow.Runtime.Actions.Animator
         }
     }
 }
+#endif

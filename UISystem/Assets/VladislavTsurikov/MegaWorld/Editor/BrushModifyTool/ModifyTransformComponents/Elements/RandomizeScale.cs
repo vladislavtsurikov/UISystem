@@ -1,4 +1,5 @@
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
 
@@ -7,9 +8,14 @@ namespace VladislavTsurikov.MegaWorld.Editor.BrushModifyTool.ModifyTransformComp
     [Name("Randomize Scale")]
     public class RandomizeScale : ModifyTransformComponent
     {
-        public Vector3 MaxScale = new(1.2f, 1.2f, 1.2f);
-        public Vector3 MinScale = new(0.8f, 0.8f, 0.8f);
         public bool UniformScale = true;
+
+        [MinMaxSlider(0f, 5f, nameof(MaxScale), UniformToggleFieldName = nameof(UniformScale),
+            LabelPreset = MinMaxSliderLabelPreset.ScaleZeroToFive, LabelOverride = "Scale")]
+        public Vector3 MinScale = new(0.8f, 0.8f, 0.8f);
+
+        [HideInInspector]
+        public Vector3 MaxScale = new(1.2f, 1.2f, 1.2f);
 
         public override void ModifyTransform(ref Instance instance, ref ModifyInfo modifyInfo, float moveLenght,
             Vector3 strokeDirection, float fitness, Vector3 normal)

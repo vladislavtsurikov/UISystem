@@ -2,12 +2,12 @@
 using System.Linq;
 using OdinSerializer;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
 {
-    public class GeneralComponentStack : ComponentStackOnlyDifferentTypes<Component>
+    public class GeneralComponentStack : NodeStackOnlyDifferentTypes<Node>
     {
         [OdinSerialize]
         private Type _addElementsAttributeType;

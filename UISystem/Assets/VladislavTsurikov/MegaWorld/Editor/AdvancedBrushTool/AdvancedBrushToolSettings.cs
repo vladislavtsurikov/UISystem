@@ -1,13 +1,13 @@
 #if UNITY_EDITOR
 using System;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.MegaWorld.Editor.AdvancedBrushTool
 {
     [Serializable]
     [Name("Advanced Brush Tool Settings")]
-    public class AdvancedBrushToolSettings : Component
+    public class AdvancedBrushToolSettings : Node
     {
         public float TextureTargetStrength = 1.0f;
 

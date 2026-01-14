@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using OdinSerializer;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.MonoBehaviour
 {

@@ -1,8 +1,8 @@
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
 {
-    public abstract class GlobalComponent : Component
+    public abstract class GlobalComponent : Node
     {
 #if UNITY_EDITOR
         public virtual void OnSelectedDrawGizmos()

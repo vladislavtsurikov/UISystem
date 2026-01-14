@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.ResourceController;
 using Object = UnityEngine.Object;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
 {

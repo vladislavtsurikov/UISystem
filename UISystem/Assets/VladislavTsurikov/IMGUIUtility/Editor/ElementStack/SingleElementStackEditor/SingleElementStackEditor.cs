@@ -1,19 +1,19 @@
 #if UNITY_EDITOR
 using System;
 using System.Linq;
-using Assemblies.VladislavTsurikov.ComponentStack.Runtime.SingleElementStack;
+using Assemblies.VladislavTsurikov.Nody.Runtime.SingleElementStack;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ReflectionUtility.Runtime;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackEditor
 {
-    public class SingleElementStackEditor<T, N> : ComponentStackEditor<T, N>
-        where T : Component
+    public class SingleElementStackEditor<T, N> : NodeStackEditor<T, N>
+        where T : Node
         where N : IMGUIElementEditor
     {
         private readonly SingleElementStack<T> _singleElementStack;
@@ -31,8 +31,8 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
                 Stack.IsDirty = false;
             }
 
-            Component component = _singleElementStack.GetElement();
-            var clickButtonText = component == null ? "Select" : component.Name;
+            Node node = _singleElementStack.GetElement();
+            var clickButtonText = node == null ? "Select" : node.Name;
 
             GUILayout.BeginHorizontal();
             {
@@ -46,7 +46,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
             }
             GUILayout.EndHorizontal();
 
-            if (component != null)
+            if (node != null)
             {
                 IMGUIElementEditor editor = GetElement();
 
@@ -58,13 +58,13 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
         {
             var menu = new GenericMenu();
 
-            Component component = _singleElementStack.GetElement();
+            Node node = _singleElementStack.GetElement();
 
             foreach (Type settingsType in AllTypesDerivedFrom<T>.Types.ToList())
             {
                 var context = settingsType.GetAttribute<NameAttribute>().Name;
 
-                var exists = component != null && component.GetType() == settingsType;
+                var exists = node != null && node.GetType() == settingsType;
 
                 if (!exists)
                 {

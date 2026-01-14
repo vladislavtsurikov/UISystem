@@ -1,13 +1,13 @@
 #if UNITY_EDITOR
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.MegaWorld.Editor.EditTool.ActionSystem
 {
-    [CreateComponents(new[]
+    [CreateNodes(new[]
     {
         typeof(MoveAlongDirection), typeof(Raycast), typeof(Rotate), typeof(Scale), typeof(Remove)
     })]
-    public class ActionStack : ComponentStackOnlyDifferentTypes<Action>
+    public class ActionStack : NodeStackOnlyDifferentTypes<Action>
     {
         public void CheckShortcutCombos()
         {

@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -16,7 +17,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     {
         private const float ObjectFieldSize = 50f;
 
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
             var labelWidth = EditorGUIUtility.labelWidth;
             var labelHeight = EditorGUIUtility.singleLineHeight;

@@ -1,12 +1,12 @@
 ﻿using System;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings
 {
     [Serializable]
     [Name("Spawn Detail Settings")]
-    public class SpawnDetailSettings : Component
+    public class SpawnDetailSettings : Node
     {
         public bool UseRandomOpacity = true;
         public int Density = 5;

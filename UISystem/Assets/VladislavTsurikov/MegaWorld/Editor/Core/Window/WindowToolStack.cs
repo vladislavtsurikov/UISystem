@@ -1,13 +1,13 @@
 #if UNITY_EDITOR
 using System;
 using UnityEditor;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.MegaWorld.Runtime.Core;
 using Object = UnityEngine.Object;
 
 namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
 {
-    public class WindowToolStack : ComponentStackOnlyDifferentTypes<ToolWindow>
+    public class WindowToolStack : NodeStackOnlyDifferentTypes<ToolWindow>
     {
         protected override void OnSetup()
         {

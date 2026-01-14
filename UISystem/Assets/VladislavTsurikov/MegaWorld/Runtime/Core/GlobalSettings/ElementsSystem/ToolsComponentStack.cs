@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
 {
-    public class ToolsComponentStack : ComponentStackSupportSameType<ToolComponentStack>
+    public class ToolsComponentStack : NodeStackSupportSameType<ToolComponentStack>
     {
         protected override void OnCreateElements()
         {
@@ -30,7 +30,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
 
                 foreach (Type globalSettingsType in addToolComponentsAttribute.Types)
                 {
-                    toolComponentStack.ComponentStack.CreateIfMissingType(globalSettingsType);
+                    toolComponentStack.Nody.CreateIfMissingType(globalSettingsType);
                 }
             }
         }
@@ -54,21 +54,21 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
                     continue;
                 }
 
-                for (var i = toolComponentStack.ComponentStack.ElementList.Count - 1; i >= 0; i--)
+                for (var i = toolComponentStack.Nody.ElementList.Count - 1; i >= 0; i--)
                 {
                     AddToolComponentsAttribute addComponentsAttribute =
                         toolType.GetAttribute<AddToolComponentsAttribute>();
 
-                    if (addComponentsAttribute == null || toolComponentStack.ComponentStack.ElementList[i] == null)
+                    if (addComponentsAttribute == null || toolComponentStack.Nody.ElementList[i] == null)
                     {
-                        toolComponentStack.ComponentStack.Remove(i);
+                        toolComponentStack.Nody.Remove(i);
                         continue;
                     }
 
-                    if (!addComponentsAttribute.Types.Contains(toolComponentStack.ComponentStack.ElementList[i]
+                    if (!addComponentsAttribute.Types.Contains(toolComponentStack.Nody.ElementList[i]
                             .GetType()))
                     {
-                        toolComponentStack.ComponentStack.Remove(i);
+                        toolComponentStack.Nody.Remove(i);
                     }
                 }
             }
@@ -80,7 +80,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
             {
                 if (globalToolSettings.ToolType == toolType)
                 {
-                    foreach (Component element in globalToolSettings.ComponentStack.ElementList)
+                    foreach (Component element in globalToolSettings.Nody.ElementList)
                     {
                         if (element.GetType() == typeElement)
                         {
@@ -112,7 +112,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
             {
                 if (item.ToolType == toolType)
                 {
-                    item.ComponentStack.Reset();
+                    item.Nody.Reset();
                 }
             }
         }

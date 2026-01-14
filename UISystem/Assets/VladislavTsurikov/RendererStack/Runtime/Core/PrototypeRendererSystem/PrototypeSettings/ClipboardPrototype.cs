@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Editor;
 
@@ -43,9 +43,9 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.P
             }
         }
 
-        private List<AdvancedComponentStack<PrototypeComponent>> GetStacks(List<Prototype> objects)
+        private List<AdvancedNodeStack<PrototypeComponent>> GetStacks(List<Prototype> objects)
         {
-            var stacks = new List<AdvancedComponentStack<PrototypeComponent>>();
+            var stacks = new List<AdvancedNodeStack<PrototypeComponent>>();
 
             foreach (Prototype obj in objects)
             {

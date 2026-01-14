@@ -3,8 +3,8 @@ using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Editor.IMGUI;
 using VladislavTsurikov.ReflectionUtility.Runtime;
@@ -14,7 +14,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
     public sealed class ReorderableListStackEditorFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
         public override bool CanDraw(Type fieldType) =>
-            fieldType.TryGetGenericArgument(typeof(AdvancedComponentStack<>)) != null;
+            fieldType.TryGetGenericArgument(typeof(AdvancedNodeStack<>)) != null;
 
         public override Type DrawerType => typeof(ReorderableListStackEditorFieldDrawer);
     }
@@ -70,7 +70,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
         private static object CreateEditor(object value, Type fieldType, GUIContent label)
         {
-            Type componentType = fieldType.TryGetGenericArgument(typeof(ComponentStack<>));
+            Type componentType = fieldType.TryGetGenericArgument(typeof(NodeStack<>));
 
             if (componentType == null)
             {

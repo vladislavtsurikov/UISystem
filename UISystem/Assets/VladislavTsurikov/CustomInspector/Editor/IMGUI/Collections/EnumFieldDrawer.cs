@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -14,7 +15,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
     public class EnumFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value) =>
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value) =>
             EditorGUI.EnumPopup(rect, label, (Enum)value);
     }
 }

@@ -1,0 +1,46 @@
+.reorderable-list {
+    flex-grow: 1;
+    border-width: 1px;
+    border-color: rgb(25, 25, 25);
+    background-color: rgb(56, 56, 56);
+}
+
+.reorderable-list__header {
+    background-color: rgb(56, 56, 56);
+    border-bottom-width: 1px;
+    border-color: rgb(25, 25, 25);
+}
+
+.reorderable-list__list-view {
+    background-color: rgb(42, 42, 42);
+}
+
+.reorderable-list__list-view .unity-list-view__item {
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-color: rgb(32, 32, 32);
+    padding: 2px;
+    background-color: rgb(56, 56, 56);
+}
+
+.reorderable-list__list-view .unity-list-view__item:hover {
+    background-color: rgb(66, 66, 66);
+}
+
+.reorderable-list__list-view .unity-list-view__item:selected {
+    background-color: rgb(44, 93, 135);
+}
+
+.reorderable-list__list-view .unity-list-view__item--alternative {
+    background-color: rgb(50, 50, 50);
+}
+
+.reorderable-list__list-view .unity-list-view__item--alternative:hover {
+    background-color: rgb(66, 66, 66);
+}
+
+.reorderable-list__footer {
+    background-color: rgb(56, 56, 56);
+    border-top-width: 1px;
+    border-color: rgb(25, 25, 25);
+}

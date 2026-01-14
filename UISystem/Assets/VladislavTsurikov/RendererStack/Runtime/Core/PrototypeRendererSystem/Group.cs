@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using OdinSerializer;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem
 {

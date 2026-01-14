@@ -1,0 +1,44 @@
+.component-list-element {
+    margin-bottom: 2px;
+}
+
+.component-list-element__main {
+    background-color: rgb(56, 56, 56);
+    border-width: 1px;
+    border-color: rgb(32, 32, 32);
+}
+
+.component-list-element__header {
+    flex-direction: row;
+    align-items: center;
+    min-height: 20px;
+    padding: 2px 4px;
+}
+
+.component-list-element__drag-handle {
+    width: 10px;
+    height: 14px;
+    margin-right: 4px;
+    background-color: rgba(128, 128, 128, 0.5);
+    border-width: 1px;
+    border-color: rgb(76, 76, 76);
+}
+
+.component-list-element__drag-handle:hover {
+    background-color: rgba(153, 153, 153, 0.7);
+}
+
+.component-list-element__content {
+    padding: 4px 8px 4px 20px;
+    background-color: rgb(42, 42, 42);
+}
+
+.component-list-element--selected {
+    background-color: rgb(66, 66, 66);
+    border-left-width: 2px;
+    border-left-color: rgb(68, 146, 212);
+}
+
+.component-list-element--selected .component-list-element__main {
+    background-color: rgb(66, 66, 66);
+}

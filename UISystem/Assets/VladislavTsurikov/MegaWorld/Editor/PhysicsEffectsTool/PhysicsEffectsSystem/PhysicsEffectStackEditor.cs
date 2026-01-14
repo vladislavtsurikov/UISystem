@@ -1,6 +1,6 @@
 #if UNITY_EDITOR
 using UnityEditor;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack;
 
@@ -10,7 +10,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PhysicsEffectsTool.PhysicsEffectsSy
     {
         private bool _effectSettingsFoldout = true;
 
-        public PhysicsEffectStackEditor(ComponentStackOnlyDifferentTypes<PhysicsEffect> list) : base(list)
+        public PhysicsEffectStackEditor(NodeStackOnlyDifferentTypes<PhysicsEffect> list) : base(list)
         {
             _tabStackEditor.TabWidthFromName = true;
             _tabStackEditor.Draggable = true;

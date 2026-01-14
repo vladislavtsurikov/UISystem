@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
 
@@ -9,7 +10,10 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
     [Name("Scale Clamp")]
     public class ScaleClamp : TransformComponent
     {
+        [HideInInspector]
         public float MaxScale = 2;
+
+        [MinMaxSlider(0f, 5f, nameof(MaxScale), LabelPreset = MinMaxSliderLabelPreset.ScaleZeroToFive, LabelOverride = "Scale Clamp")]
         public float MinScale = 0.5f;
 
         public override void SetInstanceData(ref Instance instance, float fitness, Vector3 normal)

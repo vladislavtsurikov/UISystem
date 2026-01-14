@@ -1,15 +1,15 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using OdinSerializer;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
 {
-    public class RendererGlobalComponentStack : Component
+    public class RendererGlobalComponentStack : Node
     {
         [OdinSerialize]
-        public ComponentStackOnlyDifferentTypes<GlobalComponent> ComponentStack = new();
+        public NodeStackOnlyDifferentTypes<GlobalComponent> ComponentStack = new();
 
         public Type RendererType;
 

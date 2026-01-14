@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.GlobalSettings.ExtensionSystem;
@@ -14,9 +14,9 @@ namespace VladislavTsurikov.RendererStack.Editor.TerrainObjectRenderer.GlobalSet
 {
     public class ExtensionStackEditor : ReorderableListStackEditor<Extension, ReorderableListComponentEditor>
     {
-        private readonly ComponentStackOnlyDifferentTypes<Extension> _componentStackOnlyDifferentTypes;
+        private readonly NodeStackOnlyDifferentTypes<Extension> _componentStackOnlyDifferentTypes;
 
-        public ExtensionStackEditor(ComponentStackOnlyDifferentTypes<Extension> list) : base(new GUIContent(), list,
+        public ExtensionStackEditor(NodeStackOnlyDifferentTypes<Extension> list) : base(new GUIContent(), list,
             true) =>
             _componentStackOnlyDifferentTypes = list;
 

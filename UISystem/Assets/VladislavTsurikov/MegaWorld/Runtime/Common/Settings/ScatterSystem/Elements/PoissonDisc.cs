@@ -20,6 +20,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.ScatterSystem
 
         private Rect _rect;
 
+        [Tooltip("Minimum distance between sample points")]
         public float PoissonDiscSize = 4;
 
         /// Create a sampler with the following parameters:

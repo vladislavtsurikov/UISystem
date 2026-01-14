@@ -6,7 +6,7 @@ using UnityEngine;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack;
 using VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.ElementsSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem.Utility;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -106,7 +106,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
 
             ToolComponentStack toolComponentStack = ToolsComponentStack.GetToolStackElement(toolType);
 
-            toolComponentStack.ComponentStack.Reset();
+            toolComponentStack.Nody.Reset();
         }
 
 #if UNITY_EDITOR

@@ -42,16 +42,16 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Templates
             filterSettings.MaskFilterComponentSettings.MaskFilterStack.Clear();
 
             var heightFilter =
-                (HeightFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateComponent(
+                (HeightFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateNode(
                     typeof(HeightFilter));
             heightFilter.MinHeight = 0;
             heightFilter.MaxHeight = 620;
             heightFilter.AddHeightFalloff = 100;
 
-            filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateComponent(typeof(SlopeFilter));
+            filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateNode(typeof(SlopeFilter));
 
             var maskOperationsFilter =
-                (MaskOperationsFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateComponent(
+                (MaskOperationsFilter)filterSettings.MaskFilterComponentSettings.MaskFilterStack.CreateNode(
                     typeof(MaskOperationsFilter));
             maskOperationsFilter.MaskOperations = MaskOperations.Remap;
             maskOperationsFilter.RemapRange = new Vector2(0.8f, 1f);

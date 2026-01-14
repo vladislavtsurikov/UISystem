@@ -1,10 +1,10 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.Core;
+﻿using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSystem
 {
     [Name("Simple Transform Settings")]
-    public class SimpleTransformComponentSettings : Component
+    public class SimpleTransformComponentSettings : Node
     {
         public TransformComponentStack TransformComponentStack = new();
 

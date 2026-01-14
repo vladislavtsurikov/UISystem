@@ -28,9 +28,15 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.MouseActions
         private float _scaleDist;
         private ScaleMode _scaleMode;
         private Vector3 _startScale;
+
+        [Tooltip("Enable snap scale")]
         public bool EnableSnapScale = false;
 
         public MouseSensitivitySettings MouseScaleSettings = new();
+
+        [ShowIf("EnableSnapScale", true)]
+        [Min(0.001f)]
+        [Tooltip("Snap scale value")]
         public float SnapScale = 1f;
 
         [OnDeserializing]

@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
 {
-    public class IMGUIComponentStackEditor<T, N> : ComponentStackEditor<T, N>
-        where T : Component
+    public class IMGUIComponentStackEditor<T, N> : NodeStackEditor<T, N>
+        where T : Node
         where N : IMGUIElementEditor
     {
-        public IMGUIComponentStackEditor(AdvancedComponentStack<T> stack) : base(stack)
+        public IMGUIComponentStackEditor(AdvancedNodeStack<T> stack) : base(stack)
         {
         }
 

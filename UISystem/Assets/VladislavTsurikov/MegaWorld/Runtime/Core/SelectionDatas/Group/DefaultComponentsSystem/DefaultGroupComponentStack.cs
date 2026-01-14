@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using OdinSerializer;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.DefaultComponentsSystem
 {
-    public class DefaultGroupComponentStack : ComponentStackOnlyDifferentTypes<Component>
+    public class DefaultGroupComponentStack : NodeStackOnlyDifferentTypes<Node>
     {
         [OdinSerialize]
         private Group _group;

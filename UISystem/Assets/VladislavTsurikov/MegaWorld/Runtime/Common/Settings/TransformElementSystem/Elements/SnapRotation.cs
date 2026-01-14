@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
 using Random = UnityEngine.Random;
@@ -11,12 +12,15 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
     [Name("Snap Rotation")]
     public class SnapRotation : TransformComponent
     {
+        [Order(0)]
+        public bool RotateAxisX;
+        [Order(1)]
+        public bool RotateAxisY = true;
+        [Order(2)]
+        public bool RotateAxisZ;
+        [Order(3)]
         [Range(0.1f, 360f)]
         public float SnapRotationAngle = 90f;
-
-        public bool RotateAxisX;
-        public bool RotateAxisY = true;
-        public bool RotateAxisZ;
 
         public override void SetInstanceData(ref Instance instance, float fitness, Vector3 normal)
         {

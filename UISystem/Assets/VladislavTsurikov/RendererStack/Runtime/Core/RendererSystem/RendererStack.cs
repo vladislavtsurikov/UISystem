@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.RendererSystem
 {
     [Serializable]
-    public class RendererStack : ComponentStackOnlyDifferentTypes<Renderer>
+    public class RendererStack : NodeStackOnlyDifferentTypes<Renderer>
     {
         public void CheckChanges()
         {

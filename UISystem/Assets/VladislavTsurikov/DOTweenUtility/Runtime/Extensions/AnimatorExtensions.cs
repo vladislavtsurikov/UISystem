@@ -1,3 +1,4 @@
+#if DOTWEEN_UTILITY
 using DG.Tweening;
 using UnityEngine;
 
@@ -62,3 +63,4 @@ namespace VladislavTsurikov.DOTweenUtility.Runtime
         }
     }
 }
+#endif

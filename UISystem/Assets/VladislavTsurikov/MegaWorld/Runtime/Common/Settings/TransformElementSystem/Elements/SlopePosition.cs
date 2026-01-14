@@ -9,6 +9,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
     [Name("Slope Position")]
     public class SlopePosition : TransformComponent
     {
+        [Range(20f, 90f)]
         public float MaxSlope = 90;
         public float PositionOffsetY = -1;
 

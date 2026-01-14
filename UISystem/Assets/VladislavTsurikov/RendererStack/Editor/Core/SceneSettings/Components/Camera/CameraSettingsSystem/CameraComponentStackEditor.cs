@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.RendererStack.Runtime.Core;
 using VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings.Camera.CameraSettingsSystem;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.RendererStack.Editor.Core.SceneSettings.Camera.CameraSettingsSystem
 {
     public class
         CameraComponentStackEditor : ReorderableListStackEditor<CameraComponent, ReorderableListComponentEditor>
     {
-        public CameraComponentStackEditor(ComponentStackOnlyDifferentTypes<CameraComponent> list) : base(
+        public CameraComponentStackEditor(NodeStackOnlyDifferentTypes<CameraComponent> list) : base(
             new GUIContent(""), list, false)
         {
         }

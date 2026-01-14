@@ -1,4 +1,5 @@
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
 
@@ -7,7 +8,11 @@ namespace VladislavTsurikov.MegaWorld.Editor.BrushModifyTool.ModifyTransformComp
     [Name("Scale Clamp")]
     public class ScaleClamp : ModifyTransformComponent
     {
+        [HideInInspector]
         public float MaxScale = 2;
+
+        [MinMaxSlider(0f, 5f, nameof(MaxScale), LabelOverride = "Scale Clamp",
+            LabelPreset = MinMaxSliderLabelPreset.ScaleZeroToFive)]
         public float MinScale = 0.5f;
 
         public override void ModifyTransform(ref Instance instance, ref ModifyInfo modifyInfo, float moveLenght,

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 using VladislavTsurikov.RendererStack.Runtime.Core.RendererSystem;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
 {
-    public class RenderersGlobalComponentStack : ComponentStackSupportSameType<RendererGlobalComponentStack>
+    public class RenderersGlobalComponentStack : NodeStackSupportSameType<RendererGlobalComponentStack>
     {
         protected override void OnCreateElements()
         {
@@ -32,7 +32,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
 
                 foreach (Type globalSettingsType in addComponentsAttribute.Types)
                 {
-                    rendererGlobalComponentStack.ComponentStack.CreateIfMissingType(globalSettingsType);
+                    rendererGlobalComponentStack.Nody.CreateIfMissingType(globalSettingsType);
                 }
             }
         }
@@ -57,21 +57,21 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
                     continue;
                 }
 
-                for (var i = rendererGlobalComponentStack.ComponentStack.ElementList.Count - 1; i >= 0; i--)
+                for (var i = rendererGlobalComponentStack.Nody.ElementList.Count - 1; i >= 0; i--)
                 {
                     AddGlobalComponentsAttribute addComponentsAttribute =
                         rendererType.GetAttribute<AddGlobalComponentsAttribute>();
 
                     if (addComponentsAttribute == null)
                     {
-                        rendererGlobalComponentStack.ComponentStack.Remove(i);
+                        rendererGlobalComponentStack.Nody.Remove(i);
                         continue;
                     }
 
                     if (!addComponentsAttribute.Types.Contains(rendererGlobalComponentStack.ComponentStack
                             .ElementList[i].GetType()))
                     {
-                        rendererGlobalComponentStack.ComponentStack.Remove(i);
+                        rendererGlobalComponentStack.Nody.Remove(i);
                     }
                 }
             }
@@ -83,7 +83,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
             {
                 if (rendererGlobalComponentStack.RendererType == rendererType)
                 {
-                    foreach (GlobalComponent element in rendererGlobalComponentStack.ComponentStack.ElementList)
+                    foreach (GlobalComponent element in rendererGlobalComponentStack.Nody.ElementList)
                     {
                         if (element.GetType() == type)
                         {

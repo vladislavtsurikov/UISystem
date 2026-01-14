@@ -1,9 +1,7 @@
 {
     "name": "VladislavTsurikov.ReflectionUtility",
     "rootNamespace": "",
-    "references": [
-        "GUID:c58cb679f31162c47bc160d1f716ecea"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

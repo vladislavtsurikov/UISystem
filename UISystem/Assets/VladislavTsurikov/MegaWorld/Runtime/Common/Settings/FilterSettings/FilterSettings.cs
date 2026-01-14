@@ -1,5 +1,5 @@
 ﻿using OdinSerializer;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.MaskFilterSystem;
 using VladislavTsurikov.ReflectionUtility;
 
@@ -12,7 +12,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings
     }
 
     [Name("Filter Settings")]
-    public class FilterSettings : Component
+    public class FilterSettings : Node
     {
         public FilterType FilterType = FilterType.MaskFilter;
 

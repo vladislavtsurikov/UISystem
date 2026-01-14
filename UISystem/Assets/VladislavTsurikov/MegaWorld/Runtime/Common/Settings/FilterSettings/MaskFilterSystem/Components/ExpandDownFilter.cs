@@ -9,6 +9,8 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings.Mas
         private const float MaxKernelSizeForNextIteration = 1;
         private static Material _material;
 
+        [Min(0.1f)]
+        [Tooltip("Kernel size for expand down filter")]
         public float KernelSize = 1f;
 
         public static Material Material

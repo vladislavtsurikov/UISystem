@@ -1,8 +1,8 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.Core;
+﻿using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.PreferencesSystem
 {
-    public abstract class PreferenceSettings : Component
+    public abstract class PreferenceSettings : Node
     {
     }
 }

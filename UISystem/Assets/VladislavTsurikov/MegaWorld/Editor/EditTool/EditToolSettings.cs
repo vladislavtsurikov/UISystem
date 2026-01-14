@@ -2,7 +2,7 @@
 
 using System;
 using OdinSerializer;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.MegaWorld.Editor.EditTool.ActionSystem;
 using VladislavTsurikov.ReflectionUtility;
 
@@ -10,7 +10,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.EditTool
 {
     [Serializable]
     [Name("Edit Tool Settings")]
-    public class EditToolSettings : Component
+    public class EditToolSettings : Node
     {
         public float SphereSize = 40;
         public float MaxDistance = 200;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Area;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.ScatterSystem
 {
-    public class ScatterStack : ComponentStackOnlyDifferentTypes<Scatter>
+    public class ScatterStack : NodeStackOnlyDifferentTypes<Scatter>
     {
         private WaitingNextFrame _waitingNextFrame;
 

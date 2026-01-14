@@ -1,8 +1,8 @@
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings.Camera.CameraTemporarySettingsSystem
 {
-    public class CameraTemporaryComponent : Component
+    public class CameraTemporaryComponent : Node
     {
         protected VirtualCamera VirtualCamera;
 

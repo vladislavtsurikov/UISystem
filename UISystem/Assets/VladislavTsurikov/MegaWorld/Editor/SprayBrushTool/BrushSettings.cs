@@ -3,12 +3,12 @@ using UnityEngine;
 using VladislavTsurikov.ColliderSystem.Runtime;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Area;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.SprayBrushTool
 {
     [Name("Brush Settings")]
-    public class BrushSettings : Component
+    public class BrushSettings : Node
     {
         [OdinSerialize]
         private float _brushSize = 100;

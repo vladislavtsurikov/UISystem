@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.DeepCopy.Runtime;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data.ColliderSystem;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.ScriptingSystem.MonoBehaviour;
@@ -12,7 +12,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data
 {
     public class TerrainObjectInstance : Instance
     {
-        private readonly ComponentStackOnlyDifferentTypes<Script> _scriptList = new();
+        private readonly NodeStackOnlyDifferentTypes<Script> _scriptList = new();
 
         public readonly int PrototypeID;
         private bool _enable = true;

@@ -4,22 +4,21 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Editor;
-using Runtime_Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
 {
-    public class TabComponentStackEditor<T, N> : ComponentStackEditor<T, N>
-        where T : Runtime_Core_Component
+    public class TabComponentStackEditor<T, N> : NodeStackEditor<T, N>
+        where T : Node
         where N : IMGUIElementEditor
     {
         protected readonly TabStackEditor _tabStackEditor;
 
-        public TabComponentStackEditor(AdvancedComponentStack<T> stack) : base(stack) =>
+        public TabComponentStackEditor(AdvancedNodeStack<T> stack) : base(stack) =>
             _tabStackEditor = new TabStackEditor(stack.List, true, false)
             {
                 AddCallback = ShowAddManu,
@@ -28,7 +27,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
                 TabWidthFromName = true
             };
 
-        protected AdvancedComponentStack<T> AdvancedComponentStack => (AdvancedComponentStack<T>)Stack;
+        protected AdvancedNodeStack<T> AdvancedNodeStack => (AdvancedNodeStack<T>)Stack;
 
         public virtual void OnTabStackGUI() => _tabStackEditor.OnGUI();
 
@@ -89,7 +88,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
                     continue;
                 }
 
-                if (settingsType.GetAttribute<PersistentComponentAttribute>() != null ||
+                if (settingsType.GetAttribute<PersistentNodeAttribute>() != null ||
                     settingsType.GetAttribute<DontShowInAddMenuAttribute>() != null)
                 {
                     continue;
@@ -97,12 +96,12 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
 
                 var context = settingsType.GetAttribute<NameAttribute>().Name;
 
-                if (Stack is ComponentStackSupportSameType<T> componentStackWithSameTypes)
+                if (Stack is NodeStackSupportSameType<T> componentStackWithSameTypes)
                 {
                     menu.AddItem(new GUIContent(context), false,
-                        () => componentStackWithSameTypes.CreateComponent(settingsType));
+                        () => componentStackWithSameTypes.CreateNode(settingsType));
                 }
-                else if (Stack is ComponentStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
+                else if (Stack is NodeStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
                 {
                     var exists = componentStackWithDifferentTypes.HasType(settingsType);
 

@@ -1,0 +1,19 @@
+{
+    "name": "VladislavTsurikov.PackageJsonSync",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4f3f15d33f84e044490b60cf8fdc046e",
+        "GUID:2b4e7b26063e47e2b635eded877157c1"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

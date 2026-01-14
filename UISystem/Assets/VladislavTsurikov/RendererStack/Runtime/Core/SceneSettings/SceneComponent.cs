@@ -1,8 +1,8 @@
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings
 {
-    public abstract class SceneComponent : Component
+    public abstract class SceneComponent : Node
     {
 #if UNITY_EDITOR
         public virtual void OnSelectedDrawGizmos()

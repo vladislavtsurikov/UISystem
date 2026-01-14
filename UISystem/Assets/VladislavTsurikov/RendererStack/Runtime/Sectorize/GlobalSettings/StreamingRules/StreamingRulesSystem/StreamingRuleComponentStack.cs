@@ -1,11 +1,11 @@
 ﻿using System;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Sectorize.GlobalSettings.StreamingRules.StreamingRulesSystem
 {
-    public class StreamingRuleComponentStack : ComponentStackOnlyDifferentTypes<StreamingRule>
+    public class StreamingRuleComponentStack : NodeStackOnlyDifferentTypes<StreamingRule>
     {
         public StreamingRuleComponentStack() => CreateAllComponents();
 
@@ -23,7 +23,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Sectorize.GlobalSettings.Strea
         {
             foreach (Type type in AllTypesDerivedFrom<StreamingRule>.Types)
             {
-                if (type.GetAttribute<PersistentComponentAttribute>() != null)
+                if (type.GetAttribute<PersistentNodeAttribute>() != null)
                 {
                     CreateElementIfMissingType(type);
                 }

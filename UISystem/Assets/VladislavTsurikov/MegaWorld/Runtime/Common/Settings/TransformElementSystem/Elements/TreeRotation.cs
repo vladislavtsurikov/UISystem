@@ -10,8 +10,11 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
     [Name("Tree Rotation")]
     public class TreeRotation : TransformComponent
     {
+        [Range(0f, 100f)]
         public float RandomizeOrientationY = 100;
+        [Range(0f, 50f)]
         public float RandomizeOrientationXZ = 3;
+        [Range(0f, 100f)]
         public float SuccessRandomizeOrientationXZ = 20;
 
         public override void SetInstanceData(ref Instance instance, float fitness, Vector3 normal)

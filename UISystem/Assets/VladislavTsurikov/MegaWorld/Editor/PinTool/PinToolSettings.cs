@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using VladislavTsurikov.Math.Runtime;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.PinTool
 {
@@ -15,7 +15,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PinTool
 
     [Serializable]
     [Name("Pin Tool Settings")]
-    public class PinToolSettings : Component
+    public class PinToolSettings : Node
     {
         #region Position
 

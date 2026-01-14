@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.EntityDataActionFramework
 {
@@ -10,7 +10,7 @@ namespace VladislavTsurikov.EntityDataActionFramework
     {
         private static readonly Dictionary<Type, Type[]> s_requiredTypesCache = new Dictionary<Type, Type[]>();
 
-        public static bool IsRequirementsMet(ComponentStackOnlyDifferentTypes<ComponentData> data, Type actionType)
+        public static bool IsRequirementsMet(NodeStackOnlyDifferentTypes<ComponentData> data, Type actionType)
         {
             if (data == null || actionType == null)
             {

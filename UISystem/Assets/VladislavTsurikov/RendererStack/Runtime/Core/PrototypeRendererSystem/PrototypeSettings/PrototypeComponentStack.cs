@@ -1,10 +1,10 @@
 ﻿using System;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.PrototypeSettings
 {
-    public class PrototypeComponentStack : ComponentStackOnlyDifferentTypes<PrototypeComponent>
+    public class PrototypeComponentStack : NodeStackOnlyDifferentTypes<PrototypeComponent>
     {
         internal void CreateAllComponents()
         {
@@ -22,7 +22,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.P
 
             foreach (Type type in rendererType.GetAttribute<AddPrototypeComponentsAttribute>().PrototypeSettings)
             {
-                if (type.GetAttribute<PersistentComponentAttribute>() != null)
+                if (type.GetAttribute<PersistentNodeAttribute>() != null)
                 {
                     CreateIfMissingType(type);
                 }

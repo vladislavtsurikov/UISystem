@@ -1,12 +1,12 @@
 using UnityEngine;
 using VladislavTsurikov.PhysicsSimulator.Runtime;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.PhysXPainter.Settings
 {
     [Name("Physics Effects")]
-    public class PhysicsEffects : Component
+    public class PhysicsEffects : Node
     {
         #region Direction
 

@@ -1,8 +1,8 @@
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.GlobalSettings.ExtensionSystem
 {
-    public abstract class Extension : Component
+    public abstract class Extension : Node
     {
     }
 }

@@ -3,13 +3,13 @@ using System;
 using UnityEngine;
 using VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.MouseActions;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool
 {
     [Serializable]
     [Name("Precise Place Tool Settings")]
-    public class PrecisePlaceToolSettings : Component
+    public class PrecisePlaceToolSettings : Node
     {
         public MouseActionStack MouseActionStack = new();
 
