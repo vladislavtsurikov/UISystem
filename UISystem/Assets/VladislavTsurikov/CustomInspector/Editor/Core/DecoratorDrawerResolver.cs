@@ -37,7 +37,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             {
                 foreach (DecoratorDrawerMatcher<TDrawer> matcher in _matchers)
                 {
-                    if (!matcher.CanProcess(attribute))
+                    if (!matcher.CanDraw(attribute))
                     {
                         continue;
                     }

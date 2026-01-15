@@ -9,9 +9,6 @@ using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
-    /// <summary>
-    /// Draws buttons for methods marked with ButtonAttribute
-    /// </summary>
     public static class ButtonDrawer
     {
         private static readonly Dictionary<Type, List<MethodInfo>> _cachedMethods = new();
@@ -105,7 +102,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
         {
             try
             {
-                // Check if method has parameters
                 ParameterInfo[] parameters = method.GetParameters();
 
                 if (parameters.Length == 0)
@@ -114,7 +110,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                 }
                 else
                 {
-                    // Check if all parameters are optional
                     bool allOptional = parameters.All(p => p.HasDefaultValue);
 
                     if (allOptional)

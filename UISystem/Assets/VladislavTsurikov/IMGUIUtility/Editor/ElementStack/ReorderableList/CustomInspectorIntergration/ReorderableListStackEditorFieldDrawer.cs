@@ -21,14 +21,14 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
     public class ReorderableListStackEditorFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
             if (value == null)
             {
                 return null;
             }
 
-            var collectionEditor = CreateEditor(value, fieldType, label);
+            var collectionEditor = CreateEditor(value, field.FieldType, label);
 
             if (collectionEditor == null)
             {
@@ -49,6 +49,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         }
 
         public override bool ShouldCreateInstanceIfNull() => true;
+
 
         public override float GetFieldsHeight(object target)
         {

@@ -2,16 +2,9 @@ using System;
 
 namespace VladislavTsurikov.CustomInspector.Runtime
 {
-    /// <summary>
-    /// Displays an information box in the inspector.
-    /// Enhanced version of HelpBoxAttribute with support for dynamic messages and conditional visibility.
-    /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
     public sealed class InfoBoxAttribute : Attribute
     {
-        /// <summary>
-        /// Create an info box with a static message
-        /// </summary>
         public InfoBoxAttribute(string message, InfoBoxMessageType messageType = InfoBoxMessageType.Info)
         {
             Message = message;
@@ -20,9 +13,6 @@ namespace VladislavTsurikov.CustomInspector.Runtime
             VisibleIfMemberName = null;
         }
 
-        /// <summary>
-        /// Create an info box with a dynamic message from a member (field/property/method)
-        /// </summary>
         public InfoBoxAttribute(string messageMemberName, InfoBoxMessageType messageType, bool isDynamic)
         {
             Message = null;
@@ -36,14 +26,8 @@ namespace VladislavTsurikov.CustomInspector.Runtime
         public InfoBoxMessageType MessageType { get; }
         public string MessageMemberName { get; }
 
-        /// <summary>
-        /// Optional condition member name for conditional visibility
-        /// </summary>
         public string VisibleIfMemberName { get; set; }
 
-        /// <summary>
-        /// Get the message to display (static or from member)
-        /// </summary>
         public string GetMessage(object target)
         {
             if (!string.IsNullOrWhiteSpace(Message))
@@ -56,10 +40,8 @@ namespace VladislavTsurikov.CustomInspector.Runtime
                 return string.Empty;
             }
 
-            // Try to get message from field/property/method
             var type = target.GetType();
 
-            // Try field
             var field = type.GetField(MessageMemberName,
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.NonPublic |
@@ -70,7 +52,6 @@ namespace VladislavTsurikov.CustomInspector.Runtime
                 return field.GetValue(target)?.ToString() ?? string.Empty;
             }
 
-            // Try property
             var property = type.GetProperty(MessageMemberName,
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.NonPublic |
@@ -81,7 +62,6 @@ namespace VladislavTsurikov.CustomInspector.Runtime
                 return property.GetValue(target)?.ToString() ?? string.Empty;
             }
 
-            // Try method
             var method = type.GetMethod(MessageMemberName,
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.NonPublic |
@@ -98,9 +78,6 @@ namespace VladislavTsurikov.CustomInspector.Runtime
             return string.Empty;
         }
 
-        /// <summary>
-        /// Check if the info box should be visible based on VisibleIfMemberName condition
-        /// </summary>
         public bool IsVisible(object target)
         {
             if (string.IsNullOrWhiteSpace(VisibleIfMemberName))
@@ -110,7 +87,6 @@ namespace VladislavTsurikov.CustomInspector.Runtime
 
             var type = target.GetType();
 
-            // Try field
             var field = type.GetField(VisibleIfMemberName,
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.NonPublic |
@@ -121,7 +97,6 @@ namespace VladislavTsurikov.CustomInspector.Runtime
                 return IsTruthy(field.GetValue(target));
             }
 
-            // Try property
             var property = type.GetProperty(VisibleIfMemberName,
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.NonPublic |
@@ -132,7 +107,6 @@ namespace VladislavTsurikov.CustomInspector.Runtime
                 return IsTruthy(property.GetValue(target));
             }
 
-            // Try method
             var method = type.GetMethod(VisibleIfMemberName,
                 System.Reflection.BindingFlags.Public |
                 System.Reflection.BindingFlags.NonPublic |

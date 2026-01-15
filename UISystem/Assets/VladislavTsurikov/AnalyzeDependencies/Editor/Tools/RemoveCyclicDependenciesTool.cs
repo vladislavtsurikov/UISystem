@@ -158,7 +158,7 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.Tools
                 string json = File.ReadAllText(asmdefPath);
                 AssemblyDefinitionData asmdefData = JsonUtility.FromJson<AssemblyDefinitionData>(json);
 
-                if (asmdefData.references == null || asmdefData.references.Length == 0)
+                if (asmdefData.references == null || asmdefData.references.Count == 0)
                     return false;
 
                 var guidToName = analyzer.GetGuidToNameMap();

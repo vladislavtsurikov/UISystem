@@ -6,7 +6,6 @@ using System.Reflection;
 using OdinSerializer.Utilities;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Runtime;
-using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.CustomInspector.Editor.Core
 {
@@ -79,7 +78,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             fields = fields.OrderBy(field =>
             {
                 var orderAttribute = field.GetCustomAttribute<OrderAttribute>();
-                return orderAttribute?.Value ?? int.MaxValue;
+                return orderAttribute?.Order ?? int.MaxValue;
             }).ToArray();
 
             processedFields = new List<ProcessedField>(fields.Length);
@@ -130,7 +129,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
 
             object conditionValue = conditionField.GetValue(target);
             bool result = IsTruthy(conditionValue);
-            return showIfAttribute.Inverse ? !result : result;
+            return showIfAttribute.Value;
         }
 
         private bool EvaluateHideIfCondition(FieldInfo field, object target)
@@ -165,13 +164,11 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 return boolValue;
             }
 
-            // For UnityEngine.Object types, check if it's not null
             if (value is UnityEngine.Object unityObject)
             {
                 return unityObject != null;
             }
 
-            // For other types, non-null is considered truthy
             return true;
         }
 

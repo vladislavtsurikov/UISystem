@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace VladislavTsurikov.Nody.Runtime.Core.Ports
 {
-    public class PortDefinitionContext : IPortDefinitionContext
+    public class PortDefinitionContext
     {
         private readonly List<NodePort> _ports = new List<NodePort>();
 
-        public IPortBuilder AddInputPort<T>(string name)
+        public PortBuilder AddInputPort<T>(string name)
         {
             return new PortBuilder(this, name, typeof(T), PortDirection.Input);
         }
 
-        public IPortBuilder AddOutputPort<T>(string name)
+        public PortBuilder AddOutputPort<T>(string name)
         {
             return new PortBuilder(this, name, typeof(T), PortDirection.Output);
         }

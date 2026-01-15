@@ -1,6 +1,6 @@
 ﻿using System;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -9,7 +9,7 @@ using UnityEngine;
 namespace VladislavTsurikov.SceneDataSystem.Runtime
 {
     [Serializable]
-    public abstract class SceneData : Component
+    public abstract class SceneData : Node
     {
         public delegate void OnSetup();
 

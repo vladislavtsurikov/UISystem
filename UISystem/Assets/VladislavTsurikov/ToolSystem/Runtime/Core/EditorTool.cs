@@ -1,8 +1,8 @@
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.ToolSystem.Runtime.Core
 {
-    public abstract class EditorTool : Component
+    public abstract class EditorTool : Node
     {
         protected override void SetupComponent(object[] setupData = null)
         {

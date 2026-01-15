@@ -1,8 +1,9 @@
-using Core_Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
+
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.ActionFlow.Runtime.Events
 {
-    public abstract class Event : Core_Component
+    public abstract class Event : Node
     {
         internal Trigger Trigger;
 

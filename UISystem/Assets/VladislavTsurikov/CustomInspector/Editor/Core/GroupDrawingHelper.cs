@@ -7,9 +7,6 @@ using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.Core
 {
-    /// <summary>
-    /// Helper class for organizing fields into groups based on GroupAttribute
-    /// </summary>
     public static class GroupDrawingHelper
     {
         public class GroupedFields<TFieldDrawer, TDecoratorDrawer>
@@ -33,9 +30,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             public object Value { get; set; }
         }
 
-        /// <summary>
-        /// Group fields by their GroupAttribute
-        /// </summary>
         public static List<GroupedFields<TFieldDrawer, TDecoratorDrawer>> GroupFields<TFieldDrawer, TDecoratorDrawer>(
             IEnumerable<dynamic> processedFields)
             where TFieldDrawer : FieldDrawer
@@ -81,10 +75,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 }
             }
 
-            // Create result list with ungrouped fields first, then groups
             var result = new List<GroupedFields<TFieldDrawer, TDecoratorDrawer>>();
 
-            // Add ungrouped fields as a special group
             if (ungroupedFields.Count > 0)
             {
                 result.Add(new GroupedFields<TFieldDrawer, TDecoratorDrawer>
@@ -95,16 +87,12 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 });
             }
 
-            // Add grouped fields, sorted by Order
             var sortedGroups = groups.Values.OrderBy(g => g.GroupAttribute.Order);
             result.AddRange(sortedGroups);
 
             return result;
         }
 
-        /// <summary>
-        /// Get the display name for a group (last segment of the path)
-        /// </summary>
         public static string GetGroupDisplayName(string groupPath)
         {
             if (string.IsNullOrWhiteSpace(groupPath))

@@ -6,8 +6,9 @@ using UnityEngine;
 using VladislavTsurikov.AnalyzeDependencies.Editor.Core;
 using VladislavTsurikov.AnalyzeDependencies.Editor.Core.Graph;
 using VladislavTsurikov.AnalyzeDependencies.Editor.Core.Models;
-using VladislavTsurikov.AttributeUtility.Runtime;
+using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ToolSystem.Runtime.Core;
+using VladislavTsurikov.ToolSystem.Runtime.Core.Attributes;
 
 namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
 {
@@ -22,7 +23,6 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
 
         protected override void OnSetupTool()
         {
-            // OnSetupTool only detects cycles, no UI interaction
             DetectCycles();
         }
 
@@ -104,13 +104,17 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
             foreach (var cycle in cycles)
             {
                 if (cycle.Chain.Count < 2)
+                {
                     continue;
+                }
 
                 string firstAssembly = cycle.Chain[0];
                 string secondAssembly = cycle.Chain[1];
 
                 if (processedAssemblies.Contains($"{firstAssembly}->{secondAssembly}"))
+                {
                     continue;
+                }
 
                 if (RemoveDependency(analyzer, firstAssembly, secondAssembly))
                 {
@@ -134,10 +138,9 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
             {
                 var assemblies = analyzer.GetAssembliesDictionary();
 
-                if (!assemblies.ContainsKey(fromAssembly))
+                if (!assemblies.TryGetValue(fromAssembly, out AssemblyInfo assembly))
                     return false;
 
-                var assembly = assemblies[fromAssembly];
                 string asmdefPath = assembly.Path;
 
                 if (!File.Exists(asmdefPath))
@@ -146,7 +149,7 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
                 string json = File.ReadAllText(asmdefPath);
                 AssemblyDefinitionData asmdefData = JsonUtility.FromJson<AssemblyDefinitionData>(json);
 
-                if (asmdefData.references == null || asmdefData.references.Length == 0)
+                if (asmdefData.references == null || asmdefData.references.Count == 0)
                     return false;
 
                 var guidToName = analyzer.GetGuidToNameMap();

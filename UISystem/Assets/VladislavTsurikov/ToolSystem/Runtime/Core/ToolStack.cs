@@ -1,10 +1,10 @@
 using System;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.ToolSystem.Runtime.Core
 {
     [Serializable]
-    public class ToolStack : ComponentStackOnlyDifferentTypes<EditorTool>
+    public class ToolStack : NodeStackOnlyDifferentTypes<EditorTool>
     {
     }
 }

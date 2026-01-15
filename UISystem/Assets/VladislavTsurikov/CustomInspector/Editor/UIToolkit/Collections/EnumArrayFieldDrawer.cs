@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
 
@@ -31,7 +32,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
             var field = new EnumFlagsField(label, defaultEnumValue);
             field.value = defaultEnumValue;
 
-            // Set initial mask
             var enumValues = Enum.GetValues(enumType);
             int initialMask = 0;
             foreach (Enum ev in enumArray)

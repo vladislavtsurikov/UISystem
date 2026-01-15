@@ -3,9 +3,6 @@ using Node = VladislavTsurikov.Nody.Runtime.Core.Node;
 
 namespace VladislavTsurikov.Nody.Runtime.AdvancedNodeStack
 {
-    /// <summary>
-    ///     Prevents elements of the same type from being created.
-    /// </summary>
     public class NodeStackOnlyDifferentTypes<T> : AdvancedNodeStack<T>
         where T : Node
     {

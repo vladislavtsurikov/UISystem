@@ -6,7 +6,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
     {
         public Attribute Attribute { get; private set; }
 
-        public void Initialize(Attribute attribute)
+        public virtual void Initialize(Attribute attribute)
         {
             Attribute = attribute;
         }

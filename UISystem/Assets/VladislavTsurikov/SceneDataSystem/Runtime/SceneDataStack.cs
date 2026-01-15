@@ -1,10 +1,10 @@
 ﻿using System;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.SceneDataSystem.Runtime
 {
-    public class SceneDataStack : ComponentStackOnlyDifferentTypes<SceneData>
+    public class SceneDataStack : NodeStackOnlyDifferentTypes<SceneData>
     {
         protected override bool AllowCreate(Type type)
         {

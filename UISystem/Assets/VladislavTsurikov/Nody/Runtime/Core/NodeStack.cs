@@ -274,12 +274,12 @@ namespace VladislavTsurikov.Nody.Runtime.Core
         }
 
         // Port system for Graph mode
-        protected virtual void OnDefineDefaultPorts(IPortDefinitionContext context)
+        protected virtual void OnDefineDefaultPorts(PortDefinitionContext context)
         {
             // Override in derived classes to define default ports for all nodes in this stack
         }
 
-        public IPortDefinitionContext GetPortsForNode(T node)
+        public PortDefinitionContext GetPortsForNode(T node)
         {
             var context = new PortDefinitionContext();
 

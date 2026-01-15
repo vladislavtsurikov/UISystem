@@ -1,10 +1,10 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using VladislavTsurikov.AttributeUtility.Runtime;
+using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ToolSystem.Runtime.Core;
+using VladislavTsurikov.ToolSystem.Runtime.Core.Attributes;
 
 namespace VladislavTsurikov.PackageJsonSync.Editor.ToolSystem
 {
@@ -18,14 +18,11 @@ namespace VladislavTsurikov.PackageJsonSync.Editor.ToolSystem
 
         protected override void OnSetupTool()
         {
-            // OnSetupTool does nothing for export tools
-            // Generation is triggered from UI button
             _generator = new PackageJsonGenerator();
         }
 
         public void Generate()
         {
-            // Ask user to select repository
             string selectedPath = EditorUtility.OpenFolderPanel("Select Repository Folder", Application.dataPath, "");
 
             if (string.IsNullOrEmpty(selectedPath))

@@ -10,6 +10,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     public sealed class InfoBoxDecoratorDrawerMatcher : DecoratorDrawerMatcher<IMGUIDecoratorDrawer>
     {
         public override bool CanDraw(Attribute attribute) => attribute is InfoBoxAttribute;
+
         public override Type DrawerType => typeof(InfoBoxDecoratorDrawer);
     }
 
@@ -17,7 +18,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     {
         private InfoBoxAttribute _attribute;
 
-        public override void OnSetAttribute(Attribute attribute)
+        public override void Initialize(Attribute attribute)
         {
             _attribute = attribute as InfoBoxAttribute;
         }

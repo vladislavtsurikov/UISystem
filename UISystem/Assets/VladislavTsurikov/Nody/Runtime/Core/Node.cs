@@ -126,12 +126,12 @@ namespace VladislavTsurikov.Nody.Runtime.Core
             Dirtied?.Invoke(this);
         }
 
-        public virtual void OnDefinePorts(IPortDefinitionContext context)
+        public virtual void OnDefinePorts(PortDefinitionContext context)
         {
             // Override in derived classes to define ports
         }
 
-        public IPortDefinitionContext GetPorts()
+        public PortDefinitionContext GetPorts()
         {
             if (_portCache == null)
             {

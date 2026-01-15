@@ -82,7 +82,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
             Rect headerRect = new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight);
 
-            // Button + on the right
             float addButtonWidth = 25;
             Rect addButtonRect = new Rect(headerRect.xMax - addButtonWidth, headerRect.y, addButtonWidth, headerRect.height);
             if (GUI.Button(addButtonRect, "+"))
@@ -95,13 +94,11 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                 }
             }
 
-            // Items count in the middle
             string countText = $"{count} items";
             Vector2 countSize = EditorStyles.label.CalcSize(new GUIContent(countText));
             Rect countRect = new Rect(headerRect.xMax - addButtonWidth - countSize.x - 10, headerRect.y, countSize.x, headerRect.height);
             EditorGUI.LabelField(countRect, countText);
 
-            // Foldout on the left
             Rect foldoutRect = new Rect(headerRect.x, headerRect.y, countRect.x - headerRect.x - 5, headerRect.height);
             Foldout = EditorGUI.Foldout(foldoutRect, Foldout, label.text, true);
 
@@ -114,7 +111,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
             EditorGUI.indentLevel++;
 
-            // Draw add element form if in adding mode
             if (_isAddingElement)
             {
                 float addFormHeight = GetAddFormHeight();
@@ -154,7 +150,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                 float keyHeight = GetFieldHeight(_keyType, _keys[i]);
                 float valueHeight = GetFieldHeight(_valueType, _values[i]);
 
-                // Delete button in top-right corner
                 Rect removeButtonRect = new Rect(elementRect.xMax + 4, elementRect.y + 2, deleteButtonWidth, 18);
                 if (GUI.Button(removeButtonRect, "×"))
                 {
@@ -162,11 +157,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                     shouldRemove = true;
                 }
 
-                // Key field at the top
                 Rect keyFieldRect = new Rect(elementRect.x + 4, elementRect.y + 2, elementRect.width - 8, keyHeight);
                 object newKey = DrawField(keyFieldRect, _keyType, _keys[i]);
 
-                // Value field below key with small indent
                 Rect valueFieldRect = new Rect(elementRect.x + 8, keyFieldRect.yMax + 2, elementRect.width - 12, valueHeight);
                 object newValue = DrawField(valueFieldRect, _valueType, _values[i]);
 
@@ -190,7 +183,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                     indexer.SetValue(value, newValue, new[] { newKey });
                 }
 
-                currentY += elementHeight + 2; // Minimal spacing between elements
+                currentY += elementHeight + 2;
             }
 
             if (shouldRemove && keyToRemove != null)
@@ -231,7 +224,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             float totalHeight = 0;
             for (int i = 0; i < _keys.Count; i++)
             {
-                totalHeight += GetElementHeight(i) + 2; // Minimal spacing between elements
+                totalHeight += GetElementHeight(i) + 2;
             }
             return totalHeight;
         }
@@ -246,7 +239,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             float keyHeight = GetFieldHeight(_keyType, _keys[index]);
             float valueHeight = GetFieldHeight(_valueType, _values[index]);
 
-            // Top padding + key height + spacing + value height + bottom padding
             float height = 4 + keyHeight + 2 + valueHeight + 2;
 
             return height;
@@ -352,7 +344,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             float keyHeight = GetFieldHeight(_keyType, _newKey);
             float valueHeight = GetFieldHeight(_valueType, _newValue);
 
-            // Box padding + Key label + key field + Value label + value field + buttons + spacing
             return 8 + EditorGUIUtility.singleLineHeight + keyHeight + 4 + EditorGUIUtility.singleLineHeight + valueHeight + 4;
         }
 
@@ -364,7 +355,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             float buttonWidth = 25;
             float spacing = 4;
 
-            // Confirm button (✓)
             Rect confirmButtonRect = new Rect(rect.xMax - buttonWidth - spacing - buttonWidth - spacing, currentY, buttonWidth, EditorGUIUtility.singleLineHeight);
             if (GUI.Button(confirmButtonRect, "✓"))
             {
@@ -390,14 +380,12 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                 }
             }
 
-            // Cancel button (×)
             Rect cancelButtonRect = new Rect(rect.xMax - buttonWidth - spacing, currentY, buttonWidth, EditorGUIUtility.singleLineHeight);
             if (GUI.Button(cancelButtonRect, "×"))
             {
                 _isAddingElement = false;
             }
 
-            // Key label and field
             Rect keyLabelRect = new Rect(rect.x + 4, currentY, 40, EditorGUIUtility.singleLineHeight);
             EditorGUI.LabelField(keyLabelRect, "Key:");
 
@@ -407,7 +395,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
             currentY += keyHeight + 4;
 
-            // Value label and field
             Rect valueLabelRect = new Rect(rect.x + 4, currentY, 40, EditorGUIUtility.singleLineHeight);
             EditorGUI.LabelField(valueLabelRect, "Value:");
 

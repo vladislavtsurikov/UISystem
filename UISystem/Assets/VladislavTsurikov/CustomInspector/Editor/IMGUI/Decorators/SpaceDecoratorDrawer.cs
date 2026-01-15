@@ -7,7 +7,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
 {
     public sealed class SpaceDecoratorDrawerMatcher : DecoratorDrawerMatcher<IMGUIDecoratorDrawer>
     {
-        public override bool CanProcess(Attribute attribute) => attribute is SpaceAttribute;
+        public override bool CanDraw(Attribute attribute) => attribute is SpaceAttribute;
         public override Type DrawerType => typeof(SpaceDecoratorDrawer);
     }
 

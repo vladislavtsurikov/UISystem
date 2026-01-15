@@ -3,8 +3,9 @@ using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AnalyzeDependencies.Editor.Core;
 using VladislavTsurikov.AnalyzeDependencies.Editor.Core.Graph;
-using VladislavTsurikov.AttributeUtility.Runtime;
+using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ToolSystem.Runtime.Core;
+using VladislavTsurikov.ToolSystem.Runtime.Core.Attributes;
 
 namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
 {

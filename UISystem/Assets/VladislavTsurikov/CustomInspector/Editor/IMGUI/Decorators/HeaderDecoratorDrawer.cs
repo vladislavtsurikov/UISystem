@@ -8,7 +8,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
 {
     public sealed class HeaderDecoratorDrawerMatcher : DecoratorDrawerMatcher<IMGUIDecoratorDrawer>
     {
-        public override bool CanProcess(Attribute attribute) => attribute is HeaderAttribute;
+        public override bool CanDraw(Attribute attribute) => attribute is HeaderAttribute;
         public override Type DrawerType => typeof(HeaderDecoratorDrawer);
     }
 

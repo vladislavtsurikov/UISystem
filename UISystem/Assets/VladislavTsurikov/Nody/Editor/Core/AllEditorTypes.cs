@@ -38,6 +38,12 @@ namespace VladislavTsurikov.Nody.Editor.Core
                 }
             }
         }
+
+        public static Type Get(Type elementType)
+        {
+            return Types[elementType];
+        }
+
     }
 }
 #endif

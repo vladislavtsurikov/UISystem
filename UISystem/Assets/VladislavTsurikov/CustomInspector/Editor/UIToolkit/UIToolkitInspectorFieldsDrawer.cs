@@ -8,7 +8,7 @@ using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 {
-    public class UIToolkitInspectorFieldsDrawer : InspectorFieldsDrawer<UIToolkitFieldDrawer>
+    public class UIToolkitInspectorFieldsDrawer : InspectorFieldsDrawer<UIToolkitFieldDrawer, UIToolkitDecoratorDrawer>
     {
         private readonly UIToolkitRecursiveFieldsDrawer _recursiveFieldsDrawer = new();
 
@@ -20,7 +20,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
         {
         }
 
-        public VisualElement CreateFieldsContainer(object target)
+        public VisualElement CreateFieldsContainer(object target, int? elementIndex = null)
         {
             var container = new VisualElement();
 
@@ -30,12 +30,12 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                 return container;
             }
 
-            DrawFieldsRecursive(target, container);
+            DrawFieldsRecursive(target, container, elementIndex);
 
             return container;
         }
 
-        private void DrawFieldsRecursive(object target, VisualElement container)
+        private void DrawFieldsRecursive(object target, VisualElement container, int? elementIndex)
         {
             if (target == null)
             {
@@ -48,6 +48,17 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                 FieldInfo field = processedField.Field;
                 string fieldName = processedField.FieldName;
                 object value = processedField.Value;
+
+                using var scope = InspectorContext.Push(target, field, elementIndex);
+
+                foreach (UIToolkitDecoratorDrawer decorator in processedField.Decorators)
+                {
+                    var decoratorElement = decorator.CreateElement();
+                    if (decoratorElement != null)
+                    {
+                        container.Add(decoratorElement);
+                    }
+                }
 
                 if (drawer != null)
                 {
@@ -70,6 +81,11 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                         fieldElement.style.backgroundColor = new StyleColor(color);
                     }
 
+                    if (!string.IsNullOrEmpty(processedField.Tooltip))
+                    {
+                        fieldElement.tooltip = processedField.Tooltip;
+                    }
+
                     container.Add(fieldElement);
                 }
                 else
@@ -77,7 +93,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                     var recursiveElement = _recursiveFieldsDrawer.DrawRecursiveFields(
                         value,
                         field,
-                        DrawFieldsRecursive);
+                        (nestedTarget, nestedContainer) => DrawFieldsRecursive(nestedTarget, nestedContainer, elementIndex));
 
                     container.Add(recursiveElement);
                 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using VladislavTsurikov.GameObjectCollider.Editor;
+using VladislavTsurikov.RendererStack.Editor.Sectorize.GameObjectColliderIntegration;
 using VladislavTsurikov.UnityUtility.Runtime;
 #if UNITY_EDITOR
 #endif

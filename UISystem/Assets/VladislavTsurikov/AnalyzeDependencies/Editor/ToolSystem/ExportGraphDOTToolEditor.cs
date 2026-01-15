@@ -1,5 +1,4 @@
 using UnityEngine.UIElements;
-using VladislavTsurikov.ComponentStack.Editor.Core;
 using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.ToolSystem.Editor.UIToolkit;
 

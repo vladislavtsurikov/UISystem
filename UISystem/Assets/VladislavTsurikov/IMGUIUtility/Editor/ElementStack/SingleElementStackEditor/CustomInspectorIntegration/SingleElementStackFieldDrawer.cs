@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using Assemblies.VladislavTsurikov.Nody.Runtime.SingleElementStack;
 using UnityEditor;
 using UnityEngine;
@@ -19,14 +20,14 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
 
     public class SingleElementStackFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
             if (value == null)
             {
                 return null;
             }
 
-            Type elementType = fieldType.GenericTypeArguments[0];
+            Type elementType = field.FieldType.GenericTypeArguments[0];
 
             if (value is not ISingleElementStack singleElementStack)
             {

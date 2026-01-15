@@ -2,7 +2,7 @@ using System;
 
 namespace VladislavTsurikov.Nody.Runtime.Core.Ports
 {
-    public class PortBuilder : IPortBuilder
+    public class PortBuilder
     {
         private readonly PortDefinitionContext _context;
         private readonly NodePort _port;
@@ -18,13 +18,13 @@ namespace VladislavTsurikov.Nody.Runtime.Core.Ports
             };
         }
 
-        public IPortBuilder WithDefault(object value)
+        public PortBuilder WithDefault(object value)
         {
             _port.DefaultValue = value;
             return this;
         }
 
-        public IPortBuilder WithId(string id)
+        public PortBuilder WithId(string id)
         {
             _port.UniqueId = id;
             return this;

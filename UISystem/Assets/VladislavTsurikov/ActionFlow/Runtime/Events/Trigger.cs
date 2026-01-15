@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using Assemblies.VladislavTsurikov.ComponentStack.Runtime.SingleElementStack;
+using Assemblies.VladislavTsurikov.Nody.Runtime.SingleElementStack;
 using Cysharp.Threading.Tasks;
 using OdinSerializer;
 using UnityEngine;

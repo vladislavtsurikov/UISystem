@@ -9,7 +9,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
 {
     public sealed class HelpBoxDecoratorDrawerMatcher : DecoratorDrawerMatcher<IMGUIDecoratorDrawer>
     {
-        public override bool CanProcess(Attribute attribute) => attribute is HelpBoxAttribute;
+        public override bool CanDraw(Attribute attribute) => attribute is HelpBoxAttribute;
         public override Type DrawerType => typeof(HelpBoxDecoratorDrawer);
     }
 

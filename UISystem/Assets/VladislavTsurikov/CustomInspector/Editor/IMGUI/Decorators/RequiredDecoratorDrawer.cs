@@ -21,7 +21,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
         private FieldInfo _field;
         private object _target;
 
-        public override void OnSetAttribute(Attribute attribute)
+        public override void Initialize(Attribute attribute)
         {
             _attribute = attribute as RequiredAttribute;
         }
@@ -42,7 +42,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                 return;
             }
 
-            // Draw error help box
             var style = EditorStyles.helpBox;
             var content = new GUIContent(_attribute.Message, EditorGUIUtility.IconContent("console.erroricon.sml").image);
 
@@ -57,7 +56,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                 return 0;
             }
 
-            // Calculate height for error message
             var content = new GUIContent(_attribute.Message);
             var style = EditorStyles.helpBox;
             return style.CalcHeight(content, EditorGUIUtility.currentViewWidth) + 4f;
@@ -72,25 +70,21 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
             object value = _field.GetValue(_target);
 
-            // Check for null
             if (value == null)
             {
                 return false;
             }
 
-            // Check for UnityEngine.Object (handles destroyed objects)
             if (value is UnityEngine.Object unityObject)
             {
                 return unityObject != null;
             }
 
-            // Check for string
             if (value is string stringValue)
             {
                 return !string.IsNullOrWhiteSpace(stringValue);
             }
 
-            // Check for collections
             if (value is ICollection collection)
             {
                 return collection.Count > 0;

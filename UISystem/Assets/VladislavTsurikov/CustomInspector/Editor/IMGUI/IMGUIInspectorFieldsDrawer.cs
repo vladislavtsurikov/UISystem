@@ -35,7 +35,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
             DrawFieldsRecursive(target, rect, elementIndex);
 
-            // Draw buttons at the end
             ButtonDrawer.DrawButtons(target, ref rect);
         }
 
