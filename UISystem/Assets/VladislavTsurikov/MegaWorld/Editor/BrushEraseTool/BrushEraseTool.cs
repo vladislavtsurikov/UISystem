@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using UnityEngine;
 using VladislavTsurikov.ColliderSystem.Runtime;
+using VladislavTsurikov.GameObjectCollider.Editor;
 using VladislavTsurikov.MegaWorld.Editor.BrushEraseTool.PrototypeElements;
 using VladislavTsurikov.MegaWorld.Editor.Common.Window;
 using VladislavTsurikov.MegaWorld.Editor.Core.Window;
@@ -22,7 +23,6 @@ using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.P
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.Utility;
 using VladislavTsurikov.MegaWorld.Runtime.Core.Utility;
 using VladislavTsurikov.ReflectionUtility;
-using VladislavTsurikov.RendererStack.Editor.Sectorize.GameObjectColliderIntegration;
 using VladislavTsurikov.Undo.Editor.GameObject;
 using VladislavTsurikov.Undo.Editor.TerrainObjectRenderer;
 using VladislavTsurikov.UnityUtility.Runtime;

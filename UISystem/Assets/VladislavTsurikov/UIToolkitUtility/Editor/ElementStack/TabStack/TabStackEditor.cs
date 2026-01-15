@@ -54,7 +54,6 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
             _root = new VisualElement();
             _root.style.flexDirection = FlexDirection.Row;
             _root.style.flexWrap = Wrap.Wrap;
-            _root.style.gap = 2;
 
             _dragIndicator = new VisualElement();
             _dragIndicator.style.position = Position.Absolute;
@@ -164,6 +163,8 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
             tabButton.style.minHeight = TabHeight;
             tabButton.style.paddingLeft = 10;
             tabButton.style.paddingRight = 10;
+            tabButton.style.marginRight = 2;
+            tabButton.style.marginBottom = 2;
             tabButton.style.width = width;
             tabButton.style.minWidth = width;
         }

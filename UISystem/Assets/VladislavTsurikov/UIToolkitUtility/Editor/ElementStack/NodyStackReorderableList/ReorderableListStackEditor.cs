@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.AttributeUtility.Runtime;
@@ -13,15 +12,16 @@ using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ReflectionUtility.Runtime;
-using VladislavTsurikov.UIToolkitReorderableList.Runtime;
 using ReorderableList = VladislavTsurikov.UIToolkitReorderableList.Runtime.ReorderableList;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderableList
 {
-    public class UIToolkitReorderableListStackEditor<T, N> : NodeStackEditor<T, N>
+    public class ReorderableListStackEditor<T, N> : NodeStackEditor<T, N>
         where T : Node
         where N : UIToolkitReorderableListComponentEditor
     {
+        private AdvancedNodeStack<T> _advancedNodeStack;
+
         private ReorderableList _reorderableList;
         private readonly GUIContent _listName;
         private Node _copyComponentElement;
@@ -36,13 +36,14 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
         public bool RemoveSupport = true;
         public bool ReorderSupport = true;
 
-        public UIToolkitReorderableListStackEditor(AdvancedNodeStack<T> stack) : base(stack)
+        public ReorderableListStackEditor(AdvancedNodeStack<T> stack) : base(stack)
         {
+            _advancedNodeStack = stack;
             _listName = new GUIContent("");
             InitializeReorderableList();
         }
 
-        public UIToolkitReorderableListStackEditor(GUIContent listName, AdvancedNodeStack<T> stack,
+        public ReorderableListStackEditor(GUIContent listName, AdvancedNodeStack<T> stack,
             bool displayHeader) : base(stack)
         {
             _listName = listName;
@@ -200,7 +201,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
 
         private void RefreshList()
         {
-            _reorderableList.ItemsSource = Stack.List;
+            _reorderableList.ItemsSource = _advancedNodeStack.List;
             _reorderableList.Refresh();
         }
 

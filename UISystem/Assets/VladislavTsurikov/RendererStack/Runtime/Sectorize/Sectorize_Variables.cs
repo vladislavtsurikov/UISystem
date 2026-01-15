@@ -39,7 +39,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Sectorize
 
         public Caching Caching =>
             _caching ??=
-                StreamingRules.StreamingRuleComponentStack.GetAndAutoUpdateComponent<Caching>(component =>
+                StreamingRules.StreamingRuleComponentStack.GetAndAutoUpdateNode<Caching>(component =>
                     _caching = component);
     }
 }

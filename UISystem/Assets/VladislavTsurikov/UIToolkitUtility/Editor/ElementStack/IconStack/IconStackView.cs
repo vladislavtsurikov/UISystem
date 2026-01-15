@@ -15,13 +15,13 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.IconStack
         public delegate IShowIcon AddIconCallbackDelegate(Object obj);
         public delegate void DrawIconDelegate(IconElement iconElement, IShowIcon icon);
         public delegate void DrawWindowMenuDelegate();
-        public delegate void IconMenuCallbackDelegate(IShowIcon icon, DropdownMenu menu);
+        public delegate void IconMenuCallbackDelegate(IShowIcon icon, GenericMenu menu);
         public delegate void IconSelectedDelegate(IShowIcon icon);
         public delegate void SetIconColorDelegate(IShowIcon icon, out Color textColor, out Color backgroundColor);
 
         private readonly ScrollView _scrollView;
         private readonly VisualElement _iconContainer;
-        private readonly VisualElement _emptyLabel;
+        private readonly Label _emptyLabel;
         private readonly bool _draggable;
         private Type _iconType;
 
@@ -146,9 +146,9 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.IconStack
             {
                 iconElement.RegisterCallback<ContextClickEvent>(evt =>
                 {
-                    var menu = new DropdownMenu();
+                    var menu = new GenericMenu();
                     IconMenuCallback(icon, menu);
-                    menu.DropDown(evt.originalMousePosition, iconElement);
+                    menu.ShowAsContext();
                     evt.StopPropagation();
                 });
             }

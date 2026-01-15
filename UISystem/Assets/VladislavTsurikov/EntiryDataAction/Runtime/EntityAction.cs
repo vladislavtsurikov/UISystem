@@ -1,7 +1,5 @@
 ﻿using System;
 using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
-using UnityEngine;
-using VladislavTsurikov.ActionFlow.Runtime.Actions;
 using VladislavTsurikov.Nody.Runtime.Core;
 using Action = VladislavTsurikov.ActionFlow.Runtime.Actions.Action;
 
@@ -23,7 +21,7 @@ namespace VladislavTsurikov.EntityDataActionFramework
             }
         }
 
-        protected T Get<T>() where T : NodeData
+        protected T Get<T>() where T : ComponentData
         {
             if (Entity == null)
             {

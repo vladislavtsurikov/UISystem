@@ -79,7 +79,7 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.BuildSceneCollectionSystem
             {
                 EditorApplication.delayCall += () =>
                 {
-                    _buildSceneCollectionStack.CreateComponent(typeof(DefaultBuildSceneCollection));
+                    _buildSceneCollectionStack.CreateNode(typeof(DefaultBuildSceneCollection));
                 };
             }
             else
@@ -96,13 +96,13 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.BuildSceneCollectionSystem
                     var context = settingsType.GetAttribute<NameAttribute>().Name;
 
                     menu.AddItem(new GUIContent(context), false,
-                        () => _buildSceneCollectionStack.CreateComponent(settingsType));
+                        () => _buildSceneCollectionStack.CreateNode(settingsType));
                 }
 
                 menu.AddSeparator("");
 
                 menu.AddItem(new GUIContent("Create Default"), false,
-                    () => _buildSceneCollectionStack.CreateComponent(typeof(DefaultBuildSceneCollection)));
+                    () => _buildSceneCollectionStack.CreateNode(typeof(DefaultBuildSceneCollection)));
             }
 
             menu.ShowAsContext();

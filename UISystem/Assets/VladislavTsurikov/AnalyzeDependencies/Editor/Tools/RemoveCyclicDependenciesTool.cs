@@ -83,9 +83,9 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.Tools
                         "OK");
 
                     analyzer.BuildAssemblyDatabase();
-                    analyzer.DetectCyclicDependencies();
+                    DetectCyclicDependencies(analyzer);
 
-                    var remainingCycles = analyzer.GetCyclicDependencies();
+                    var remainingCycles = GetCyclicDependencies();
                     if (remainingCycles.Count == 0)
                     {
                         Debug.Log("✓ All cyclic dependencies successfully resolved!");
