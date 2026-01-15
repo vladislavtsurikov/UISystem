@@ -15,14 +15,14 @@ namespace VladislavTsurikov.Nody.Editor.Core
     {
         protected List<N> Editors;
 
-        protected NodeStackEditor(AdvancedNodeStack<T> stack)
+        protected NodeStackEditor(NodeStack<T> stack)
         {
             Stack = stack;
             Editors = new List<N>();
             RefreshEditors();
         }
 
-        public AdvancedNodeStack<T> Stack { get; }
+        public NodeStack<T> Stack { get; }
 
         public N SelectedEditor => Editors.FirstOrDefault(t => ((Node)t.Target).Selected);
 

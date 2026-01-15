@@ -6,23 +6,19 @@ using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderableList
 {
-    /// <summary>
-    /// Visual element representing a single component in the reorderable list
-    /// Recreates the IMGUI appearance with header, foldout, active toggle, and menu
-    /// </summary>
     public class ComponentListElement : VisualElement
     {
-        private readonly VisualElement _headerContainer;
-        private readonly VisualElement _dragHandle;
-        private readonly Foldout _foldout;
-        private readonly Toggle _activeToggle;
-        private readonly Label _headerLabel;
-        private readonly Button _menuButton;
-        private readonly VisualElement _contentContainer;
-        private readonly VisualElement _renameContainer;
-        private readonly TextField _renameField;
-        private readonly Button _renameOkButton;
-        private readonly Button _renameCancelButton;
+        private VisualElement _headerContainer;
+        private VisualElement _dragHandle;
+        private Foldout _foldout;
+        private Toggle _activeToggle;
+        private Label _headerLabel;
+        private Button _menuButton;
+        private VisualElement _contentContainer;
+        private VisualElement _renameContainer;
+        private TextField _renameField;
+        private Button _renameOkButton;
+        private Button _renameCancelButton;
 
         private Node _component;
         private bool _isSelected;

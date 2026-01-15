@@ -20,7 +20,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
             "What shape will be checked for intersection with other prototypes. Overlap Shape only works with added prototypes in MegaWorld. Overlap Chap can be Bounds and Sphere.");
 
         public override void OnEnable() =>
-            _settings = (OverlapCheckSettings)Target;
+            _settings = (Runtime.Common.Settings.OverlapCheckSettings.OverlapCheckSettings)Target;
 
         public override void OnGUI()
         {
