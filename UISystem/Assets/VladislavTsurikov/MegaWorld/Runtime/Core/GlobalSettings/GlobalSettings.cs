@@ -41,7 +41,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings
 
 #if UNITY_EDITOR
         private ToolsComponentStackEditor _toolsComponentStackEditor;
-        private IMGUIComponentStackEditor<Component, IMGUIElementEditor> _commonComponentStackEditor;
+        private IMGUIComponentStackEditor<Node, IMGUIElementEditor> _commonComponentStackEditor;
 
         public ToolsComponentStackEditor ToolsComponentStackEditor
         {
@@ -56,14 +56,14 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings
             }
         }
 
-        public IMGUIComponentStackEditor<Component, IMGUIElementEditor> CommonComponentStackEditor
+        public IMGUIComponentStackEditor<Node, IMGUIElementEditor> CommonComponentStackEditor
         {
             get
             {
                 if (_commonComponentStackEditor == null)
                 {
                     _commonComponentStackEditor =
-                        new IMGUIComponentStackEditor<Component, IMGUIElementEditor>(CommonComponentStack);
+                        new IMGUIComponentStackEditor<Node, IMGUIElementEditor>(CommonComponentStack);
                 }
 
                 return _commonComponentStackEditor;

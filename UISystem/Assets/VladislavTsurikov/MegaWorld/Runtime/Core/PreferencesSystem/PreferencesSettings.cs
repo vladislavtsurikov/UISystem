@@ -27,7 +27,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.PreferencesSystem
 #endif
         }
 
-        public Component GetElement(Type elementType) => _stack.GetElement(elementType);
+        public Node GetElement(Type elementType) => _stack.GetElement(elementType);
 
 #if UNITY_EDITOR
         public void Save() => EditorUtility.SetDirty(this);

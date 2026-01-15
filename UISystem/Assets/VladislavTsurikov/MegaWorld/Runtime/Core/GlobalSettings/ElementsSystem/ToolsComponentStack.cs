@@ -30,7 +30,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
 
                 foreach (Type globalSettingsType in addToolComponentsAttribute.Types)
                 {
-                    toolComponentStack.Nody.CreateIfMissingType(globalSettingsType);
+                    toolComponentStack.ComponentStack.CreateIfMissingType(globalSettingsType);
                 }
             }
         }
@@ -54,33 +54,33 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
                     continue;
                 }
 
-                for (var i = toolComponentStack.Nody.ElementList.Count - 1; i >= 0; i--)
+                for (var i = toolComponentStack.ComponentStack.ElementList.Count - 1; i >= 0; i--)
                 {
                     AddToolComponentsAttribute addComponentsAttribute =
                         toolType.GetAttribute<AddToolComponentsAttribute>();
 
-                    if (addComponentsAttribute == null || toolComponentStack.Nody.ElementList[i] == null)
+                    if (addComponentsAttribute == null || toolComponentStack.ComponentStack.ElementList[i] == null)
                     {
-                        toolComponentStack.Nody.Remove(i);
+                        toolComponentStack.ComponentStack.Remove(i);
                         continue;
                     }
 
-                    if (!addComponentsAttribute.Types.Contains(toolComponentStack.Nody.ElementList[i]
+                    if (!addComponentsAttribute.Types.Contains(toolComponentStack.ComponentStack.ElementList[i]
                             .GetType()))
                     {
-                        toolComponentStack.Nody.Remove(i);
+                        toolComponentStack.ComponentStack.Remove(i);
                     }
                 }
             }
         }
 
-        public static Component GetElement(Type toolType, Type typeElement)
+        public static Node GetElement(Type toolType, Type typeElement)
         {
             foreach (ToolComponentStack globalToolSettings in GlobalSettings.Instance.ToolsComponentStack.ElementList)
             {
                 if (globalToolSettings.ToolType == toolType)
                 {
-                    foreach (Component element in globalToolSettings.Nody.ElementList)
+                    foreach (Node element in globalToolSettings.ComponentStack.ElementList)
                     {
                         if (element.GetType() == typeElement)
                         {
@@ -112,7 +112,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.GlobalSettings.ElementsSystem
             {
                 if (item.ToolType == toolType)
                 {
-                    item.Nody.Reset();
+                    item.ComponentStack.Reset();
                 }
             }
         }

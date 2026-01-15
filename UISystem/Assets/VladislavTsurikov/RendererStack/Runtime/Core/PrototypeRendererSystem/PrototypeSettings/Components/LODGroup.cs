@@ -6,7 +6,7 @@ using VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.Rende
 namespace VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.PrototypeSettings
 {
     [Name("LOD Group")]
-    [PersistentComponent]
+    [PersistentNode]
     public class LODGroup : PrototypeComponent
     {
         [SerializeField]

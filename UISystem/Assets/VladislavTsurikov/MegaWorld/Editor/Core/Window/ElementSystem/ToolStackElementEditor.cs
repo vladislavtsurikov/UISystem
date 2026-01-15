@@ -12,13 +12,13 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.Window.ElementSystem
     {
         private ToolComponentStack _toolComponentStack;
 
-        public IMGUIComponentStackEditor<Component, IMGUIElementEditor> GeneralComponentStackEditor;
+        public IMGUIComponentStackEditor<Node, IMGUIElementEditor> GeneralComponentStackEditor;
 
         public override void OnEnable()
         {
             _toolComponentStack = (ToolComponentStack)Target;
             GeneralComponentStackEditor =
-                new IMGUIComponentStackEditor<Component, IMGUIElementEditor>(_toolComponentStack.ComponentStack);
+                new IMGUIComponentStackEditor<Node, IMGUIElementEditor>(_toolComponentStack.ComponentStack);
         }
     }
 }

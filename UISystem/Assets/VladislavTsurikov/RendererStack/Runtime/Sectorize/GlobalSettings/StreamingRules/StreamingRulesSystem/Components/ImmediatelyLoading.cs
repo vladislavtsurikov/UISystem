@@ -3,7 +3,7 @@ using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Sectorize.GlobalSettings.StreamingRules.StreamingRulesSystem
 {
-    [PersistentComponent]
+    [PersistentNode]
     [Name("Immediately Loading")]
     public class ImmediatelyLoading : StreamingRule
     {
