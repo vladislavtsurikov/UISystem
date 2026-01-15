@@ -20,16 +20,16 @@ namespace VladislavTsurikov.ReflectionUtility.Runtime.CustomInspectorIntegration
 
     public class TypeSelectorFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo fieldInfo, object value)
         {
             if (value == null)
             {
                 return null;
             }
 
-            Type baseType = fieldType.GenericTypeArguments[0];
+            Type baseType = fieldInfo.FieldType.GenericTypeArguments[0];
 
-            dynamic typeReference = Convert.ChangeType(value, fieldType);
+            dynamic typeReference = Convert.ChangeType(value, fieldInfo.FieldType);
 
             if (typeReference == null)
             {

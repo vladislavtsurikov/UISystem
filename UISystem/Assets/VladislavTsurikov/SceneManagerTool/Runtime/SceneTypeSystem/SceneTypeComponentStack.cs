@@ -1,9 +1,9 @@
-﻿using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+﻿using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.SceneUtility.Runtime;
 
 namespace VladislavTsurikov.SceneManagerTool.Runtime.SceneTypeSystem
 {
-    public class SceneTypeComponentStack : ComponentStackSupportSameType<SceneType>
+    public class SceneTypeComponentStack : NodeStackSupportSameType<SceneType>
     {
         public bool HasScene(SceneReference sceneReference)
         {

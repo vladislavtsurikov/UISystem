@@ -1,15 +1,14 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿
+
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VladislavTsurikov.ColliderSystem.Runtime;
 using VladislavTsurikov.Math.Runtime;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Area;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneDataSystem.Runtime.Utility;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
-#if UNITY_EDITOR
-#endif
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Stamper
 {
@@ -20,7 +19,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Stamper
     }
 
     [Name("Area Settings")]
-    public class Area : Runtime_Core_Component
+    public class Area : Node
     {
         public Bounds Bounds;
 

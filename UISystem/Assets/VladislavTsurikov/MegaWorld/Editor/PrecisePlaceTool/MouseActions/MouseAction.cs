@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.MouseActions
 {

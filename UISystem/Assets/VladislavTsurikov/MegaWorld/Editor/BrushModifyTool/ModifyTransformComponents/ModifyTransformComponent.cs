@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.UnityUtility.Runtime;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.BrushModifyTool.ModifyTransformComponents
 {

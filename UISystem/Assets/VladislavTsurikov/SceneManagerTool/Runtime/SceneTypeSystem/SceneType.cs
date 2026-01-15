@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.SceneManagerTool.Runtime.SceneCollectionSystem;
 using VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem;
 using VladislavTsurikov.SceneUtility.Runtime;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 
 namespace VladislavTsurikov.SceneManagerTool.Runtime.SceneTypeSystem
 {
@@ -20,11 +20,11 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SceneTypeSystem
         DoNotOpen
     }
 
-    public abstract class SceneType : Component
+    public abstract class SceneType : Node
     {
         private SceneCollection _sceneCollection;
 
-        public ComponentStackOnlyDifferentTypes<SettingsComponent> SettingsStack = new();
+        public NodeStackOnlyDifferentTypes<SettingsComponent> SettingsStack = new();
 
         protected override void SetupComponent(object[] setupData = null)
         {

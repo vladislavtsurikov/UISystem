@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
 
@@ -15,7 +16,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.TransformElementSy
         public float MaxSlope = 30;
 
         [ShowIf("UniformScaleOffset", true)]
-        [Min(0.1f)]
+        [UnityEngine.Min(0.1f)]
         public float MaxUniformScaleOffset = 2;
 
         [ShowIf("UniformScaleOffset", false)]

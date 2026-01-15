@@ -2,8 +2,8 @@
 using System;
 using UnityEngine;
 using VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.MouseActions;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool
 {

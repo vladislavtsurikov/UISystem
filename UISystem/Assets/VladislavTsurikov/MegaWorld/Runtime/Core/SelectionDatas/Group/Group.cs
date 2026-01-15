@@ -15,7 +15,6 @@ using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Utility;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.Utility.Runtime;
 using Object = UnityEngine.Object;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group
 {
@@ -84,10 +83,10 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group
             _defaultGroupComponentStack.Setup(true, new object[] { this });
         }
 
-        public Runtime_Core_Component GetElement(Type elementType) =>
+        public Node GetElement(Type elementType) =>
             _componentStackManager.GeneralComponentStack.GetElement(elementType);
 
-        public Runtime_Core_Component GetElement(Type toolType, Type elementType) =>
+        public Node GetElement(Type toolType, Type elementType) =>
             _componentStackManager.ToolsComponentStack.GetElement(toolType, elementType);
 
         public string Name => name;

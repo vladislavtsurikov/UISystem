@@ -3,7 +3,6 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.Nody.Runtime.Core;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderableList
 {
@@ -25,7 +24,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
         private readonly Button _renameOkButton;
         private readonly Button _renameCancelButton;
 
-        private Runtime_Core_Component _component;
+        private Node _component;
         private bool _isSelected;
         private bool _isRenaming;
 
@@ -34,7 +33,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
         public Action<ComponentListElement, bool> OnActiveChanged;
         public Action<ComponentListElement, string> OnRenameComplete;
 
-        public Runtime_Core_Component Component => _component;
+        public Node Component => _component;
         public bool IsSelected
         {
             get => _isSelected;
@@ -242,7 +241,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
             return container;
         }
 
-        public void SetComponent(Runtime_Core_Component component, bool showActiveToggle)
+        public void SetComponent(Node component, bool showActiveToggle)
         {
             _component = component;
             ShowActiveToggle = showActiveToggle;

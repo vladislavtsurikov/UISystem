@@ -4,9 +4,9 @@ using VladislavTsurikov.MegaWorld.Runtime.Common.Settings.OverlapCheckSettings.O
 using VladislavTsurikov.MegaWorld.Runtime.Core.PreferencesSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.PrototypeGameObject;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.PrototypeTerrainObject;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Runtime;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.OverlapCheckSettings
 {
@@ -18,7 +18,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.OverlapCheckSettin
     }
 
     [Name("Overlap Check Settings")]
-    public class OverlapCheckSettings : Runtime_Core_Component
+    public class OverlapCheckSettings : Node
     {
         public CollisionCheck CollisionCheck = new();
         public OBBCheck ObbCheck = new();

@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using UnityEditor;
 using UnityEngine;
+using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.EditorShortcutCombo.Editor;
 using VladislavTsurikov.Math.Runtime;
 using VladislavTsurikov.MegaWorld.Runtime.Common;
@@ -35,7 +36,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.MouseActions
         public MouseSensitivitySettings MouseScaleSettings = new();
 
         [ShowIf("EnableSnapScale", true)]
-        [Min(0.001f)]
+        [UnityEngine.Min(0.001f)]
         [Tooltip("Snap scale value")]
         public float SnapScale = 1f;
 

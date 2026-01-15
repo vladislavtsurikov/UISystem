@@ -273,20 +273,18 @@ namespace VladislavTsurikov.Nody.Runtime.Core
             return null;
         }
 
-        // Port system for Graph mode
+        public int IndexOf(T element) => _elementList.IndexOf(element);
+
         protected virtual void OnDefineDefaultPorts(PortDefinitionContext context)
         {
-            // Override in derived classes to define default ports for all nodes in this stack
         }
 
         public PortDefinitionContext GetPortsForNode(T node)
         {
             var context = new PortDefinitionContext();
 
-            // First add default ports from stack
             OnDefineDefaultPorts(context);
 
-            // Then node adds its specific ports
             node.OnDefinePorts(context);
 
             return context;

@@ -7,7 +7,6 @@ using VladislavTsurikov.IMGUIUtility.Runtime.ElementStack.IconStack;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Utility;
 using Object = UnityEngine.Object;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes
 {
@@ -43,10 +42,10 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototyp
                 typeof(AddPrototypeComponentsAttribute), GetType());
         }
 
-        public Runtime_Core_Component GetElement(Type elementType) =>
+        public Node GetElement(Type elementType) =>
             _componentStackManager.GeneralComponentStack.GetElement(elementType);
 
-        public Runtime_Core_Component GetElement(Type toolType, Type elementType) =>
+        public Node GetElement(Type toolType, Type elementType) =>
             _componentStackManager.ToolsComponentStack.GetElement(toolType, elementType);
 
         void IRemovable.OnRemove() => OnDisable();

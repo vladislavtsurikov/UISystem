@@ -2,14 +2,14 @@
 using System.Linq;
 using OdinSerializer;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneManagerTool.Runtime.SceneCollectionSystem;
 using VladislavTsurikov.SceneUtility.Runtime;
 
 namespace VladislavTsurikov.SceneManagerTool.Runtime.BuildSceneCollectionSystem
 {
-    public abstract class BuildSceneCollection : Component
+    public abstract class BuildSceneCollection : Node
     {
         [OdinSerialize]
         private string _name;

@@ -19,7 +19,7 @@ namespace QuestsSystem.IntegrationActionFlow.Pointer
 
     public class FieldSelectorFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo fieldInfo, object value)
         {
             if (value == null)
             {

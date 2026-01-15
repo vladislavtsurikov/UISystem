@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Plugins.VladislavTsurikov.EntiryDataAction.Runtime;
 using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using Action = VladislavTsurikov.ActionFlow.Runtime.Actions.Action;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.EntityDataActionFramework
 {
@@ -75,7 +75,7 @@ namespace VladislavTsurikov.EntityDataActionFramework
             ProcessDirtyLoop().Forget();
         }
 
-        private void HandleDataDirtied(Component dirtiedComponent)
+        private void HandleDataDirtied(Node dirtiedComponent)
         {
             if (!_entity.Active)
             {

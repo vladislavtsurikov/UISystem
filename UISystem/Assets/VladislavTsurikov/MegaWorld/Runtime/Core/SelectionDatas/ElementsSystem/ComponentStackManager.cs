@@ -6,7 +6,7 @@ using UnityEngine;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack;
 using VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.ElementsSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem.Utility;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -106,21 +106,21 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
 
             ToolComponentStack toolComponentStack = ToolsComponentStack.GetToolStackElement(toolType);
 
-            toolComponentStack.Nody.Reset();
+            toolComponentStack.ComponentStack.Reset();
         }
 
 #if UNITY_EDITOR
         [NonSerialized]
-        private IMGUIComponentStackEditor<Runtime_Core_Component, IMGUIElementEditor> _generalComponentStackEditor;
+        private IMGUIComponentStackEditor<Node, IMGUIElementEditor> _generalComponentStackEditor;
 
-        public IMGUIComponentStackEditor<Runtime_Core_Component, IMGUIElementEditor> GeneralComponentStackEditor
+        public IMGUIComponentStackEditor<Node, IMGUIElementEditor> GeneralComponentStackEditor
         {
             get
             {
                 if (_generalComponentStackEditor == null)
                 {
                     _generalComponentStackEditor =
-                        new IMGUIComponentStackEditor<Runtime_Core_Component, IMGUIElementEditor>(
+                        new IMGUIComponentStackEditor<Node, IMGUIElementEditor>(
                             _generalGeneralComponentStack);
                 }
 

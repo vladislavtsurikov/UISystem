@@ -2,7 +2,6 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack;
@@ -21,7 +20,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
             "What shape will be checked for intersection with other prototypes. Overlap Shape only works with added prototypes in MegaWorld. Overlap Chap can be Bounds and Sphere.");
 
         public override void OnEnable() =>
-            _settings = (Runtime.Common.Settings.OverlapCheckSettings.OverlapCheckSettings)Target;
+            _settings = (OverlapCheckSettings)Target;
 
         public override void OnGUI()
         {

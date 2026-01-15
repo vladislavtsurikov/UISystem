@@ -7,14 +7,14 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.AttributeUtility.Runtime;
+using VladislavTsurikov.DeepCopy.Runtime;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.Nody.Runtime.Core;
-using VladislavTsurikov.DeepCopy.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.ReflectionUtility.Runtime;
 using VladislavTsurikov.UIToolkitReorderableList.Runtime;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using ReorderableList = VladislavTsurikov.UIToolkitReorderableList.Runtime.ReorderableList;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderableList
 {
@@ -24,7 +24,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
     {
         private ReorderableList _reorderableList;
         private readonly GUIContent _listName;
-        private Component _copyComponentElement;
+        private Node _copyComponentElement;
 
         protected bool CopySettings = true;
 
@@ -328,7 +328,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
             }
         }
 
-        private void RenameComponent(Component component)
+        private void RenameComponent(Node component)
         {
             component.Renaming = !component.Renaming;
             component.RenamingName = component.Name;
@@ -337,7 +337,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderabl
             var listView = _reorderableList.Q<ListView>();
             if (listView != null)
             {
-                int index = Stack.ElementList.IndexOf((T)component);
+                int index = Stack.IndexOf((T)component);
                 if (index >= 0)
                 {
                     _reorderableList.Refresh();

@@ -1,4 +1,4 @@
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.RendererStack.Runtime.Core.PrototypeRendererSystem.PrototypeSettings
 {

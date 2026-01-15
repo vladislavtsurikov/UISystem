@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.ScriptingSystem.PrototypeSettings.Scripting
 {

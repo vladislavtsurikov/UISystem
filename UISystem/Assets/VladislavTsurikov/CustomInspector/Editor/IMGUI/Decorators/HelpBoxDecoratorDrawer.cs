@@ -2,6 +2,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Runtime;
 

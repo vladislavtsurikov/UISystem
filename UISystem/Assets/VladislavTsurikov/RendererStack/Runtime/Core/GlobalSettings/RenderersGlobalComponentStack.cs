@@ -32,7 +32,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
 
                 foreach (Type globalSettingsType in addComponentsAttribute.Types)
                 {
-                    rendererGlobalComponentStack.Nody.CreateIfMissingType(globalSettingsType);
+                    rendererGlobalComponentStack.ComponentStack.CreateIfMissingType(globalSettingsType);
                 }
             }
         }
@@ -57,21 +57,21 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
                     continue;
                 }
 
-                for (var i = rendererGlobalComponentStack.Nody.ElementList.Count - 1; i >= 0; i--)
+                for (var i = rendererGlobalComponentStack.ComponentStack.ElementList.Count - 1; i >= 0; i--)
                 {
                     AddGlobalComponentsAttribute addComponentsAttribute =
                         rendererType.GetAttribute<AddGlobalComponentsAttribute>();
 
                     if (addComponentsAttribute == null)
                     {
-                        rendererGlobalComponentStack.Nody.Remove(i);
+                        rendererGlobalComponentStack.ComponentStack.Remove(i);
                         continue;
                     }
 
                     if (!addComponentsAttribute.Types.Contains(rendererGlobalComponentStack.ComponentStack
                             .ElementList[i].GetType()))
                     {
-                        rendererGlobalComponentStack.Nody.Remove(i);
+                        rendererGlobalComponentStack.ComponentStack.Remove(i);
                     }
                 }
             }
@@ -83,7 +83,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
             {
                 if (rendererGlobalComponentStack.RendererType == rendererType)
                 {
-                    foreach (GlobalComponent element in rendererGlobalComponentStack.Nody.ElementList)
+                    foreach (GlobalComponent element in rendererGlobalComponentStack.ComponentStack.ElementList)
                     {
                         if (element.GetType() == type)
                         {

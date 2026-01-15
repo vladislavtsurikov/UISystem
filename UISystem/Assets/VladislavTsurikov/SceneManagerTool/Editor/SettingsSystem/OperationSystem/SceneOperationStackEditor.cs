@@ -3,8 +3,8 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem;
 using VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem.OperationSystem;
@@ -13,13 +13,13 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SettingsSystem.OperationSyst
 {
     public class SceneOperationStackEditor : ReorderableListStackEditor<Operation, ReorderableListComponentEditor>
     {
-        private readonly ComponentStackSupportSameType<Operation> _componentStackSupportSameType;
+        private readonly NodeStackSupportSameType<Operation> _nodeStackSupportSameType;
         private readonly SettingsTypes _settingsTypes;
 
-        public SceneOperationStackEditor(SettingsTypes settingsTypes, ComponentStackSupportSameType<Operation> list) :
+        public SceneOperationStackEditor(SettingsTypes settingsTypes, NodeStackSupportSameType<Operation> list) :
             base(new GUIContent("Actions"), list, true)
         {
-            _componentStackSupportSameType = list;
+            _nodeStackSupportSameType = list;
             _settingsTypes = settingsTypes;
             CopySettings = true;
             ShowActiveToggle = false;
@@ -66,7 +66,7 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SettingsSystem.OperationSyst
                 var context = settingsType.GetAttribute<NameAttribute>().Name;
 
                 menu.AddItem(new GUIContent(context), false,
-                    () => _componentStackSupportSameType.CreateComponent(settingsType));
+                    () => _nodeStackSupportSameType.CreateNode(settingsType));
             }
 
             menu.ShowAsContext();

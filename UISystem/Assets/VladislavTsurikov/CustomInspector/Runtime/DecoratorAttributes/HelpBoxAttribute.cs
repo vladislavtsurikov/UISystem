@@ -1,15 +1,8 @@
 using System;
+using UnityEngine.UIElements;
 
 namespace VladislavTsurikov.CustomInspector.Runtime
 {
-    public enum HelpBoxMessageType
-    {
-        None,
-        Info,
-        Warning,
-        Error
-    }
-
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public sealed class HelpBoxAttribute : Attribute
     {

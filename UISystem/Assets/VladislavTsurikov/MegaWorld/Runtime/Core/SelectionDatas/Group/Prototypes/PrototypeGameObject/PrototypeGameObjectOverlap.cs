@@ -6,6 +6,7 @@ using VladislavTsurikov.ColliderSystem.Runtime;
 using VladislavTsurikov.GameObjectCollider.Editor;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.Utility;
 using VladislavTsurikov.RendererStack.Editor.Sectorize.GameObjectColliderIntegration;
+using GameObjectColliderUtility = VladislavTsurikov.GameObjectCollider.Editor.GameObjectColliderUtility;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.PrototypeGameObject
 {

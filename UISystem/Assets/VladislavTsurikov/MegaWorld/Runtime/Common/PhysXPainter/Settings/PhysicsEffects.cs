@@ -1,7 +1,7 @@
 using UnityEngine;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.PhysicsSimulator.Runtime;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.PhysXPainter.Settings
 {

@@ -3,6 +3,7 @@ using UnityEngine;
 using VladislavTsurikov.GameObjectCollider.Editor;
 using VladislavTsurikov.RendererStack.Editor.Sectorize.GameObjectColliderIntegration;
 using VladislavTsurikov.UnityUtility.Runtime;
+using GameObjectColliderUtility = VladislavTsurikov.GameObjectCollider.Editor.GameObjectColliderUtility;
 #if UNITY_EDITOR
 #endif
 

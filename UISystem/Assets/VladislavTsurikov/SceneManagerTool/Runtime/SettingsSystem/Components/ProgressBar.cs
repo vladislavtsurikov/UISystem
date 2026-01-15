@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneManagerTool.Runtime.Callbacks.SceneOperation;
 using VladislavTsurikov.SceneUtility.Runtime;
@@ -32,7 +32,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem
 #endif
 
         internal static async UniTask LoadProgressBarIfNecessary(
-            ComponentStackOnlyDifferentTypes<SettingsComponent> settingsList)
+            NodeStackOnlyDifferentTypes<SettingsComponent> settingsList)
         {
             var progressBar = (ProgressBar)settingsList.GetElement(typeof(ProgressBar));
 
@@ -43,7 +43,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem
         }
 
         internal static async UniTask UnloadProgressBarIfNecessary(
-            ComponentStackOnlyDifferentTypes<SettingsComponent> settingsList)
+            NodeStackOnlyDifferentTypes<SettingsComponent> settingsList)
         {
             var progressBar = (ProgressBar)settingsList.GetElement(typeof(ProgressBar));
 

@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using OdinSerializer;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.MonoBehaviour
 {
@@ -28,7 +28,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.MonoBehaviour
 
         private void OnEnable() => Setup();
 
-        public Runtime_Core_Component GetElement(Type elementType) => _componentStack.GetElement(elementType);
+        public Node GetElement(Type elementType) => _componentStack.GetElement(elementType);
 
         public void Setup()
         {

@@ -10,19 +10,19 @@ using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.UnityUtility.Editor;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototypes
 {
     public class ClipboardPrototype : ClipboardObject
     {
-        private readonly ClipboardStack<Runtime_Core_Component> _clipboardPrototypeComponentStack;
-        private readonly ClipboardStack<Runtime_Core_Component> _clipboardPrototypeGeneralComponentStack;
+        private readonly ClipboardStack<Node> _clipboardPrototypeComponentStack;
+        private readonly ClipboardStack<Node> _clipboardPrototypeGeneralComponentStack;
 
         public ClipboardPrototype(Type toolType, Type prototypeType) : base(prototypeType, toolType)
         {
-            _clipboardPrototypeGeneralComponentStack = new ClipboardStack<Runtime_Core_Component>();
-            _clipboardPrototypeComponentStack = new ClipboardStack<Runtime_Core_Component>();
+            _clipboardPrototypeGeneralComponentStack = new ClipboardStack<Node>();
+            _clipboardPrototypeComponentStack = new ClipboardStack<Node>();
         }
 
         protected override void Copy(List<IHasElementStack> objects)
@@ -43,17 +43,17 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
             _clipboardPrototypeComponentStack.ClipboardAction(GetStacks(objects), settingsType, paste);
         }
 
-        private List<Runtime_Core_Component> GetAllCopiedComponent()
+        private List<Node> GetAllCopiedComponent()
         {
             var copiedComponents =
-                (List<Runtime_Core_Component>)_clipboardPrototypeGeneralComponentStack.CopiedComponentList;
+                (List<Node>)_clipboardPrototypeGeneralComponentStack.CopiedComponentList;
             copiedComponents.AddRange(_clipboardPrototypeComponentStack.CopiedComponentList);
             return copiedComponents;
         }
 
-        private List<AdvancedNodeStack<Runtime_Core_Component>> GetGeneralStacks(List<IHasElementStack> objects)
+        private List<AdvancedNodeStack<Node>> GetGeneralStacks(List<IHasElementStack> objects)
         {
-            var stacks = new List<AdvancedNodeStack<Runtime_Core_Component>>();
+            var stacks = new List<AdvancedNodeStack<Node>>();
 
             foreach (IHasElementStack obj in objects)
             {
@@ -63,9 +63,9 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
             return stacks;
         }
 
-        private List<AdvancedNodeStack<Runtime_Core_Component>> GetStacks(List<IHasElementStack> objects)
+        private List<AdvancedNodeStack<Node>> GetStacks(List<IHasElementStack> objects)
         {
-            var stacks = new List<AdvancedNodeStack<Runtime_Core_Component>>();
+            var stacks = new List<AdvancedNodeStack<Node>>();
 
             foreach (IHasElementStack obj in objects)
             foreach (ToolComponentStack toolComponentStack in obj.ComponentStackManager.ToolsComponentStack.ElementList)
@@ -98,7 +98,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
                         new Action(() =>
                             ClipboardAction(new List<IHasElementStack>(selectedData.SelectedPrototypeList), true)));
 
-                    foreach (Runtime_Core_Component component in GetAllCopiedComponent())
+                    foreach (Node component in GetAllCopiedComponent())
                     {
                         NameAttribute nameAttribute = component.GetType().GetAttribute<NameAttribute>();
 

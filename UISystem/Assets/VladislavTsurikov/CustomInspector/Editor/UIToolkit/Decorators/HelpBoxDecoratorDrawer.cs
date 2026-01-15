@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 using System;
-using UnityEditor;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Runtime;
@@ -29,13 +28,13 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             return helpBox;
         }
 
-        private static HelpBoxMessageType GetMessageType(Runtime.HelpBoxMessageType messageType)
+        private static HelpBoxMessageType GetMessageType(HelpBoxMessageType messageType)
         {
             return messageType switch
             {
-                Runtime.HelpBoxMessageType.Warning => HelpBoxMessageType.Warning,
-                Runtime.HelpBoxMessageType.Error => HelpBoxMessageType.Error,
-                Runtime.HelpBoxMessageType.Info => HelpBoxMessageType.Info,
+                HelpBoxMessageType.Warning => HelpBoxMessageType.Warning,
+                HelpBoxMessageType.Error => HelpBoxMessageType.Error,
+                HelpBoxMessageType.Info => HelpBoxMessageType.Info,
                 _ => HelpBoxMessageType.None
             };
         }

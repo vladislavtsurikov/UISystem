@@ -103,13 +103,13 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
 
             foreach (var cycle in cycles)
             {
-                if (cycle.Chain.Count < 2)
+                if (cycle.Cycle.Count < 2)
                 {
                     continue;
                 }
 
-                string firstAssembly = cycle.Chain[0];
-                string secondAssembly = cycle.Chain[1];
+                string firstAssembly = cycle.Cycle[0];
+                string secondAssembly = cycle.Cycle[1];
 
                 if (processedAssemblies.Contains($"{firstAssembly}->{secondAssembly}"))
                 {

@@ -4,11 +4,11 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VladislavTsurikov.MegaWorld.Runtime.Common.Area;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.ScatterSystem
 {
-    public abstract class Scatter : Runtime_Core_Component
+    public abstract class Scatter : Node
     {
         protected ScatterStack ScatterStack => (ScatterStack)Stack;
 

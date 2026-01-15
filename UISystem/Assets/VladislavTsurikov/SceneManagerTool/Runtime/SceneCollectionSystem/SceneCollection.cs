@@ -2,16 +2,16 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using OdinSerializer;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.SceneManagerTool.Runtime.SceneTypeSystem;
 using VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem;
 using VladislavTsurikov.SceneUtility.Runtime;
-using Component = VladislavTsurikov.ComponentStack.Runtime.Core.Component;
 using ProgressBar = VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem.ProgressBar;
 
 namespace VladislavTsurikov.SceneManagerTool.Runtime.SceneCollectionSystem
 {
-    public class SceneCollection : Component
+    public class SceneCollection : Node
     {
         [OdinSerialize]
         private string _name;
@@ -20,7 +20,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SceneCollectionSystem
         public SceneTypeComponentStack SceneTypeComponentStack = new();
 
         [OdinSerialize]
-        public ComponentStackOnlyDifferentTypes<SettingsComponent> SettingsStack = new();
+        public NodeStackOnlyDifferentTypes<SettingsComponent> SettingsStack = new();
 
         public bool Startup = true;
 

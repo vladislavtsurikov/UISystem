@@ -1,6 +1,5 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Editor.Core;
 using VladislavTsurikov.Core.Editor;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.SceneManagerTool.Editor.SettingsSystem.OperationSystem;

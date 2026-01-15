@@ -29,12 +29,12 @@ namespace VladislavTsurikov.RendererStack.Runtime.Sectorize
 
         public AsynchronousLoading AsynchronousLoading =>
             _asynchronousLoading ??=
-                StreamingRules.StreamingRuleComponentStack.GetAndAutoUpdateComponent<AsynchronousLoading>(
+                StreamingRules.StreamingRuleComponentStack.GetAndAutoUpdateNode<AsynchronousLoading>(
                     component => _asynchronousLoading = component);
 
         public PreventingUnloading PreventingUnloading =>
             _preventingUnloading ??=
-                StreamingRules.StreamingRuleComponentStack.GetAndAutoUpdateComponent<PreventingUnloading>(
+                StreamingRules.StreamingRuleComponentStack.GetAndAutoUpdateNode<PreventingUnloading>(
                     component => _preventingUnloading = component);
 
         public Caching Caching =>

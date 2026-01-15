@@ -1,11 +1,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using VladislavTsurikov.ActionFlow.Runtime.Actions;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 
 namespace VladislavTsurikov.ActionFlow.Runtime
 {
-    public class ActionCollection : ComponentStackSupportSameType<Action>
+    public class ActionCollection : NodeStackSupportSameType<Action>
     {
         public async UniTask<bool> Run(CancellationToken token = default)
         {

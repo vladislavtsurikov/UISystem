@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using VladislavTsurikov.GameObjectCollider.Editor;
 using VladislavTsurikov.RendererStack.Editor.Sectorize.GameObjectColliderIntegration;
 
 namespace VladislavTsurikov.Undo.Editor.GameObject

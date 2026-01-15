@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneManagerTool.Runtime.Callbacks.SceneOperation;
 using VladislavTsurikov.SceneUtility.Runtime;
@@ -19,7 +19,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem
         public SceneReference SceneReference = new();
 
         internal static async UniTask LoadFadeIfNecessary(
-            ComponentStackOnlyDifferentTypes<SettingsComponent> settingsList)
+            NodeStackOnlyDifferentTypes<SettingsComponent> settingsList)
         {
             var fadeTransition = (FadeTransition)settingsList.GetElement(typeof(FadeTransition));
 
@@ -30,7 +30,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem
         }
 
         internal static async UniTask UnloadFadeIfNecessary(
-            ComponentStackOnlyDifferentTypes<SettingsComponent> settingsList)
+            NodeStackOnlyDifferentTypes<SettingsComponent> settingsList)
         {
             var fadeTransition = (FadeTransition)settingsList.GetElement(typeof(FadeTransition));
 

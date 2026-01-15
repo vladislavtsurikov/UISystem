@@ -304,7 +304,7 @@ namespace VladislavTsurikov.ToolSystem.Editor.UIToolkit
                 $"Are you sure you want to delete '{ToolManager.GetToolName(tool.GetType())}'?",
                 "Delete", "Cancel"))
             {
-                var index = _toolStack.ElementList.IndexOf(tool);
+                var index = _toolStack.IndexOf(tool);
                 if (index >= 0)
                 {
                     var editor = _toolEditors.FirstOrDefault(e => e.Target == tool);
@@ -351,7 +351,7 @@ namespace VladislavTsurikov.ToolSystem.Editor.UIToolkit
                     continue;
                 }
 
-                _toolStack.ElementList[i] = _visibleTools[currentIndex];
+                _toolStack.ReplaceElement(_visibleTools[currentIndex], i);
                 currentIndex++;
             }
         }

@@ -50,10 +50,10 @@ namespace VladislavTsurikov.AnalyzeDependencies.Editor.ToolSystem
 
                 foreach (var cycle in Tool.Cycles.Take(15)) // Limit display to 15
                 {
-                    var cycleChain = string.Join(" → ", cycle.Chain);
-                    if (cycle.Chain.Count > 0)
+                    var cycleChain = string.Join(" → ", cycle.Cycle);
+                    if (cycle.Cycle.Count > 0)
                     {
-                        cycleChain += $" → {cycle.Chain[0]}"; // Close the circle
+                        cycleChain += $" → {cycle.Cycle[0]}"; // Close the circle
                     }
 
                     var cycleLabel = new Label($"• {cycleChain}");

@@ -13,7 +13,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize.GameObjectColliderInt
     public class GameObjectColliderUtility
     {
         static GameObjectColliderUtility() =>
-            GameObjectCollider.Editor.GameObjectCollider.RegisterGameObjectToCurrentScene +=
+            GameObjectCollider.RegisterGameObjectToCurrentScene +=
                 RegisterGameObjectToCurrentScene;
 
         public static void RegisterGameObjectToCurrentScene(GameObject gameObject)

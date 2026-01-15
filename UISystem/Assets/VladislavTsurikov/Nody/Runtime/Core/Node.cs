@@ -128,7 +128,6 @@ namespace VladislavTsurikov.Nody.Runtime.Core
 
         public virtual void OnDefinePorts(PortDefinitionContext context)
         {
-            // Override in derived classes to define ports
         }
 
         public PortDefinitionContext GetPorts()
@@ -148,7 +147,6 @@ namespace VladislavTsurikov.Nody.Runtime.Core
 
         public virtual void ExecuteInStack(object context)
         {
-            // Override in derived classes for stack execution
         }
 
         public virtual void ExecuteInGraph(Dictionary<string, object> inputs, out Dictionary<string, object> outputs)

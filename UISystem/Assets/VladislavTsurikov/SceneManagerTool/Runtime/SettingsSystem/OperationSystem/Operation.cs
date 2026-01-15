@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.SceneUtility.Runtime;
 
 namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem.OperationSystem
 {
-    public class Operation : Component
+    public class Operation : Node
     {
         public virtual async UniTask DoOperation()
         {

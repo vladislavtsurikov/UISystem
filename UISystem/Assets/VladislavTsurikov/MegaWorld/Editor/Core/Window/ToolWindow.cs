@@ -4,11 +4,11 @@ using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.ResourceController;
 using Object = UnityEngine.Object;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
 {
-    public abstract class ToolWindow : Runtime_Core_Component
+    public abstract class ToolWindow : Node
     {
         public static int EditorHash = "Editor".GetHashCode();
         private bool _mouseDownHappened;

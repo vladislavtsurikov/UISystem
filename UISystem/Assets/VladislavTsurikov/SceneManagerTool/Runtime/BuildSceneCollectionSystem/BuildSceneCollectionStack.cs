@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.SceneUtility.Runtime;
 
 namespace VladislavTsurikov.SceneManagerTool.Runtime.BuildSceneCollectionSystem
 {
-    public class BuildSceneCollectionStack : ComponentStackSupportSameType<BuildSceneCollection>
+    public class BuildSceneCollectionStack : NodeStackSupportSameType<BuildSceneCollection>
     {
         public BuildSceneCollection ActiveBuildSceneCollection;
 

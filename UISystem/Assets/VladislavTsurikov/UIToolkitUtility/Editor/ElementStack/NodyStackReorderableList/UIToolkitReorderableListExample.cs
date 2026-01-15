@@ -3,15 +3,12 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.Nody.Runtime.Core;
+using VladislavTsurikov.ReflectionUtility;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderableList
 {
-    /// <summary>
-    /// Example window demonstrating UIToolkit ReorderableList for ComponentStack
-    /// </summary>
     public class UIToolkitReorderableListExample : EditorWindow
     {
         [Serializable]

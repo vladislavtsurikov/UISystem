@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneUtility.Runtime;
 
@@ -14,7 +14,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem
         public SceneReference SceneReference = new();
 
         internal static async UniTask LoadActiveSceneIfNecessary(
-            ComponentStackOnlyDifferentTypes<SettingsComponent> settingsList)
+            NodeStackOnlyDifferentTypes<SettingsComponent> settingsList)
         {
             var activeScene = (ActiveScene)settingsList.GetElement(typeof(ActiveScene));
 
@@ -25,7 +25,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem
         }
 
         internal static async UniTask UnloadActiveSceneIfNecessary(
-            ComponentStackOnlyDifferentTypes<SettingsComponent> settingsList)
+            NodeStackOnlyDifferentTypes<SettingsComponent> settingsList)
         {
             var activeScene = (ActiveScene)settingsList.GetElement(typeof(ActiveScene));
 

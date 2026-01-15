@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
-using VladislavTsurikov.ComponentStack.Editor.Core;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
 using VladislavTsurikov.Nody.Editor.Core;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem;
 
@@ -18,15 +17,15 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SettingsSystem
         private readonly bool _sceneCollection;
 
         public SettingsStackEditor(GUIContent reorderableListName, bool sceneCollection,
-            ComponentStackOnlyDifferentTypes<SettingsComponent> list) : base(reorderableListName, list, true)
+            NodeStackOnlyDifferentTypes<SettingsComponent> list) : base(reorderableListName, list, true)
         {
             _sceneCollection = sceneCollection;
             CopySettings = true;
             ShowActiveToggle = false;
         }
 
-        private ComponentStackOnlyDifferentTypes<SettingsComponent> ComponentStackOnlyDifferentTypes =>
-            (ComponentStackOnlyDifferentTypes<SettingsComponent>)Stack;
+        private NodeStackOnlyDifferentTypes<SettingsComponent> NodeStackOnlyDifferentTypes =>
+            (NodeStackOnlyDifferentTypes<SettingsComponent>)Stack;
 
         protected override void ShowAddMenu()
         {
@@ -36,7 +35,7 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SettingsSystem
             {
                 Type settingsType = type.Key;
 
-                var exists = ComponentStackOnlyDifferentTypes.GetElement(settingsType) != null;
+                var exists = NodeStackOnlyDifferentTypes.GetElement(settingsType) != null;
 
                 var context = settingsType.GetAttribute<NameAttribute>().Name;
 
@@ -58,7 +57,7 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SettingsSystem
                 if (!exists)
                 {
                     menu.AddItem(new GUIContent(context), false,
-                        () => ComponentStackOnlyDifferentTypes.CreateIfMissingType(settingsType));
+                        () => NodeStackOnlyDifferentTypes.CreateIfMissingType(settingsType));
                 }
                 else
                 {

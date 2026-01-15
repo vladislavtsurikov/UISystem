@@ -1,8 +1,8 @@
 #if UNITY_EDITOR
 using System;
 using UnityEngine;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Editor.BrushEraseTool.PrototypeElements
 {

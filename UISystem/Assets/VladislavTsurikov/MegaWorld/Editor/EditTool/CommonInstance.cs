@@ -7,6 +7,7 @@ using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.P
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.PrototypeTerrainObject;
 using VladislavTsurikov.RendererStack.Editor.Sectorize.GameObjectColliderIntegration;
 using VladislavTsurikov.RendererStack.Runtime.TerrainObjectRenderer.Data;
+using GameObjectColliderUtility = VladislavTsurikov.GameObjectCollider.Editor.GameObjectColliderUtility;
 using Object = UnityEngine.Object;
 
 namespace VladislavTsurikov.MegaWorld.Editor.EditTool

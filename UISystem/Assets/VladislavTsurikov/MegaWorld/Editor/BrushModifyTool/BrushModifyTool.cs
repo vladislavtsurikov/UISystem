@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEngine;
-using VladislavTsurikov.GameObjectCollider.Editor;
 using VladislavTsurikov.MegaWorld.Editor.BrushModifyTool.ModifyTransformComponents;
 using VladislavTsurikov.MegaWorld.Editor.Common.Window;
 using VladislavTsurikov.MegaWorld.Editor.Core.Window;

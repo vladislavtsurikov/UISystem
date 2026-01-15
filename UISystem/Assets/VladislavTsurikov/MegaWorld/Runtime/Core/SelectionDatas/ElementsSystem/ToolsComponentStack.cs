@@ -4,7 +4,6 @@ using OdinSerializer;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.Nody.Runtime.Core;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
 {
@@ -44,7 +43,7 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
                         continue;
                     }
 
-                    toolComponentStack.Nody.CreateIfMissingType(addComponentsAttribute.Types);
+                    toolComponentStack.ComponentStack.CreateIfMissingType(addComponentsAttribute.Types);
                 }
             }
         }
@@ -68,10 +67,10 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
                     continue;
                 }
 
-                for (var i = toolComponentStack.Nody.ElementList.Count - 1; i >= 0; i--)
+                for (var i = toolComponentStack.ComponentStack.ElementList.Count - 1; i >= 0; i--)
                 {
-                    if (toolComponentStack.Nody.ElementList[i] == null ||
-                        !IsElementBelongsToTool(toolComponentStack.Nody.ElementList[i], toolType))
+                    if (toolComponentStack.ComponentStack.ElementList[i] == null ||
+                        !IsElementBelongsToTool(toolComponentStack.ComponentStack.ElementList[i], toolType))
                     {
                         Remove(i);
                     }
@@ -99,13 +98,13 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.ElementsSystem
             return false;
         }
 
-        public Runtime_Core_Component GetElement(Type toolType, Type typeElement)
+        public Node GetElement(Type toolType, Type typeElement)
         {
             foreach (ToolComponentStack globalToolSettings in ElementList)
             {
                 if (globalToolSettings.ToolType == toolType)
                 {
-                    foreach (Component element in globalToolSettings.Nody.ElementList)
+                    foreach (Node element in globalToolSettings.ComponentStack.ElementList)
                     {
                         if (element.GetType() == typeElement)
                         {

@@ -10,10 +10,10 @@ namespace VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototyp
 
         public void SetupComponentStack();
 
-        public Component GetElement(Type elementType) =>
+        public Node GetElement(Type elementType) =>
             ComponentStackManager.GeneralComponentStack.GetElement(elementType);
 
-        public Component GetElement(Type toolType, Type elementType) =>
+        public Node GetElement(Type toolType, Type elementType) =>
             ComponentStackManager.ToolsComponentStack.GetElement(elementType, toolType);
     }
 }

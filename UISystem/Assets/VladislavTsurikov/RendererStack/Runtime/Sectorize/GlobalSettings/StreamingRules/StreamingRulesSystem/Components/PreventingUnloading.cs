@@ -19,7 +19,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Sectorize.GlobalSettings.Strea
 
         public AsynchronousLoading AsynchronousLoading =>
             _asynchronousLoading ??=
-                StreamingRuleComponentStack.GetAndAutoUpdateComponent<AsynchronousLoading>(component =>
+                StreamingRuleComponentStack.GetAndAutoUpdateNode<AsynchronousLoading>(component =>
                     _asynchronousLoading = component);
 
         public float MaxDistance

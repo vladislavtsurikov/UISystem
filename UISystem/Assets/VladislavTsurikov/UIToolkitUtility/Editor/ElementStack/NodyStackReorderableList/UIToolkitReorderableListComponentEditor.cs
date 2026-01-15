@@ -2,17 +2,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
+using VladislavTsurikov.CustomInspector.Editor.UIToolkit;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Nody.Runtime.Core;
-using VladislavTsurikov.CustomInspector.Editor.UIToolkit;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.UIToolkitReorderableList
 {
     public class UIToolkitReorderableListComponentEditor : ElementEditor
     {
         protected readonly UIToolkitInspectorFieldsDrawer _fieldsRenderer = new(
-            new List<Type> { typeof(Runtime_Core_Component), typeof(Element) }
+            new List<Type> { typeof(Node), typeof(Element) }
         );
 
         private VisualElement _contentContainer;

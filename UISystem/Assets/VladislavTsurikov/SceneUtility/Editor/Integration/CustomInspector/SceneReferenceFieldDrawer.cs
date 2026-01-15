@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -16,7 +17,7 @@ namespace VladislavTsurikov.SceneUtility.Editor.Integration.CustomInspector
 
     public class SceneReferenceFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, Type fieldType, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
             if (value is not SceneReference sceneReference)
             {
@@ -33,6 +34,5 @@ namespace VladislavTsurikov.SceneUtility.Editor.Integration.CustomInspector
             return sceneReference;
         }
     }
-
 }
 #endif

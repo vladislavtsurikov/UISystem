@@ -4,8 +4,8 @@ using VladislavTsurikov.CPUNoise.Runtime;
 using VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings;
 using VladislavTsurikov.MegaWorld.Runtime.Core.PreferencesSystem;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings.FilterSettings
 {

@@ -2,13 +2,13 @@
 using UnityEngine;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.PrototypeTerrainDetail;
 using VladislavTsurikov.MegaWorld.Runtime.Core.SelectionDatas.Group.Prototypes.PrototypeTerrainTexture;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.ReflectionUtility;
-using Runtime_Core_Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.MegaWorld.Runtime.Common.Settings
 {
     [Name("Layer Settings")]
-    public class LayerSettings : Runtime_Core_Component
+    public class LayerSettings : Node
     {
         public LayerMask PaintLayers = 1;
 

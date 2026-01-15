@@ -37,7 +37,7 @@ namespace VladislavTsurikov.RendererStack.Runtime.Core.GlobalSettings
                 return;
             }
 
-            foreach (GlobalComponent settings in rendererGlobalComponentStack.Nody.ElementList)
+            foreach (GlobalComponent settings in rendererGlobalComponentStack.ComponentStack.ElementList)
             {
                 if (settings.Selected)
                 {

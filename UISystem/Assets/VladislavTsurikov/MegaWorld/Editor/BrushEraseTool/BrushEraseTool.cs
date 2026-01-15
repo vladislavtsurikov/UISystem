@@ -1,7 +1,6 @@
 #if UNITY_EDITOR
 using UnityEngine;
 using VladislavTsurikov.ColliderSystem.Runtime;
-using VladislavTsurikov.GameObjectCollider.Editor;
 using VladislavTsurikov.MegaWorld.Editor.BrushEraseTool.PrototypeElements;
 using VladislavTsurikov.MegaWorld.Editor.Common.Window;
 using VladislavTsurikov.MegaWorld.Editor.Core.Window;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using VladislavTsurikov.ComponentStack.Runtime.AdvancedComponentStack;
+using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.ReflectionUtility;
 using VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem.OperationSystem;
 using VladislavTsurikov.SceneUtility.Runtime;
@@ -10,7 +10,7 @@ namespace VladislavTsurikov.SceneManagerTool.Runtime.SettingsSystem
     [Name("Before Unload")]
     public class BeforeUnloadOperationsSettings : SettingsComponent
     {
-        public ComponentStackSupportSameType<Operation> OperationStack = new();
+        public NodeStackSupportSameType<Operation> OperationStack = new();
 
         public async UniTask DoOperations()
         {

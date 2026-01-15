@@ -5,9 +5,9 @@ using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.Nody.Runtime.AdvancedNodeStack;
 using VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList;
+using VladislavTsurikov.Nody.Runtime.Core;
 using VladislavTsurikov.RendererStack.Runtime.Core;
 using VladislavTsurikov.RendererStack.Runtime.Core.SceneSettings.Camera.CameraSettingsSystem;
-using Component = VladislavTsurikov.Nody.Runtime.Core.Component;
 
 namespace VladislavTsurikov.RendererStack.Editor.Core.SceneSettings.Camera.CameraSettingsSystem
 {
@@ -29,7 +29,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.SceneSettings.Camera.Camer
 
         public List<ReorderableListComponentEditor> GetCurrentEditors()
         {
-            Component renderer = RendererStackManager.Instance.RendererStack.SelectedElement;
+            Node renderer = RendererStackManager.Instance.RendererStack.SelectedElement;
 
             var addCameraComponentsAttribute =
                 (AddCameraComponentsAttribute)renderer.GetType().GetAttribute(typeof(AddCameraComponentsAttribute));
@@ -56,7 +56,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.SceneSettings.Camera.Camer
         {
             float height = 0;
 
-            Component renderer = RendererStackManager.Instance.RendererStack.SelectedElement;
+            Node renderer = RendererStackManager.Instance.RendererStack.SelectedElement;
 
             var addCameraComponentsAttribute =
                 (AddCameraComponentsAttribute)renderer.GetType().GetAttribute(typeof(AddCameraComponentsAttribute));
