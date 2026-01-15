@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Runtime;
-using VladislavTsurikov.ReflectionUtility;
+using MinAttribute = VladislavTsurikov.CustomInspector.Runtime.MinAttribute;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
@@ -29,7 +29,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                         out var maxField))
                 {
                     var maxValue = maxField.GetValue(context.Target);
-                    var maxFloat = maxValue is int intMax ? intMax : intValue;
+                    float maxFloat = maxValue is int intMax ? intMax : intValue;
                     float minFloat = intValue;
 
                     MinMaxSliderDrawer.DrawSlider(rect, label, minMaxAttribute, ref minFloat, ref maxFloat, true);

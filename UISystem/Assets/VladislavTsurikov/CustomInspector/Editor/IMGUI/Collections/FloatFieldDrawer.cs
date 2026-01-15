@@ -6,6 +6,7 @@ using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Runtime;
 using VladislavTsurikov.ReflectionUtility;
+using MinAttribute = VladislavTsurikov.CustomInspector.Runtime.MinAttribute;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {

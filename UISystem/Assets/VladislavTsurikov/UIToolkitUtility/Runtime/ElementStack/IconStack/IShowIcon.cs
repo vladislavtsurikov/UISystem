@@ -1,5 +1,5 @@
 using UnityEngine;
-using VladislavTsurikov.ComponentStack.Runtime.Core;
+using VladislavTsurikov.Nody.Runtime.Core;
 
 namespace VladislavTsurikov.UIToolkitUtility.Runtime.ElementStack.IconStack
 {

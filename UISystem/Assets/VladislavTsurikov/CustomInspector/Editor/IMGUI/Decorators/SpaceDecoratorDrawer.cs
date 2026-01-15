@@ -17,7 +17,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
 
         public override void Draw(Rect rect)
         {
-            // Space doesn't draw anything, it just adds vertical space
             if (Attribute is SpaceAttribute spaceAttribute)
             {
                 _height = spaceAttribute.height;
@@ -31,7 +30,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
                 return spaceAttribute.height;
             }
 
-            return 8f; // Default Unity space height
+            return 8f;
         }
     }
 }

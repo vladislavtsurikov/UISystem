@@ -17,7 +17,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     public class UnityObjectFieldDrawer : IMGUIFieldDrawer
     {
         public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value) =>
-            EditorGUI.ObjectField(rect, label, (Object)value, fieldType, true);
+            EditorGUI.ObjectField(rect, label, (Object)value, field.FieldType, true);
 
         public override bool ShouldCreateInstanceIfNull() => false;
     }

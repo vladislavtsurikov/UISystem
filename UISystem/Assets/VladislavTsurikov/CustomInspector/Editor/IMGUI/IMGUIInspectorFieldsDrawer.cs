@@ -61,7 +61,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                     _totalHeight += decoratorHeight;
                 }
 
-                // Create label with tooltip
                 var fieldLabel = new GUIContent(processedField.FieldName, processedField.Tooltip);
 
                 if (drawer != null)
