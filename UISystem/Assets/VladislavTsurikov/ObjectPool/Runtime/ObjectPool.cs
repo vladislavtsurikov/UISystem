@@ -49,6 +49,11 @@ namespace VladislavTsurikov.ObjectPool.Runtime
             else
             {
                 item = _poolCollection.Remove();
+                if (item == null)
+                {
+                    item = CreateInstance();
+                    CountAll++;
+                }
             }
 
             OnGet(item);

@@ -13,8 +13,20 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 {
     public sealed class ListFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>);
+        public override bool CanDraw(Type fieldType)
+        {
+            if (!fieldType.IsGenericType)
+            {
+                return false;
+            }
+
+            if (typeof(IList).IsAssignableFrom(fieldType))
+            {
+                return true;
+            }
+
+            return fieldType.GetInterface("IList`1") != null;
+        }
 
         public override Type DrawerType => typeof(ListFieldDrawer);
     }
@@ -28,12 +40,15 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
         private ReorderableList _reorderableList;
         private IList _list;
         private Type _elementType;
+        private IMGUIFieldDrawer _elementDrawer;
         private GUIContent _label;
+        private FieldInfo _field;
 
         public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
         {
             IList list = value as IList;
 
+            _field = field;
             Setup(list, field.FieldType, label);
             _reorderableList.DoList(rect);
 
@@ -65,6 +80,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             {
                 _list = list;
                 _elementType = fieldType.GetGenericArguments()[0];
+                _elementDrawer = FieldDrawerResolver<IMGUIFieldDrawer>.CreateDrawer(_elementType);
 
                 _reorderableList = new ReorderableList(_list, _elementType, true, true, true, true);
                 _reorderableList.drawHeaderCallback = DrawHeader;
@@ -82,6 +98,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             }
 
             _elementType = fieldType.GetGenericArguments()[0];
+            _elementDrawer = FieldDrawerResolver<IMGUIFieldDrawer>.CreateDrawer(_elementType);
         }
 
         private void DrawHeader(Rect rect)
@@ -96,20 +113,18 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                 return EditorGUIUtility.singleLineHeight + 4;
             }
 
-            if (typeof(UnityEngine.Object).IsAssignableFrom(_elementType))
-            {
-                return EditorGUIUtility.singleLineHeight + 4;
-            }
-
             object element = index >= 0 && index < _list.Count ? _list[index] : null;
-            object target = EnsureElementInstance(_elementType, element);
+            if (_elementDrawer != null)
+            {
+                return _elementDrawer.GetFieldsHeight(element) + 4;
+            }
 
-            if (target == null)
+            if (element == null)
             {
                 return EditorGUIUtility.singleLineHeight + 4;
             }
 
-            return _fieldsDrawer.GetFieldsHeight(target) + 4;
+            return _fieldsDrawer.GetFieldsHeight(element) + 4;
         }
 
         private void DrawElement(Rect rect, int index, bool isActive, bool isFocused)
@@ -123,80 +138,36 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 
             object element = _list[index];
 
-            if (typeof(UnityEngine.Object).IsAssignableFrom(_elementType))
+            if (_elementDrawer != null)
             {
-                UnityEngine.Object obj = element as UnityEngine.Object;
-                UnityEngine.Object newObj = EditorGUI.ObjectField(
-                    new Rect(contentRect.x, contentRect.y, contentRect.width, EditorGUIUtility.singleLineHeight),
+                object newElement = _elementDrawer.Draw(
+                    new Rect(contentRect.x, contentRect.y, contentRect.width, contentRect.height),
                     GUIContent.none,
-                    obj,
-                    _elementType,
-                    true);
-
-                _list[index] = newObj;
+                    _field,
+                    element);
+                _list[index] = newElement;
                 return;
             }
 
-            object target = EnsureElementInstance(_elementType, element);
-            if (target == null)
+            if (element == null)
             {
                 EditorGUI.LabelField(
                     new Rect(contentRect.x, contentRect.y, contentRect.width, EditorGUIUtility.singleLineHeight),
-                    "Element is null and cannot be created");
+                    "Element is null");
                 return;
             }
 
-            float height = _fieldsDrawer.GetFieldsHeight(target);
+            float height = _fieldsDrawer.GetFieldsHeight(element);
             Rect fieldsRect = new Rect(contentRect.x, contentRect.y, contentRect.width, height);
-            _fieldsDrawer.DrawFields(target, fieldsRect);
+            _fieldsDrawer.DrawFields(element, fieldsRect);
 
-            _list[index] = target;
+            _list[index] = element;
         }
 
         private void OnAdd(ReorderableList list)
         {
-            object newElement = CreateDefaultElement(_elementType);
+            object newElement = FieldUtility.GetOrCreateTypeInstance(_elementType, _elementDrawer);
             _list.Add(newElement);
-        }
-
-        private static object CreateDefaultElement(Type elementType)
-        {
-            if (elementType == null)
-            {
-                return null;
-            }
-
-            if (typeof(UnityEngine.Object).IsAssignableFrom(elementType))
-            {
-                return null;
-            }
-
-            if (elementType.IsValueType)
-            {
-                return Activator.CreateInstance(elementType);
-            }
-
-            if (elementType == typeof(string))
-            {
-                return string.Empty;
-            }
-
-            if (elementType.GetConstructor(Type.EmptyTypes) != null)
-            {
-                return Activator.CreateInstance(elementType);
-            }
-
-            return null;
-        }
-
-        private static object EnsureElementInstance(Type elementType, object value)
-        {
-            if (value != null)
-            {
-                return value;
-            }
-
-            return CreateDefaultElement(elementType);
         }
 
     }

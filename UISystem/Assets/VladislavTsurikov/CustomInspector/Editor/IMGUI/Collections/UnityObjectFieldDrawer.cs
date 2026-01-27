@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Collections;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -16,8 +17,18 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
     public class UnityObjectFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value) =>
-            EditorGUI.ObjectField(rect, label, (Object)value, field.FieldType, true);
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        {
+            Type objectType = field.FieldType;
+
+            // Handle case when called from ListFieldDrawer with collection FieldInfo
+            if (objectType.IsGenericType && typeof(IList).IsAssignableFrom(objectType))
+            {
+                objectType = objectType.GetGenericArguments()[0];
+            }
+
+            return EditorGUI.ObjectField(rect, label, (Object)value, objectType, true);
+        }
 
         public override bool ShouldCreateInstanceIfNull() => false;
     }

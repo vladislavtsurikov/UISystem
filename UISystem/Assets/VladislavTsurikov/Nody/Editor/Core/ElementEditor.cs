@@ -25,6 +25,11 @@ namespace VladislavTsurikov.Nody.Editor.Core
         public virtual void OnDisable()
         {
         }
+
+        protected void MarkTargetDirty()
+        {
+            Target.MarkDirty();
+        }
     }
 }
 #endif

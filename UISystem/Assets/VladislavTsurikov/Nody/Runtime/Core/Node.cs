@@ -12,17 +12,20 @@ namespace VladislavTsurikov.Nody.Runtime.Core
     public abstract class Node : Element, ISelectable, IRemovable
     {
         [OdinSerialize]
-        protected bool _active = true;
-
-        [OdinSerialize]
+        [HideInInspector]
         protected bool _selected;
 
-        protected internal object Stack;
+        //protected internal object Stack;
+        [NonSerialized]
+        [HideInInspector]
+        public object Stack;
 
         [OdinSerialize]
+        [HideInInspector]
         private string _nodeId = Guid.NewGuid().ToString();
 
         [OdinSerialize]
+        [HideInInspector]
         private Vector2 _graphPosition;
 
         [NonSerialized]
@@ -40,19 +43,6 @@ namespace VladislavTsurikov.Nody.Runtime.Core
         {
             get => _graphPosition;
             set => _graphPosition = value;
-        }
-
-        public virtual bool Active
-        {
-            get => _active;
-            set
-            {
-                if (_active != value)
-                {
-                    _active = value;
-                    OnChangeActive();
-                }
-            }
         }
 
         void IRemovable.OnRemove()
@@ -112,10 +102,6 @@ namespace VladislavTsurikov.Nody.Runtime.Core
         }
 
         protected virtual void OnSelect()
-        {
-        }
-
-        protected virtual void OnChangeActive()
         {
         }
 

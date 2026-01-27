@@ -16,22 +16,22 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
         where T : Node
         where N : IMGUIElementEditor
     {
-        private readonly SingleElementStack<T> _singleElementStack;
+        private readonly SingleElementStack<T> _singleElementActionStack;
         private GUIStyle _darkBackgroundStyle;
 
-        public SingleElementStackEditor(SingleElementStack<T> stack) : base(stack) => _singleElementStack = stack;
+        public SingleElementStackEditor(SingleElementStack<T> actionStack) : base(actionStack) => _singleElementActionStack = actionStack;
 
         public void OnGUI()
         {
-            if (Stack.IsDirty)
+            if (ActionStack.IsDirty)
             {
-                Stack.RemoveInvalidElements();
+                ActionStack.RemoveInvalidElements();
                 RefreshEditors();
                 InitializeStyles();
-                Stack.IsDirty = false;
+                ActionStack.IsDirty = false;
             }
 
-            Node node = _singleElementStack.GetElement();
+            Node node = _singleElementActionStack.GetElement();
             var clickButtonText = node == null ? "Select" : node.Name;
 
             GUILayout.BeginHorizontal();
@@ -58,7 +58,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
         {
             var menu = new GenericMenu();
 
-            Node node = _singleElementStack.GetElement();
+            Node node = _singleElementActionStack.GetElement();
 
             foreach (Type settingsType in AllTypesDerivedFrom<T>.Types.ToList())
             {
@@ -69,7 +69,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
                 if (!exists)
                 {
                     menu.AddItem(new GUIContent(context), false,
-                        () => _singleElementStack.ReplaceElement(settingsType));
+                        () => _singleElementActionStack.ReplaceElement(settingsType));
                 }
                 else
                 {

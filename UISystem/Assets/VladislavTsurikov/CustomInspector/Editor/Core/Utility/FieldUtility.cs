@@ -28,6 +28,46 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             return value;
         }
 
+        public static object GetOrCreateTypeInstance(Type fieldType, FieldDrawer drawer)
+        {
+            if (fieldType == null)
+            {
+                return null;
+            }
+
+            if (drawer != null && drawer.ShouldCreateInstanceIfNull() == false)
+            {
+                return null;
+            }
+
+            return CreateDefaultValue(fieldType);
+        }
+
+        private static object CreateDefaultValue(Type type)
+        {
+            if (type == typeof(string))
+            {
+                return string.Empty;
+            }
+
+            if (type.IsValueType)
+            {
+                return Activator.CreateInstance(type);
+            }
+
+            if (typeof(UnityEngine.Object).IsAssignableFrom(type))
+            {
+                return null;
+            }
+
+            if (type.GetConstructor(Type.EmptyTypes) != null)
+            {
+                return Activator.CreateInstance(type);
+            }
+
+            return null;
+        }
+
         public static FieldInfo[] GetSerializableFields(Type targetType, BindingFlags bindingFlags,
             bool excludeInternal, Type[] excludedDeclaringTypes)
         {
@@ -36,15 +76,44 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
                 throw new ArgumentNullException(nameof(targetType));
             }
 
-            return targetType
-                .GetFields(bindingFlags)
-                .Where(field =>
-                    (field.IsPublic ||
-                     field.IsDefined(typeof(SerializeField), false) ||
-                     field.IsDefined(typeof(OdinSerializeAttribute), false)) &&
-                    (!excludeInternal || !field.IsAssembly) &&
-                    (excludedDeclaringTypes == null || !excludedDeclaringTypes.Contains(field.DeclaringType)))
-                .ToArray();
+            var fields = new System.Collections.Generic.List<FieldInfo>();
+            var typeHierarchy = new System.Collections.Generic.List<Type>();
+
+            for (Type currentType = targetType; currentType != null; currentType = currentType.BaseType)
+            {
+                typeHierarchy.Add(currentType);
+            }
+
+            for (int i = typeHierarchy.Count - 1; i >= 0; i--)
+            {
+                Type currentType = typeHierarchy[i];
+                FieldInfo[] typeFields = currentType.GetFields(bindingFlags | BindingFlags.DeclaredOnly);
+
+                for (int fieldIndex = 0; fieldIndex < typeFields.Length; fieldIndex++)
+                {
+                    FieldInfo field = typeFields[fieldIndex];
+                    if (!(field.IsPublic ||
+                          field.IsDefined(typeof(SerializeField), false) ||
+                          field.IsDefined(typeof(OdinSerializeAttribute), false)))
+                    {
+                        continue;
+                    }
+
+                    if (excludeInternal && field.IsAssembly)
+                    {
+                        continue;
+                    }
+
+                    if (excludedDeclaringTypes != null && excludedDeclaringTypes.Contains(field.DeclaringType))
+                    {
+                        continue;
+                    }
+
+                    fields.Add(field);
+                }
+            }
+
+            return fields.ToArray();
         }
 
 #if UNITY_EDITOR

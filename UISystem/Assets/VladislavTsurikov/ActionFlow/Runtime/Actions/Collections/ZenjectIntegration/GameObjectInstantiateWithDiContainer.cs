@@ -20,7 +20,7 @@ namespace VladislavTsurikov.ActionFlow.Runtime.Actions.ZenjectIntegration
             if (_prefab == null)
             {
                 Debug.LogError($"[{ClassName}] Prefab is not assigned.");
-                return UniTask.FromResult(false);
+                return UniTask.FromResult(true);
             }
 
             DiContainerMonoBehaviour obj = Object.Instantiate(_prefab);

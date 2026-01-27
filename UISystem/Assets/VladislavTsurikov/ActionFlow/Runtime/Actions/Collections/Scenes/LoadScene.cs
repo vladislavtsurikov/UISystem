@@ -1,3 +1,4 @@
+#if SCENE_REFERENCE_UTILITY
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using VladislavTsurikov.ReflectionUtility;
@@ -30,3 +31,4 @@ namespace VladislavTsurikov.ActionFlow.Runtime.Actions.Scenes
         }
     }
 }
+#endif

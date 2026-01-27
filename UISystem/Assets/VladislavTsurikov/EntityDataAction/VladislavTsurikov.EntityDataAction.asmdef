@@ -1,0 +1,23 @@
+{
+    "name": "VladislavTsurikov.EntityDataAction",
+    "rootNamespace": "",
+    "references": [
+        "GUID:86afa44309ced704d99b18db08754600",
+        "GUID:9d99fb8e054a21a4eac56819c5bdadae",
+        "GUID:c58cb679f31162c47bc160d1f716ecea",
+        "GUID:ebe98f7a61150774693768c7c14789c5",
+        "GUID:ce9acb4c89fd77746a90c158718c588d",
+        "GUID:6f7c2c763c464614a3efc88a2e2e88c8",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:a4cac7205a624b644ba15c8a468d3ad8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

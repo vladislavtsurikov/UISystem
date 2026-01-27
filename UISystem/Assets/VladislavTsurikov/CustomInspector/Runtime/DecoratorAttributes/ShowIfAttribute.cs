@@ -8,7 +8,7 @@ namespace VladislavTsurikov.CustomInspector.Runtime
         public string ConditionMemberName { get; }
         public bool Value { get; }
 
-        public ShowIfAttribute(string conditionMemberName, bool value = false)
+        public ShowIfAttribute(string conditionMemberName, bool value)
         {
             ConditionMemberName = conditionMemberName;
             Value = value;

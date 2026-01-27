@@ -13,7 +13,7 @@ namespace VladislavTsurikov.Nody.Runtime.AdvancedNodeStack
         where T : Node
     {
         /// <summary>
-        ///     A public link to the list is required for UnityEditorInternal.ReorderableList
+        /// A public link to the list is required for UnityEditorInternal.ReorderableList
         /// </summary>
         public ObservableList<T> List => _elementList;
 
@@ -34,14 +34,6 @@ namespace VladislavTsurikov.Nody.Runtime.AdvancedNodeStack
         }
 
         public void CreateAllElementTypes() => CreateElementIfMissingType(AllTypesDerivedFrom<T>.Types);
-
-        protected void CreateElementIfMissingType(Type[] types)
-        {
-            foreach (Type type in types)
-            {
-                CreateElementIfMissingType(type);
-            }
-        }
 
         public void SyncToTypes(Type[] types)
         {
@@ -105,6 +97,26 @@ namespace VladislavTsurikov.Nody.Runtime.AdvancedNodeStack
 
             _elementList.Clear();
             _elementList.AddRange(newList);
+        }
+
+        public T2 GetElement<T2>() where T2 : Node
+        {
+            object node = GetElement(typeof(T2), out _);
+
+            if (node == null)
+            {
+                return null;
+            }
+
+            return (T2)node;
+        }
+
+        protected void CreateElementIfMissingType(Type[] types)
+        {
+            foreach (Type type in types)
+            {
+                CreateElementIfMissingType(type);
+            }
         }
 
         protected T CreateElementIfMissingType(Type type)

@@ -1,0 +1,29 @@
+{
+    "name": "VladislavTsurikov.EntityDataAction.Shared",
+    "rootNamespace": "",
+    "references": [
+        "VladislavTsurikov.EntityDataAction",
+        "VladislavTsurikov.ReflectionUtility",
+        "UniTask",
+        "MPUIKit",
+        "UnityEditor.UI",
+        "UnityEngine.UI",
+        "VladislavTsurikov.ActionFlow",
+        "VladislavTsurikov.ComponentStack",
+        "VladislavTsurikov.AttributeUtility",
+        "OdinSerializer",
+        "VladislavTsurikov.ObjectPool",
+        "VladislavTsurikov.CustomInspector",
+        "VladislavTsurikov.Core",
+        "VladislavTsurikov.IMGUIUtility"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

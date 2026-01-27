@@ -129,7 +129,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
 
             object conditionValue = conditionField.GetValue(target);
             bool result = IsTruthy(conditionValue);
-            return showIfAttribute.Value;
+
+            return showIfAttribute.Value == result;
         }
 
         private bool EvaluateHideIfCondition(FieldInfo field, object target)

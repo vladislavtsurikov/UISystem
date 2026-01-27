@@ -1,3 +1,4 @@
 {
-    "name": "VladislavTsurikov.ObjectPool"
+    "name": "VladislavTsurikov.ObjectPool",
+    "references":[ "UnityEditor.UI", "UnityEngine.UI" ]
 }

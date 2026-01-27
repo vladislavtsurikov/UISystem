@@ -15,14 +15,14 @@ namespace VladislavTsurikov.Nody.Editor.Core
     {
         protected List<N> Editors;
 
-        protected NodeStackEditor(NodeStack<T> stack)
+        protected NodeStackEditor(NodeStack<T> actionStack)
         {
-            Stack = stack;
+            ActionStack = actionStack;
             Editors = new List<N>();
             RefreshEditors();
         }
 
-        public NodeStack<T> Stack { get; }
+        public NodeStack<T> ActionStack { get; }
 
         public N SelectedEditor => Editors.FirstOrDefault(t => ((Node)t.Target).Selected);
 
@@ -75,9 +75,9 @@ namespace VladislavTsurikov.Nody.Editor.Core
         {
             Editors = new List<N>();
 
-            Stack.RemoveInvalidElements();
+            ActionStack.RemoveInvalidElements();
 
-            foreach (T t in Stack.ElementList)
+            foreach (T t in ActionStack.ElementList)
             {
                 Create(t);
             }

@@ -11,18 +11,6 @@ namespace VladislavTsurikov.Nody.Runtime.AdvancedNodeStack
         public void SetupElement<T2>(bool force = false) where T2 : Node =>
             SetupElement(typeof(T2), force);
 
-        public T2 GetElement<T2>() where T2 : Node
-        {
-            object node = GetElement(typeof(T2), out _);
-
-            if (node == null)
-            {
-                return null;
-            }
-
-            return (T2)node;
-        }
-
         public void SetupElement(Type type, bool force = false)
         {
             if (!typeof(T).IsAssignableFrom(type))

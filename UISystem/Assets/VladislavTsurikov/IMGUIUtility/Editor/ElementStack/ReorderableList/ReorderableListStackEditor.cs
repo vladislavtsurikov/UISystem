@@ -18,9 +18,11 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         where T : Node
         where N : ReorderableListComponentEditor
     {
+        private static Node _copyNodeElement;
+
         private readonly UnityEditorInternal.ReorderableList _reorderableList;
         private readonly GUIContent _reorderableListName;
-        private Node _copyNodeElement;
+
         private bool _displayAddButton;
         private bool _dragging;
         protected bool CopySettings = true;
@@ -32,22 +34,23 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         public bool ShowActiveToggle = true;
         public bool RemoveSupport = true;
         public bool ReorderSupport = true;
+        public string[] AllowedNamePrefixes;
 
-        public ReorderableListStackEditor(AdvancedNodeStack<T> stack) : base(stack)
+        public ReorderableListStackEditor(AdvancedNodeStack<T> actionStack) : base(actionStack)
         {
             _reorderableListName = new GUIContent("");
             _reorderableList =
-                new UnityEditorInternal.ReorderableList(stack.List, typeof(T), true, true, false,
+                new UnityEditorInternal.ReorderableList(actionStack.List, typeof(T), true, true, false,
                     false);
 
             SetupCallbacks();
         }
 
-        public ReorderableListStackEditor(GUIContent reorderableListName, AdvancedNodeStack<T> stack,
-            bool displayHeader) : base(stack)
+        public ReorderableListStackEditor(GUIContent reorderableListName, AdvancedNodeStack<T> actionStack,
+            bool displayHeader) : base(actionStack)
         {
             _reorderableListName = reorderableListName;
-            _reorderableList = new UnityEditorInternal.ReorderableList(stack.List, typeof(T), true,
+            _reorderableList = new UnityEditorInternal.ReorderableList(actionStack.List, typeof(T), true,
                 displayHeader, false, false);
 
             SetupCallbacks();
@@ -70,14 +73,25 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                     continue;
                 }
 
-                var context = settingsType.GetAttribute<NameAttribute>().Name;
+                var nameAttribute = settingsType.GetAttribute<NameAttribute>();
+                if (nameAttribute == null)
+                {
+                    continue;
+                }
 
-                if (Stack is NodeStackSupportSameType<T> componentStackWithSameTypes)
+                var context = nameAttribute.Name;
+
+                if (!IsNameAllowed(context))
+                {
+                    continue;
+                }
+
+                if (ActionStack is NodeStackSupportSameType<T> componentStackWithSameTypes)
                 {
                     menu.AddItem(new GUIContent(context), false,
                         () => componentStackWithSameTypes.CreateNode(settingsType));
                 }
-                else if (Stack is NodeStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
+                else if (ActionStack is NodeStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
                 {
                     var exists = componentStackWithDifferentTypes.HasType(settingsType);
 
@@ -96,6 +110,24 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             menu.ShowAsContext();
         }
 
+        protected bool IsNameAllowed(string name)
+        {
+            if (AllowedNamePrefixes == null || AllowedNamePrefixes.Length == 0)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < AllowedNamePrefixes.Length; i++)
+            {
+                if (name.StartsWith(AllowedNamePrefixes[i], StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         protected virtual void AddCB(UnityEditorInternal.ReorderableList list) => ShowAddMenu();
 
         protected virtual void DrawHeaderElement(Rect totalRect, int index, N componentEditor)
@@ -112,7 +144,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 componentEditor.Target.SelectSettingsFoldout = CustomEditorGUI.HeaderWithMenu(headerRect,
                     componentEditor.Target.Name,
                     componentEditor.Target.SelectSettingsFoldout, ref temporaryActive,
-                    () => Menu(Stack.ElementList[index], index));
+                    () => Menu(ActionStack.ElementList[index], index));
 
                 ((Node)componentEditor.Target).Active = temporaryActive;
             }
@@ -120,13 +152,13 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             {
                 componentEditor.Target.SelectSettingsFoldout = CustomEditorGUI.HeaderWithMenu(headerRect,
                     componentEditor.Target.Name,
-                    componentEditor.Target.SelectSettingsFoldout, () => Menu(Stack.ElementList[index], index));
+                    componentEditor.Target.SelectSettingsFoldout, () => Menu(ActionStack.ElementList[index], index));
             }
         }
 
         protected virtual void DrawElement(Rect totalRect, int index, float iconSize, Color prevColor, N componentEditor)
         {
-            using (new EditorGUI.DisabledScope(!Stack.ElementList[index].Active))
+            using (new EditorGUI.DisabledScope(!ActionStack.ElementList[index].Active))
             {
                 float rectX;
 
@@ -164,11 +196,11 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         protected virtual void Menu(T node, int index)
         {
             var menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Reset"), false, () => Stack.Reset(index));
+            menu.AddItem(new GUIContent("Reset"), false, () => ActionStack.Reset(index));
 
             if (RemoveSupport && node.IsDeletable())
             {
-                menu.AddItem(new GUIContent("Remove"), false, () => Stack.Remove(index));
+                menu.AddItem(new GUIContent("Remove"), false, () => ActionStack.Remove(index));
             }
 
             if (DuplicateSupport)
@@ -188,10 +220,13 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 menu.AddItem(new GUIContent("Copy Settings"), false,
                     () => _copyNodeElement = DeepCopier.Copy(node));
 
-                if (_copyNodeElement != null)
+                bool canPaste = _copyNodeElement != null &&
+                                node.GetType().IsAssignableFrom(_copyNodeElement.GetType());
+
+                if (canPaste)
                 {
                     menu.AddItem(new GUIContent("Paste Settings"), false,
-                        () => Stack.ReplaceElement((T)DeepCopier.Copy(_copyNodeElement), index));
+                        () => ActionStack.ReplaceElement((T)DeepCopier.Copy(_copyNodeElement), index));
                 }
                 else
                 {
@@ -204,10 +239,10 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
         private void DuplicateComponent(T component, int index)
         {
-            if (Stack is NodeStackSupportSameType<T> componentStackWithSameTypes)
+            if (ActionStack is NodeStackSupportSameType<T> componentStackWithSameTypes)
             {
                 componentStackWithSameTypes.CreateNode(component.GetType(), index);
-                Stack.ReplaceElement(DeepCopier.Copy(component), index);
+                ActionStack.ReplaceElement(DeepCopier.Copy(component), index);
             }
         }
 
@@ -225,15 +260,15 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             _reorderableList.onChangedCallback = OnChangedCallback;
         }
 
-        private void OnChangedCallback(UnityEditorInternal.ReorderableList list) => Stack.IsDirty = true;
+        private void OnChangedCallback(UnityEditorInternal.ReorderableList list) => ActionStack.IsDirty = true;
 
         public virtual void OnGUI()
         {
-            if (Stack.IsDirty)
+            if (ActionStack.IsDirty)
             {
-                Stack.RemoveInvalidElements();
+                ActionStack.RemoveInvalidElements();
                 RefreshEditors();
-                Stack.IsDirty = false;
+                ActionStack.IsDirty = false;
             }
 
             _reorderableList.draggable = ReorderSupport;
@@ -245,11 +280,11 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 
         public void OnGUI(Rect rect)
         {
-            if (Stack.IsDirty)
+            if (ActionStack.IsDirty)
             {
-                Stack.RemoveInvalidElements();
+                ActionStack.RemoveInvalidElements();
                 RefreshEditors();
-                Stack.IsDirty = false;
+                ActionStack.IsDirty = false;
             }
 
             _reorderableList.draggable = ReorderSupport;
@@ -280,7 +315,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             return height;
         }
 
-        private void RemoveElement(UnityEditorInternal.ReorderableList list) => Stack.Remove(list.index);
+        private void RemoveElement(UnityEditorInternal.ReorderableList list) => ActionStack.Remove(list.index);
 
         private void DrawHeaderCB(Rect rect)
         {
@@ -367,7 +402,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
                 return;
             }
 
-            if (Stack.IsDirty)
+            if (ActionStack.IsDirty)
             {
                 RefreshEditors();
             }

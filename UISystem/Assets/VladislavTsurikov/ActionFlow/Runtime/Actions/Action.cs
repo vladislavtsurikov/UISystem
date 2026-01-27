@@ -16,6 +16,9 @@ namespace VladislavTsurikov.ActionFlow.Runtime.Actions
             return true;
         }
 
-        protected abstract UniTask<bool> Run(CancellationToken token);
+        protected virtual UniTask<bool> Run(CancellationToken token)
+        {
+            return UniTask.FromResult(true);
+        }
     }
 }

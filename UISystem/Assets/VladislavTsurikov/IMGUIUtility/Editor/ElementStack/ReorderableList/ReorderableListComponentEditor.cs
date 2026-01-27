@@ -26,7 +26,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
             _fieldsRenderer.DrawFields(Target, rect, index);
             if (EditorGUI.EndChangeCheck())
             {
-                Target.MarkDirty();
+                MarkTargetDirty();
             }
         }
 

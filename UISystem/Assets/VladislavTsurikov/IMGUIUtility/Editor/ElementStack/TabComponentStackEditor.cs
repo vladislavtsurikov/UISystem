@@ -18,8 +18,8 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
     {
         protected readonly TabStackEditor _tabStackEditor;
 
-        public TabComponentStackEditor(AdvancedNodeStack<T> stack) : base(stack) =>
-            _tabStackEditor = new TabStackEditor(stack.List, true, false)
+        public TabComponentStackEditor(AdvancedNodeStack<T> actionStack) : base(actionStack) =>
+            _tabStackEditor = new TabStackEditor(actionStack.List, true, false)
             {
                 AddCallback = ShowAddManu,
                 AddTabMenuCallback = TabMenu,
@@ -27,20 +27,20 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
                 TabWidthFromName = true
             };
 
-        protected AdvancedNodeStack<T> AdvancedNodeStack => (AdvancedNodeStack<T>)Stack;
+        protected AdvancedNodeStack<T> AdvancedNodeStack => (AdvancedNodeStack<T>)ActionStack;
 
         public virtual void OnTabStackGUI() => _tabStackEditor.OnGUI();
 
         public void DrawSelectedSettings()
         {
-            if (Stack.IsDirty)
+            if (ActionStack.IsDirty)
             {
-                Stack.RemoveInvalidElements();
+                ActionStack.RemoveInvalidElements();
                 RefreshEditors();
-                Stack.IsDirty = false;
+                ActionStack.IsDirty = false;
             }
 
-            if (Stack.ElementList.Count == 0)
+            if (ActionStack.ElementList.Count == 0)
             {
                 return;
             }
@@ -50,7 +50,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
 
         protected virtual void OnSelectedComponentGUI()
         {
-            if (Stack.SelectedElement == null)
+            if (ActionStack.SelectedElement == null)
             {
                 return;
             }
@@ -62,10 +62,10 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
         {
             var menu = new GenericMenu();
 
-            if (Stack.ElementList.Count > 1)
+            if (ActionStack.ElementList.Count > 1)
             {
                 menu.AddItem(new GUIContent("Delete"), false, ContextMenuUtility.ContextMenuCallback,
-                    new Action(() => { Stack.Remove(currentTabIndex); }));
+                    new Action(() => { ActionStack.Remove(currentTabIndex); }));
             }
             else
             {
@@ -96,12 +96,12 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
 
                 var context = settingsType.GetAttribute<NameAttribute>().Name;
 
-                if (Stack is NodeStackSupportSameType<T> componentStackWithSameTypes)
+                if (ActionStack is NodeStackSupportSameType<T> componentStackWithSameTypes)
                 {
                     menu.AddItem(new GUIContent(context), false,
                         () => componentStackWithSameTypes.CreateNode(settingsType));
                 }
-                else if (Stack is NodeStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
+                else if (ActionStack is NodeStackOnlyDifferentTypes<T> componentStackWithDifferentTypes)
                 {
                     var exists = componentStackWithDifferentTypes.HasType(settingsType);
 
@@ -120,7 +120,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
             menu.ShowAsContext();
         }
 
-        private void HappenedMove() => Stack.IsDirty = true;
+        private void HappenedMove() => ActionStack.IsDirty = true;
     }
 }
 #endif

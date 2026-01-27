@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using OdinSerializer;
+using UnityEngine;
 using VladislavTsurikov.AttributeUtility.Runtime;
 using VladislavTsurikov.ReflectionUtility;
 
@@ -8,13 +10,16 @@ namespace VladislavTsurikov.Nody.Runtime.Core
     [Serializable]
     public class Element : IHasName, IDisableable
     {
+        [HideInInspector]
         public bool SelectSettingsFoldout = true;
         private object[] _setupData;
 
         [NonSerialized]
+        [HideInInspector]
         public bool Renaming;
 
         [NonSerialized]
+        [HideInInspector]
         public string RenamingName;
 
         [field: NonSerialized]
@@ -22,6 +27,10 @@ namespace VladislavTsurikov.Nody.Runtime.Core
 
         [field: NonSerialized]
         public bool IsHappenedReset { get; internal set; }
+
+        [OdinSerialize]
+        [HideInInspector]
+        protected bool _active = true;
 
         [NonSerialized]
         private bool _isDirty;
@@ -66,15 +75,46 @@ namespace VladislavTsurikov.Nody.Runtime.Core
         {
         }
 
+        protected virtual void OnChangeActive()
+        {
+            if (Active)
+            {
+                SetupWithSetupData(false, _setupData);
+                return;
+            }
+
+            if (IsSetup)
+            {
+                IsSetup = false;
+                OnDisableElement();
+            }
+        }
+
         public virtual bool ShowActiveToggle() => true;
+
+        public virtual bool Active
+        {
+            get => _active;
+            set
+            {
+                if (_active != value)
+                {
+                    _active = value;
+                    OnChangeActive();
+                }
+            }
+        }
 
         public void Setup(bool force = false) => SetupWithSetupData(force, _setupData);
 
         public void SetupWithSetupData(bool force = false, object[] setupData = null)
         {
-            if (!force && IsSetup)
+            if (!force)
             {
-                return;
+                if (!Active && IsSetup)
+                {
+                    return;
+                }
             }
 
             _setupData = setupData;
@@ -82,18 +122,30 @@ namespace VladislavTsurikov.Nody.Runtime.Core
             IsSetup = false;
             OnDisableElement();
 
-            if (!IsSetup)
+            if (!Active)
             {
-                OnFirstSetupComponent(setupData);
+                return;
             }
 
-            SetupComponent(setupData);
-            IsSetup = true;
+            try
+            {
+                if (!IsSetup)
+                {
+                    OnFirstSetupComponent(setupData);
+                }
+
+                SetupComponent(setupData);
+                IsSetup = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[{GetType().Name}] SetupWithSetupData failed: {ex.Message}\nStackTrace: {ex.StackTrace}");
+            }
         }
 
         internal void OnReset(Element oldElement) => OnResetElement(oldElement);
 
-        public void MarkDirty()
+        protected internal void MarkDirty()
         {
             _isDirty = true;
             OnDirtied();
