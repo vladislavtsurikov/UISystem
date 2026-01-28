@@ -62,7 +62,7 @@ namespace VladislavTsurikov.EntityDataAction.Editor.Core
                     continue;
                 }
 
-                if (ActionStack is NodeStackSupportSameType<Action> componentStackWithSameTypes)
+                if (Stack is NodeStackSupportSameType<Action> componentStackWithSameTypes)
                 {
                     menu.AddItem(new GUIContent(context), false,
                         () => componentStackWithSameTypes.CreateNode(actionType));
@@ -78,7 +78,7 @@ namespace VladislavTsurikov.EntityDataAction.Editor.Core
 
         protected override void DrawHeaderElement(Rect totalRect, int index, ActionReorderableListComponentEditor componentEditor)
         {
-            Type actionType = ActionStack.ElementList[index].GetType();
+            Type actionType = Stack.ElementList[index].GetType();
             bool requirementsMet = RequiresDataUtility.IsRequirementsMet(_dataStack, actionType);
 
             if (requirementsMet)
@@ -93,7 +93,7 @@ namespace VladislavTsurikov.EntityDataAction.Editor.Core
             headerRect.x += 15;
             headerRect.height = GetWarningHeaderHeight();
 
-            System.Action menu = () => Menu(ActionStack.ElementList[index], index);
+            System.Action menu = () => Menu(Stack.ElementList[index], index);
 
             CustomEditorGUI.WarningHeaderWithMenu(headerRect, componentEditor.Target.Name, menu);
 
@@ -117,7 +117,7 @@ namespace VladislavTsurikov.EntityDataAction.Editor.Core
 
         protected override void DrawElement(Rect totalRect, int index, float iconSize, Color prevColor, ActionReorderableListComponentEditor componentEditor)
         {
-            Type actionType = ActionStack.ElementList[index].GetType();
+            Type actionType = Stack.ElementList[index].GetType();
             bool requirementsMet = RequiresDataUtility.IsRequirementsMet(_dataStack, actionType);
 
             if (requirementsMet)
@@ -128,7 +128,7 @@ namespace VladislavTsurikov.EntityDataAction.Editor.Core
 
         public override float ElementHeightCB(int index)
         {
-            Type actionType = ActionStack.ElementList[index].GetType();
+            Type actionType = Stack.ElementList[index].GetType();
             bool requirementsMet = RequiresDataUtility.IsRequirementsMet(_dataStack, actionType);
 
             if (requirementsMet)

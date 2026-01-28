@@ -95,7 +95,7 @@ namespace VladislavTsurikov.EntityDataAction.Shared.Editor
                 return;
             }
 
-            if (_stackEditor != null && ReferenceEquals(_stackEditor.ActionStack, _group.Actions))
+            if (_stackEditor != null && ReferenceEquals(_stackEditor.Stack, _group.Actions))
             {
                 return;
             }

@@ -15,7 +15,8 @@
         "VladislavTsurikov.ObjectPool",
         "VladislavTsurikov.CustomInspector",
         "VladislavTsurikov.Core",
-        "VladislavTsurikov.IMGUIUtility"
+        "VladislavTsurikov.IMGUIUtility",
+        "VladislavTsurikov.AutoDefines"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

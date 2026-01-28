@@ -1,3 +1,4 @@
+#if ENTITY_DATA_ACTION_MPUIKIT
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MPUIKIT;
@@ -35,3 +36,4 @@ namespace VladislavTsurikov.EntityDataAction.Shared.Runtime.Style
         }
     }
 }
+#endif

@@ -15,7 +15,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
         where T : Node
         where N : IMGUIElementEditor
     {
-        public IMGUIComponentStackEditor(AdvancedNodeStack<T> actionStack) : base(actionStack)
+        public IMGUIComponentStackEditor(AdvancedNodeStack<T> stack) : base(stack)
         {
         }
 
@@ -54,7 +54,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
             }
             catch (Exception)
             {
-                ActionStack.Reset(index);
+                Stack.Reset(index);
                 throw;
             }
         }
@@ -62,18 +62,18 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
         protected virtual void Menu(int index)
         {
             var menu = new GenericMenu();
-            menu.AddItem(new GUIContent("Reset"), false, () => ActionStack.Reset(index));
+            menu.AddItem(new GUIContent("Reset"), false, () => Stack.Reset(index));
 
             menu.ShowAsContext();
         }
 
         public void OnGUI()
         {
-            if (ActionStack.IsDirty)
+            if (Stack.IsDirty)
             {
-                ActionStack.RemoveInvalidElements();
+                Stack.RemoveInvalidElements();
                 RefreshEditors();
-                ActionStack.IsDirty = false;
+                Stack.IsDirty = false;
             }
 
             OnIMGUIComponentStackGUI();
@@ -89,11 +89,11 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
 
         public void DrawElement(Type type)
         {
-            if (ActionStack.IsDirty)
+            if (Stack.IsDirty)
             {
-                ActionStack.RemoveInvalidElements();
+                Stack.RemoveInvalidElements();
                 RefreshEditors();
-                ActionStack.IsDirty = false;
+                Stack.IsDirty = false;
             }
 
             for (var i = 0; i < Editors.Count; i++)

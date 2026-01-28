@@ -145,7 +145,7 @@ namespace VladislavTsurikov.Nody.Runtime.Core
 
         internal void OnReset(Element oldElement) => OnResetElement(oldElement);
 
-        protected internal void MarkDirty()
+        public void MarkDirty()
         {
             _isDirty = true;
             OnDirtied();

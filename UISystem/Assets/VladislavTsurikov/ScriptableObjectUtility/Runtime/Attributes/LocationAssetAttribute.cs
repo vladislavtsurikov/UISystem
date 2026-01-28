@@ -7,11 +7,18 @@ namespace VladislavTsurikov.ScriptableObjectUtility.Runtime
     public sealed class LocationAssetAttribute : Attribute
     {
         private readonly string _relativePath;
+        private readonly bool _includePublisher;
         private string _filePath;
 
-        public LocationAssetAttribute(string relativePath) => _relativePath = relativePath;
+        public LocationAssetAttribute(string relativePath, bool includePublisher = true)
+        {
+            _relativePath = relativePath;
+            _includePublisher = includePublisher;
+        }
 
-        public string RelativePath => CommonPath.CombinePath(CommonPath.Publisher, _relativePath);
+        public string RelativePath => _includePublisher
+            ? CommonPath.CombinePath(CommonPath.Publisher, _relativePath)
+            : _relativePath;
 
         public string FilePath
         {
@@ -22,7 +29,9 @@ namespace VladislavTsurikov.ScriptableObjectUtility.Runtime
                     return _filePath;
                 }
 
-                var pathToFolder = CommonPath.CombinePath(CommonPath.PathToResources, _relativePath);
+                var pathToFolder = _includePublisher
+                    ? CommonPath.CombinePath(CommonPath.PathToResources, _relativePath)
+                    : CommonPath.CombinePath("Assets/Resources", _relativePath);
 
                 _filePath = pathToFolder + ".asset";
 

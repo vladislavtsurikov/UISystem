@@ -15,8 +15,7 @@ using Object = System.Object;
 
 namespace VladislavTsurikov.SceneManagerTool.Editor.BuildSceneCollectionSystem
 {
-    public class
-        BuildSceneCollectionStackEditor : TabComponentStackEditor<BuildSceneCollection,
+    public class BuildSceneCollectionStackEditor : TabComponentStackEditor<BuildSceneCollection,
         DefaultBuildSceneCollectionEditor>
     {
         private readonly BuildSceneCollectionStack _buildSceneCollectionStack;
