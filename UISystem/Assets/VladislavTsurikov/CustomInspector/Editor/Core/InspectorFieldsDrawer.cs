@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using OdinSerializer.Utilities;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Runtime;
 
@@ -34,17 +33,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
 
             foreach (ProcessedField processedField in processedFields)
             {
-                if (!IsFieldVisible(processedField.Field))
-                {
-                    continue;
-                }
-
-                if (!EvaluateShowIfCondition(processedField.Field, target))
-                {
-                    continue;
-                }
-
-                if (EvaluateHideIfCondition(processedField.Field, target))
+                if (!IsFieldVisible(processedField.Field, target, processedField.VisibilityProcessors))
                 {
                     continue;
                 }
@@ -85,15 +74,29 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
 
             foreach (FieldInfo field in fields)
             {
-                TFieldDrawer drawer = FieldDrawerResolver<TFieldDrawer>.CreateDrawer(field.FieldType);
+                TFieldDrawer drawer = FieldDrawerResolver<TFieldDrawer>.CreateDrawer(field);
                 string fieldName = FieldUtility.GetFieldLabel(field);
 
                 List<TDecoratorDrawer> decorators = DecoratorDrawerResolver<TDecoratorDrawer>.CreateDrawers(field);
+                List<FieldVisibilityProcessor> visibilityProcessors =
+                    FieldVisibilityProcessorResolver.CreateProcessors(field);
+                List<FieldStateProcessor> stateProcessors = FieldStateProcessorResolver.CreateProcessors(field);
+                List<FieldStyleProcessor> styleProcessors = FieldStyleProcessorResolver.CreateProcessors(field);
+                List<FieldValueProcessor> valueProcessors = FieldValueProcessorResolver.CreateProcessors(field);
 
                 var tooltipAttribute = field.GetCustomAttribute<TooltipAttribute>();
                 string tooltip = tooltipAttribute?.tooltip ?? "";
 
-                processedFields.Add(new ProcessedField(field, fieldName, drawer, decorators, tooltip));
+                processedFields.Add(new ProcessedField(
+                    field,
+                    fieldName,
+                    drawer,
+                    decorators,
+                    visibilityProcessors,
+                    stateProcessors,
+                    styleProcessors,
+                    valueProcessors,
+                    tooltip));
             }
 
             _cachedFields[targetType] = processedFields;
@@ -101,73 +104,22 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             return processedFields;
         }
 
-        private bool IsFieldVisible(FieldInfo field)
+        protected bool IsFieldVisible(
+            FieldInfo field,
+            object target,
+            List<FieldVisibilityProcessor> visibilityProcessors)
         {
-            if (CustomInspectorPreferences.Instance.ShowFieldWithHideInInspectorAttribute)
+            if (visibilityProcessors == null || visibilityProcessors.Count == 0)
             {
                 return true;
             }
 
-            return field.GetAttribute<HideInInspector>() == null;
-        }
-
-        private bool EvaluateShowIfCondition(FieldInfo field, object target)
-        {
-            var showIfAttribute = field.GetCustomAttribute<ShowIfAttribute>();
-            if (showIfAttribute == null)
+            foreach (FieldVisibilityProcessor processor in visibilityProcessors)
             {
-                return true;
-            }
-
-            FieldInfo conditionField = target.GetType().GetField(showIfAttribute.ConditionMemberName,
-                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-            if (conditionField == null)
-            {
-                return true;
-            }
-
-            object conditionValue = conditionField.GetValue(target);
-            bool result = IsTruthy(conditionValue);
-
-            return showIfAttribute.Value == result;
-        }
-
-        private bool EvaluateHideIfCondition(FieldInfo field, object target)
-        {
-            var hideIfAttribute = field.GetCustomAttribute<HideIfAttribute>();
-            if (hideIfAttribute == null)
-            {
-                return false;
-            }
-
-            FieldInfo conditionField = target.GetType().GetField(hideIfAttribute.ConditionMemberName,
-                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-            if (conditionField == null)
-            {
-                return false;
-            }
-
-            object conditionValue = conditionField.GetValue(target);
-            return IsTruthy(conditionValue);
-        }
-
-        private bool IsTruthy(object value)
-        {
-            if (value == null)
-            {
-                return false;
-            }
-
-            if (value is bool boolValue)
-            {
-                return boolValue;
-            }
-
-            if (value is UnityEngine.Object unityObject)
-            {
-                return unityObject != null;
+                if (!processor.IsVisible(field, target))
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -175,12 +127,25 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
 
         protected sealed class ProcessedField
         {
-            public ProcessedField(FieldInfo field, string fieldName, TFieldDrawer drawer, List<TDecoratorDrawer> decorators, string tooltip)
+            public ProcessedField(
+                FieldInfo field,
+                string fieldName,
+                TFieldDrawer drawer,
+                List<TDecoratorDrawer> decorators,
+                List<FieldVisibilityProcessor> visibilityProcessors,
+                List<FieldStateProcessor> stateProcessors,
+                List<FieldStyleProcessor> styleProcessors,
+                List<FieldValueProcessor> valueProcessors,
+                string tooltip)
             {
                 Field = field;
                 FieldName = fieldName;
                 Drawer = drawer;
                 Decorators = decorators;
+                VisibilityProcessors = visibilityProcessors;
+                StateProcessors = stateProcessors;
+                StyleProcessors = styleProcessors;
+                ValueProcessors = valueProcessors;
                 Tooltip = tooltip;
             }
 
@@ -188,8 +153,125 @@ namespace VladislavTsurikov.CustomInspector.Editor.Core
             public string FieldName { get; }
             public TFieldDrawer Drawer { get; }
             public List<TDecoratorDrawer> Decorators { get; }
+            public List<FieldVisibilityProcessor> VisibilityProcessors { get; }
+            public List<FieldStateProcessor> StateProcessors { get; }
+            public List<FieldStyleProcessor> StyleProcessors { get; }
+            public List<FieldValueProcessor> ValueProcessors { get; }
             public string Tooltip { get; }
             public object Value { get; set; }
+        }
+
+        protected FieldState GetFieldState(
+            FieldInfo field,
+            object target,
+            List<FieldStateProcessor> stateProcessors)
+        {
+            var state = new FieldState();
+            if (stateProcessors == null || stateProcessors.Count == 0)
+            {
+                return state;
+            }
+
+            foreach (FieldStateProcessor processor in stateProcessors)
+            {
+                processor.Apply(field, target, state);
+            }
+
+            return state;
+        }
+
+        protected FieldStyle GetFieldStyle(
+            FieldInfo field,
+            object target,
+            List<FieldStyleProcessor> styleProcessors)
+        {
+            var style = new FieldStyle();
+            if (styleProcessors == null || styleProcessors.Count == 0)
+            {
+                return style;
+            }
+
+            foreach (FieldStyleProcessor processor in styleProcessors)
+            {
+                processor.Apply(field, target, style);
+            }
+
+            return style;
+        }
+
+        protected FieldPresentationScope CreateFieldPresentationScope(
+            FieldInfo field,
+            object target,
+            List<FieldStateProcessor> stateProcessors,
+            List<FieldStyleProcessor> styleProcessors,
+            object fieldElement)
+        {
+            FieldState state = GetFieldState(field, target, stateProcessors);
+            FieldStyle style = GetFieldStyle(field, target, styleProcessors);
+            return CreateFieldPresentationScope(state, style, fieldElement);
+        }
+
+        protected abstract FieldPresentationScope CreateFieldPresentationScope(
+            FieldState state,
+            FieldStyle style,
+            object fieldElement);
+
+        protected object ApplyValueProcessors(
+            FieldInfo field,
+            object target,
+            object value,
+            List<FieldValueProcessor> valueProcessors)
+        {
+            if (valueProcessors == null || valueProcessors.Count == 0)
+            {
+                return value;
+            }
+
+            object processedValue = value;
+            foreach (FieldValueProcessor processor in valueProcessors)
+            {
+                processedValue = processor.Process(field, target, processedValue);
+            }
+
+            return processedValue;
+        }
+
+        protected object ApplyValueProcessorsAndCheckChange(
+            FieldInfo field,
+            object target,
+            object value,
+            object originalValue,
+            List<FieldValueProcessor> valueProcessors,
+            out bool hasValueChanged)
+        {
+            object processedValue = ApplyValueProcessors(field, target, value, valueProcessors);
+            hasValueChanged = !Equals(originalValue, processedValue);
+            return processedValue;
+        }
+
+        protected object ApplyProcessorsAndAssignIfNeeded(
+            FieldInfo field,
+            object target,
+            object value,
+            object originalValue,
+            List<FieldValueProcessor> valueProcessors,
+            bool forceAssign)
+        {
+            bool hasValueChanged;
+            object processedValue = ApplyValueProcessorsAndCheckChange(
+                field,
+                target,
+                value,
+                originalValue,
+                valueProcessors,
+                out hasValueChanged);
+
+            if (forceAssign || hasValueChanged)
+            {
+                field.SetValue(target, processedValue);
+            }
+
+            return processedValue;
         }
     }
 }

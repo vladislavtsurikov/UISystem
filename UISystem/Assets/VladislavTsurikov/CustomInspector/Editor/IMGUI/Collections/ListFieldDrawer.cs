@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,19 +13,19 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 {
     public sealed class ListFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType)
+        public override bool CanDraw(FieldInfo field)
         {
-            if (!fieldType.IsGenericType)
+            if (!field.FieldType.IsGenericType)
             {
                 return false;
             }
 
-            if (typeof(IList).IsAssignableFrom(fieldType))
+            if (typeof(IList).IsAssignableFrom(field.FieldType))
             {
                 return true;
             }
 
-            return fieldType.GetInterface("IList`1") != null;
+            return field.FieldType.GetInterface("IList`1") != null;
         }
 
         public override Type DrawerType => typeof(ListFieldDrawer);
@@ -43,19 +43,21 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
         private IMGUIFieldDrawer _elementDrawer;
         private GUIContent _label;
         private FieldInfo _field;
+        private object _target;
 
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             IList list = value as IList;
 
             _field = field;
+            _target = target;
             Setup(list, field.FieldType, label);
             _reorderableList.DoList(rect);
 
             return value;
         }
 
-        public override float GetFieldsHeight(object target)
+        public override float GetFieldsHeight(object target, FieldInfo field, object value)
         {
             if (target is not IList list)
             {
@@ -116,7 +118,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             object element = index >= 0 && index < _list.Count ? _list[index] : null;
             if (_elementDrawer != null)
             {
-                return _elementDrawer.GetFieldsHeight(element) + 4;
+                return _elementDrawer.GetFieldsHeight(_target, _field, element) + 4;
             }
 
             if (element == null)
@@ -144,6 +146,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
                     new Rect(contentRect.x, contentRect.y, contentRect.width, contentRect.height),
                     GUIContent.none,
                     _field,
+                    _target,
                     element);
                 _list[index] = newElement;
                 return;
@@ -173,3 +176,5 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
     }
 }
 #endif
+
+

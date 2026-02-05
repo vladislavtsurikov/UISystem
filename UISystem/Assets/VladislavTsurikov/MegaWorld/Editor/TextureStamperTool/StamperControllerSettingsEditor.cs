@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -29,17 +29,17 @@ namespace VladislavTsurikov.MegaWorld.Editor.TextureStamperTool
         public override void OnGUI()
         {
             _stamperControllerSettings.Visualisation =
-                CustomEditorGUILayout.Toggle(_visualisation, _stamperControllerSettings.Visualisation);
+                EditorGUILayout.Toggle(_visualisation, _stamperControllerSettings.Visualisation);
 
             if (!TextureStamper.Area.UseSpawnCells)
             {
                 _stamperControllerSettings.AutoRespawn =
-                    CustomEditorGUILayout.Toggle(_autoRespawn, _stamperControllerSettings.AutoRespawn);
+                    EditorGUILayout.Toggle(_autoRespawn, _stamperControllerSettings.AutoRespawn);
 
                 if (_stamperControllerSettings.AutoRespawn)
                 {
                     EditorGUI.indentLevel++;
-                    _stamperControllerSettings.DelayAutoRespawn = CustomEditorGUILayout.Slider(_delayAutoSpawn,
+                    _stamperControllerSettings.DelayAutoRespawn = EditorGUILayout.Slider(_delayAutoSpawn,
                         _stamperControllerSettings.DelayAutoRespawn, 0, 3);
                     EditorGUI.indentLevel--;
 
@@ -65,8 +65,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.TextureStamperTool
             }
             else
             {
-                CustomEditorGUILayout.HelpBox(
-                    "Auto Spawn does not support when \"Use Spawn Cells\" is enabled in \"Area Settings\".");
+                EditorGUILayout.HelpBox(
+                    "Auto Spawn does not support when \"Use Spawn Cells\" is enabled in \"Area Settings\".", MessageType.Info);
 
                 DrawSpawnWithCellsControls();
             }

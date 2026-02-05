@@ -22,20 +22,20 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.GUI.MouseActions
 
         public override void OnGUI()
         {
-            _settings.MouseRotationSettings.MouseSensitivity = CustomEditorGUILayout.Slider(
+            _settings.MouseRotationSettings.MouseSensitivity = EditorGUILayout.Slider(
                 new GUIContent("Mouse Sensitivity"), _settings.MouseRotationSettings.MouseSensitivity,
                 MouseSensitivitySettings.MinMouseSensitivity, MouseSensitivitySettings.MaxMouseSensitivity);
             _settings.WayRotateY =
-                (WayRotateY)CustomEditorGUILayout.EnumPopup(new GUIContent("Way Rotate Y"), _settings.WayRotateY);
+                (WayRotateY)EditorGUILayout.EnumPopup(new GUIContent("Way Rotate Y"), _settings.WayRotateY);
             if (_settings.WayRotateY == WayRotateY.Offset)
             {
                 GlobalCommonComponentSingleton<TransformSpaceSettings>.Instance.TransformSpace =
-                    (TransformSpace)CustomEditorGUILayout.EnumPopup(new GUIContent("Transform Space"),
+                    (TransformSpace)EditorGUILayout.EnumPopup(new GUIContent("Transform Space"),
                         GlobalCommonComponentSingleton<TransformSpaceSettings>.Instance.TransformSpace);
             }
 
             _settings.EnableSnapRotate =
-                CustomEditorGUILayout.Toggle(new GUIContent("Enable Snap Rotate"), _settings.EnableSnapRotate);
+                EditorGUILayout.Toggle(new GUIContent("Enable Snap Rotate"), _settings.EnableSnapRotate);
             if (_settings.EnableSnapRotate)
             {
                 EditorGUI.indentLevel++;

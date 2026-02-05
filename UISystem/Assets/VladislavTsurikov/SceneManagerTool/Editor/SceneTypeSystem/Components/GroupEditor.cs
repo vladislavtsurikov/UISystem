@@ -74,9 +74,9 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SceneTypeSystem
             Rect rectField = totalRect;
             rectField.width -= 14;
 
-            _group.SceneReferences[index].SceneAsset = (SceneAsset)CustomEditorGUI.ObjectField(
+            _group.SceneReferences[index].SceneAsset = (SceneAsset)EditorGUI.ObjectField(
                 new Rect(rectField.x, rectField.y, rectField.width, EditorGUIUtility.singleLineHeight),
-                null, _group.SceneReferences[index].SceneAsset, typeof(SceneAsset));
+                _group.SceneReferences[index].SceneAsset, typeof(SceneAsset), true);
 
             var iconRect = new Rect(rectField.x + rectField.width + 2, rectField.y + 2, 14, 14);
 

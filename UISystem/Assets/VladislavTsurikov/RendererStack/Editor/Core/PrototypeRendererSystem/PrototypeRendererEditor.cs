@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.IMGUIUtility.Editor;
@@ -105,7 +105,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.PrototypeRendererSystem
             {
                 if (PrototypeRendererTarget.SelectionData.PrototypeList.Count != 0)
                 {
-                    CustomEditorGUILayout.HelpBox("Select one prototype to display prototype settings");
+                    EditorGUILayout.HelpBox("Select one prototype to display prototype settings", MessageType.Info);
                 }
             }
 
@@ -169,15 +169,15 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.PrototypeRendererSystem
                 {
                     LOD lod = renderModel.LODs[lodIndex];
 
-                    CustomEditorGUILayout.Label("LOD Index: " + lodIndex);
+                    EditorGUILayout.LabelField("LOD Index: " + lodIndex);
 
-                    lod.Mesh = (Mesh)CustomEditorGUILayout.ObjectField(new GUIContent("Mesh"), lod.Mesh, typeof(Mesh));
+                    lod.Mesh = (Mesh)EditorGUILayout.ObjectField(new GUIContent("Mesh"), lod.Mesh, typeof(Mesh), true);
 
                     for (var matIndex = 0; matIndex < lod.Materials.Count; matIndex++)
                     {
                         lod.Materials[matIndex] =
-                            (Material)CustomEditorGUILayout.ObjectField(new GUIContent("Material"),
-                                lod.Materials[matIndex], typeof(Material));
+                            (Material)EditorGUILayout.ObjectField(new GUIContent("Material"),
+                                lod.Materials[matIndex], typeof(Material), true);
                     }
                 }
 

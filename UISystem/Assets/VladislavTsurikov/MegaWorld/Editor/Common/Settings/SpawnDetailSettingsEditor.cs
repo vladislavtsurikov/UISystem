@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using System;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -26,11 +27,11 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings
         public override void OnGUI()
         {
             _spawnDetailSettings.UseRandomOpacity =
-                CustomEditorGUILayout.Toggle(_useRandomOpacity, _spawnDetailSettings.UseRandomOpacity);
+                EditorGUILayout.Toggle(_useRandomOpacity, _spawnDetailSettings.UseRandomOpacity);
             _spawnDetailSettings.Density =
-                CustomEditorGUILayout.IntSlider(_density, _spawnDetailSettings.Density, 0, 10);
+                EditorGUILayout.IntSlider(_density, _spawnDetailSettings.Density, 0, 10);
             _spawnDetailSettings.FailureRate =
-                CustomEditorGUILayout.Slider(_failureRate, _spawnDetailSettings.FailureRate, 0f, 100f);
+                EditorGUILayout.Slider(_failureRate, _spawnDetailSettings.FailureRate, 0f, 100f);
         }
     }
 }

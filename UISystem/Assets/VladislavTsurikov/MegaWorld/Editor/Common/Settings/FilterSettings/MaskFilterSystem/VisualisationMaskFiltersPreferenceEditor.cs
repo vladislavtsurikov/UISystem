@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using System;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -17,19 +18,19 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings.Mask
         public override void OnGUI()
         {
             _element.ColorSpace =
-                (ColorSpaceForBrushMaskFilter)CustomEditorGUILayout.EnumPopup(new GUIContent("Color Space"),
+                (ColorSpaceForBrushMaskFilter)EditorGUILayout.EnumPopup(new GUIContent("Color Space"),
                     _element.ColorSpace);
 
             switch (_element.ColorSpace)
             {
                 case ColorSpaceForBrushMaskFilter.СustomColor:
                 {
-                    _element.Color = CustomEditorGUILayout.ColorField(new GUIContent("Color"), _element.Color);
+                    _element.Color = EditorGUILayout.ColorField(new GUIContent("Color"), _element.Color);
                     _element.EnableStripe =
-                        CustomEditorGUILayout.Toggle(new GUIContent("Enable Brush Stripe"), _element.EnableStripe);
+                        EditorGUILayout.Toggle(new GUIContent("Enable Brush Stripe"), _element.EnableStripe);
 
                     _element.AlphaVisualisationType =
-                        (AlphaVisualisationType)CustomEditorGUILayout.EnumPopup(
+                        (AlphaVisualisationType)EditorGUILayout.EnumPopup(
                             new GUIContent("Alpha Visualisation Type"), _element.AlphaVisualisationType);
 
                     break;
@@ -37,7 +38,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings.Mask
                 case ColorSpaceForBrushMaskFilter.Colorful:
                 {
                     _element.AlphaVisualisationType =
-                        (AlphaVisualisationType)CustomEditorGUILayout.EnumPopup(
+                        (AlphaVisualisationType)EditorGUILayout.EnumPopup(
                             new GUIContent("Alpha Visualisation Type"), _element.AlphaVisualisationType);
 
                     break;
@@ -45,7 +46,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings.Mask
                 case ColorSpaceForBrushMaskFilter.Heightmap:
                 {
                     _element.AlphaVisualisationType =
-                        (AlphaVisualisationType)CustomEditorGUILayout.EnumPopup(
+                        (AlphaVisualisationType)EditorGUILayout.EnumPopup(
                             new GUIContent("Alpha Visualisation Type"), _element.AlphaVisualisationType);
 
                     break;
@@ -54,7 +55,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings.Mask
                     throw new ArgumentOutOfRangeException();
             }
 
-            _element.CustomAlpha = CustomEditorGUILayout.Slider(new GUIContent("Alpha"), _element.CustomAlpha, 0, 1);
+            _element.CustomAlpha = EditorGUILayout.Slider(new GUIContent("Alpha"), _element.CustomAlpha, 0, 1);
         }
     }
 }

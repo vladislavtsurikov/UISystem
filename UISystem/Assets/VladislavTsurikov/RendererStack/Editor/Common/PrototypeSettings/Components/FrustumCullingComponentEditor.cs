@@ -53,8 +53,10 @@ namespace VladislavTsurikov.RendererStack.Editor.Common.PrototypeSettings
 
             if (shadow.IsValid() && quality.IsShadowCasting)
             {
-                _render.GetAdditionalShadow = (GetAdditionalShadow)CustomEditorGUI.EnumPopup(
-                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), GetAdditionalShadow,
+                _render.GetAdditionalShadow = (GetAdditionalShadow)EditorGUI.EnumPopup(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        GetAdditionalShadow),
                     _render.GetAdditionalShadow);
                 rect.y += CustomEditorGUI.SingleLineHeight;
                 EditorGUI.indentLevel++;
@@ -91,16 +93,20 @@ namespace VladislavTsurikov.RendererStack.Editor.Common.PrototypeSettings
 
                             rect.y += CustomEditorGUI.SingleLineHeight;
 
-                            sceneQuality.DirectionalLight = (Light)CustomEditorGUI.ObjectField(
-                                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                                DirectionalLight, sceneQuality.DirectionalLight, typeof(Light));
+                            sceneQuality.DirectionalLight = (Light)EditorGUI.ObjectField(
+                                CustomEditorGUI.PrefixLabel(
+                                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                                    DirectionalLight),
+                                sceneQuality.DirectionalLight, typeof(Light), true);
                             rect.y += CustomEditorGUI.SingleLineHeight;
                         }
                         else
                         {
-                            sceneQuality.DirectionalLight = (Light)CustomEditorGUI.ObjectField(
-                                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                                DirectionalLight, sceneQuality.DirectionalLight, typeof(Light));
+                            sceneQuality.DirectionalLight = (Light)EditorGUI.ObjectField(
+                                CustomEditorGUI.PrefixLabel(
+                                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                                    DirectionalLight),
+                                sceneQuality.DirectionalLight, typeof(Light), true);
                             rect.y += CustomEditorGUI.SingleLineHeight;
                         }
 

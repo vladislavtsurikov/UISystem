@@ -74,8 +74,8 @@ namespace VladislavTsurikov.RendererStack.Editor.Common.PrototypeSettings
             }
             else
             {
-                CustomEditorGUI.WarningBox(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                    "Shadows disabled in Global Settings.");
+                EditorGUI.HelpBox(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                    "Shadows disabled in Global Settings.", MessageType.Warning);
                 rect.y += CustomEditorGUI.SingleLineHeight;
             }
 
@@ -114,9 +114,11 @@ namespace VladislavTsurikov.RendererStack.Editor.Common.PrototypeSettings
 
                         var lodIndex = (int)_shadowSettings.ShadowLODMap[index];
 
-                        _shadowSettings.ShadowLODMap[index] = CustomEditorGUI.Popup(
-                            new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                            shadowLODs[i], lodIndex >= options.Length ? options.Length - 1 : lodIndex, options);
+                        _shadowSettings.ShadowLODMap[index] = EditorGUI.Popup(
+                            CustomEditorGUI.PrefixLabel(
+                                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                                shadowLODs[i]),
+                            lodIndex >= options.Length ? options.Length - 1 : lodIndex, options);
 
                         rect.y += CustomEditorGUI.SingleLineHeight;
                     }

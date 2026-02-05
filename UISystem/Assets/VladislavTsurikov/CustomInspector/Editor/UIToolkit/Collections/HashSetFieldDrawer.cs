@@ -10,8 +10,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 {
     public sealed class HashSetFieldDrawerMatcher : FieldDrawerMatcher<UIToolkitFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(HashSet<>);
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.IsGenericType && field.FieldType.GetGenericTypeDefinition() == typeof(HashSet<>);
 
         public override Type DrawerType => typeof(HashSetFieldDrawer);
     }
@@ -29,6 +29,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
         private MethodInfo _containsMethod;
         private List<object> _elements;
         private bool _isAddingElement;
+        private bool _foldout;
         private object _newElement;
         private UIToolkitFieldDrawer _elementDrawer;
 
@@ -53,8 +54,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
             _removeMethod = _setType.GetMethod("Remove", new[] { _elementType });
             _containsMethod = _setType.GetMethod("Contains", new[] { _elementType });
 
-            var foldout = new Foldout { text = label, value = Foldout };
-            foldout.RegisterValueChangedCallback(evt => Foldout = evt.newValue);
+            var foldout = new Foldout { text = label, value = _foldout };
+            foldout.RegisterValueChangedCallback(evt => _foldout = evt.newValue);
             root.Add(foldout);
 
             var headerRow = new VisualElement();
@@ -294,3 +295,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
     }
 }
 #endif
+
+
+

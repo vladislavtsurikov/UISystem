@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using System;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -26,9 +27,9 @@ namespace VladislavTsurikov.MegaWorld.Editor.SprayBrushTool.GUI
 
         public override void OnGUI()
         {
-            _settings.Spacing = CustomEditorGUILayout.Slider(_spacing, _settings.Spacing, 0.1f, 5);
+            _settings.Spacing = EditorGUILayout.Slider(_spacing, _settings.Spacing, 0.1f, 5);
 
-            _settings.BrushSize = CustomEditorGUILayout.Slider(_brushSize, _settings.BrushSize, 0.1f,
+            _settings.BrushSize = EditorGUILayout.Slider(_brushSize, _settings.BrushSize, 0.1f,
                 PreferenceElementSingleton<BrushPreferenceSettings>.Instance.MaxBrushSize);
         }
     }

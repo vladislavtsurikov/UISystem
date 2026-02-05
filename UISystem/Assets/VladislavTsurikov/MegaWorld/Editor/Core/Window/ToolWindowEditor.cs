@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,8 +79,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
             {
                 if (SelectionData.SelectedData.SelectedGroup.PrototypeType == typeof(PrototypeTerrainObject))
                 {
-                    CustomEditorGUILayout.HelpBox(
-                        "Terrain Object Renderer is a free hyper optimization tool that is by far the best alternative to Unity Terrain Tree.");
+                    EditorGUILayout.HelpBox(
+                        "Terrain Object Renderer is a free hyper optimization tool that is by far the best alternative to Unity Terrain Tree.", MessageType.Info);
 
                     GUILayout.BeginHorizontal();
                     {
@@ -92,11 +92,11 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
                     }
                     GUILayout.EndHorizontal();
 
-                    CustomEditorGUILayout.HelpBox(
-                        "This is only available to users of the Discord server, join, write to the developer Vladislav Tsurikov in PM to get all the tools, also tell something about yourself, you can also ask any questions.");
+                    EditorGUILayout.HelpBox(
+                        "This is only available to users of the Discord server, join, write to the developer Vladislav Tsurikov in PM to get all the tools, also tell something about yourself, you can also ask any questions.", MessageType.Info);
 
-                    CustomEditorGUILayout.HelpBox(
-                        "I hope you will become part of the community and be active on Discord, suggest ideas, write feedback, sponsor development by helping me literally create revolutionary tools, there are still a lot of ideas, this is just the beginning, I am creating a large ecosystem of tools.");
+                    EditorGUILayout.HelpBox(
+                        "I hope you will become part of the community and be active on Discord, suggest ideas, write feedback, sponsor development by helping me literally create revolutionary tools, there are still a lot of ideas, this is just the beginning, I am creating a large ecosystem of tools.", MessageType.Info);
 
                     GUILayout.BeginHorizontal();
                     {
@@ -115,7 +115,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
             {
                 if (SelectionData.SelectedData.SelectedGroup.PrototypeList.Count == 0)
                 {
-                    CustomEditorGUILayout.HelpBox("This group does not contain more than one prototype.");
+                    EditorGUILayout.HelpBox("This group does not contain more than one prototype.", MessageType.Info);
                     ResourcesControllerEditor.DrawResourceController(SelectionData, false);
                     return;
                 }
@@ -253,7 +253,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
             }
             else
             {
-                CustomEditorGUILayout.HelpBox("Select one prototype to display prototype settings.");
+                EditorGUILayout.HelpBox("Select one prototype to display prototype settings.", MessageType.Info);
             }
         }
 
@@ -283,7 +283,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.Window
             }
             else
             {
-                CustomEditorGUILayout.HelpBox("Select one group to display group settings");
+                EditorGUILayout.HelpBox("Select one group to display group settings", MessageType.Info);
             }
         }
 

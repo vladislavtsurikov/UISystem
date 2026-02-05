@@ -28,34 +28,40 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.PrototypeRendererSystem.Pr
         {
             if (Prototype.RenderModel.LODs.Count < 2)
             {
-                CustomEditorGUI.WarningBox(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                    "Missing LOD Group in prefab.");
+                EditorGUI.HelpBox(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                    "Missing LOD Group in prefab.", MessageType.Warning);
                 rect.y += CustomEditorGUI.SingleLineHeight;
 
                 return;
             }
 
             _lodGroup.SetLODFade(Prototype.RenderModel,
-                CustomEditorGUI.Toggle(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), LODFade,
+                EditorGUI.Toggle(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), LODFade),
                     _lodGroup.EnabledLODFade));
             rect.y += CustomEditorGUI.SingleLineHeight;
 
             if (_lodGroup.EnabledLODFade)
             {
-                _lodGroup.LodFadeForLastLOD = CustomEditorGUI.Toggle(
-                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), LODFadeForLastLOD,
+                _lodGroup.LodFadeForLastLOD = EditorGUI.Toggle(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), LODFadeForLastLOD),
                     _lodGroup.LodFadeForLastLOD);
                 rect.y += CustomEditorGUI.SingleLineHeight;
-                _lodGroup.LodFadeTransitionDistance = CustomEditorGUI.Slider(
-                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                    LODFadeTransitionDistance, _lodGroup.LodFadeTransitionDistance, 0f, 20f);
+                _lodGroup.LodFadeTransitionDistance = EditorGUI.Slider(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        LODFadeTransitionDistance),
+                    _lodGroup.LodFadeTransitionDistance, 0f, 20f);
                 rect.y += CustomEditorGUI.SingleLineHeight;
             }
 
             if (_lodGroup.EnabledLODFade)
             {
-                CustomEditorGUI.HelpBox(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                    "Your shader must have the \"LOD_FADE_CROSSFADE\" keyword and also the LOD Fade algorithm in the shader. You also need the unity_LODFade variable.");
+                EditorGUI.HelpBox(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                    "Your shader must have the \"LOD_FADE_CROSSFADE\" keyword and also the LOD Fade algorithm in the shader. You also need the unity_LODFade variable.",
+                    MessageType.Info);
                 rect.y += CustomEditorGUI.SingleLineHeight;
             }
 
@@ -69,8 +75,11 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.PrototypeRendererSystem.Pr
             rect.y += CustomEditorGUI.SingleLineHeight;
 
             _lodGroup.LODBias =
-                CustomEditorGUI.Slider(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                    new GUIContent("LOD Bias"), _lodGroup.LODBias, 0.1f, 5f);
+                EditorGUI.Slider(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        new GUIContent("LOD Bias")),
+                    _lodGroup.LODBias, 0.1f, 5f);
             rect.y += CustomEditorGUI.SingleLineHeight;
 
             // LODEditorUtility.DrawLODSettingsStack(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), RendererType, Prototype, Prototype.RenderModel);

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -11,8 +12,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Collections
 {
     public sealed class ListFieldDrawerMatcher : FieldDrawerMatcher<UIToolkitFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(List<>);
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.IsGenericType && field.FieldType.GetGenericTypeDefinition() == typeof(List<>);
 
         public override Type DrawerType => typeof(ListFieldDrawer);
     }

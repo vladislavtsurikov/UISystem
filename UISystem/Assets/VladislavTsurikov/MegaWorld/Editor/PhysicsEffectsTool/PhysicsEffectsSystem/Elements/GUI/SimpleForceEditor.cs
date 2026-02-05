@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -15,9 +16,9 @@ namespace VladislavTsurikov.MegaWorld.Editor.PhysicsEffectsTool.PhysicsEffectsSy
 
         protected override void OnPhysicsEffectGUI()
         {
-            _settings.Angle = CustomEditorGUILayout.Slider(new GUIContent("Angle"), _settings.Angle, 0, 360);
+            _settings.Angle = EditorGUILayout.Slider(new GUIContent("Angle"), _settings.Angle, 0, 360);
             _settings.Force =
-                CustomEditorGUILayout.Slider(new GUIContent("Force"), _settings.Force, 0, _settings.MaxForce);
+                EditorGUILayout.Slider(new GUIContent("Force"), _settings.Force, 0, _settings.MaxForce);
         }
     }
 }

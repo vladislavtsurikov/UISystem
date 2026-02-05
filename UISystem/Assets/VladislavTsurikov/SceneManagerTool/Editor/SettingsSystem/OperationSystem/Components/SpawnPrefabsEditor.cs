@@ -42,9 +42,9 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SettingsSystem.OperationSyst
         }
 
         private void DrawElementCB(Rect totalRect, int index, bool isActive, bool isFocused) =>
-            _spawnPrefabs.GameObjects[index] = (GameObject)CustomEditorGUI.ObjectField(
+            _spawnPrefabs.GameObjects[index] = (GameObject)EditorGUI.ObjectField(
                 new Rect(totalRect.x, totalRect.y, totalRect.width, EditorGUIUtility.singleLineHeight),
-                null, _spawnPrefabs.GameObjects[index], typeof(GameObject));
+                _spawnPrefabs.GameObjects[index], typeof(GameObject), true);
     }
 }
 #endif

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -16,34 +16,34 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
 
         public override void OnGUI()
         {
-            _element.EnableSpawnVisualization = CustomEditorGUILayout.Toggle(
+            _element.EnableSpawnVisualization = EditorGUILayout.Toggle(
                 new GUIContent("Enable",
                     "I recommend turning off visualization if rendering slows down performance while spawning"),
                 _element.EnableSpawnVisualization);
 
             if (_element.EnableSpawnVisualization)
             {
-                _element.VisualiserResolution = CustomEditorGUILayout.IntSlider(new GUIContent("Visualiser Resolution"),
+                _element.VisualiserResolution = EditorGUILayout.IntSlider(new GUIContent("Visualiser Resolution"),
                     _element.VisualiserResolution, 1, 60);
 
                 _element.HandlesType =
-                    (HandlesType)CustomEditorGUILayout.EnumPopup(new GUIContent("Handles Type"), _element.HandlesType);
+                    (HandlesType)EditorGUILayout.EnumPopup(new GUIContent("Handles Type"), _element.HandlesType);
                 _element.HandleResizingType =
-                    (HandleResizingType)CustomEditorGUILayout.EnumPopup(new GUIContent("Handle Resizing Type"),
+                    (HandleResizingType)EditorGUILayout.EnumPopup(new GUIContent("Handle Resizing Type"),
                         _element.HandleResizingType);
 
                 if (_element.HandleResizingType == HandleResizingType.CustomSize)
                 {
                     EditorGUI.indentLevel++;
 
-                    _element.CustomHandleSize = CustomEditorGUILayout.Slider(new GUIContent("Handle Size"),
+                    _element.CustomHandleSize = EditorGUILayout.Slider(new GUIContent("Handle Size"),
                         _element.CustomHandleSize, 0.1f, 3f);
 
                     EditorGUI.indentLevel--;
                 }
 
                 _element.ColorHandlesType =
-                    (ColorHandlesType)CustomEditorGUILayout.EnumPopup(new GUIContent("Color Handles Type"),
+                    (ColorHandlesType)EditorGUILayout.EnumPopup(new GUIContent("Color Handles Type"),
                         _element.ColorHandlesType);
 
                 if (_element.ColorHandlesType == ColorHandlesType.Custom)
@@ -51,14 +51,14 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
                     EditorGUI.indentLevel++;
 
                     _element.ActiveColor =
-                        CustomEditorGUILayout.ColorField(new GUIContent("Active Color"), _element.ActiveColor);
+                        EditorGUILayout.ColorField(new GUIContent("Active Color"), _element.ActiveColor);
                     _element.InactiveColor =
-                        CustomEditorGUILayout.ColorField(new GUIContent("Inactive Color"), _element.InactiveColor);
+                        EditorGUILayout.ColorField(new GUIContent("Inactive Color"), _element.InactiveColor);
 
                     EditorGUI.indentLevel--;
                 }
 
-                _element.Alpha = CustomEditorGUILayout.Slider(new GUIContent("Alpha"), _element.Alpha, 0, 1);
+                _element.Alpha = EditorGUILayout.Slider(new GUIContent("Alpha"), _element.Alpha, 0, 1);
             }
         }
     }

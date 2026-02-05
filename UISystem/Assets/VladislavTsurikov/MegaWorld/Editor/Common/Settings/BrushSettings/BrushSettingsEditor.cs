@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using System;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -39,7 +40,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
         public override void OnGUI()
         {
             _brushSettings.SpacingEqualsType =
-                (SpacingEqualsType)CustomEditorGUILayout.EnumPopup(_spacingEqualsType,
+                (SpacingEqualsType)EditorGUILayout.EnumPopup(_spacingEqualsType,
                     _brushSettings.SpacingEqualsType);
 
             if (_brushSettings.SpacingEqualsType == SpacingEqualsType.Custom)
@@ -47,7 +48,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
                 _brushSettings.CustomSpacing = CustomEditorGUILayout.FloatField(_spacing, _brushSettings.CustomSpacing);
             }
 
-            _brushSettings.MaskType = (MaskType)CustomEditorGUILayout.EnumPopup(_maskType, _brushSettings.MaskType);
+            _brushSettings.MaskType = (MaskType)EditorGUILayout.EnumPopup(_maskType, _brushSettings.MaskType);
 
             switch (_brushSettings.MaskType)
             {

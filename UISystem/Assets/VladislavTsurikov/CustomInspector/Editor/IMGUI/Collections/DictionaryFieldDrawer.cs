@@ -11,8 +11,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 {
     public sealed class DictionaryFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(Dictionary<,>);
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.IsGenericType && field.FieldType.GetGenericTypeDefinition() == typeof(Dictionary<,>);
 
         public override Type DrawerType => typeof(DictionaryFieldDrawer);
     }
@@ -33,8 +33,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
         private bool _isAddingElement;
         private object _newKey;
         private object _newValue;
+        private bool _foldout;
 
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             _label = label;
             _dictionary = value;
@@ -100,9 +101,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             EditorGUI.LabelField(countRect, countText);
 
             Rect foldoutRect = new Rect(headerRect.x, headerRect.y, countRect.x - headerRect.x - 5, headerRect.height);
-            Foldout = EditorGUI.Foldout(foldoutRect, Foldout, label.text, true);
+            _foldout = EditorGUI.Foldout(foldoutRect, _foldout, label.text, true);
 
-            if (!Foldout)
+            if (!_foldout)
             {
                 return value;
             }
@@ -198,14 +199,14 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             return value;
         }
 
-        public override float GetFieldsHeight(object target)
+        public override float GetFieldsHeight(object target, FieldInfo field, object value)
         {
             if (target == null)
             {
                 return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
             }
 
-            if (!Foldout)
+            if (!_foldout)
             {
                 return EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
             }
@@ -440,3 +441,5 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
     }
 }
 #endif
+
+

@@ -12,15 +12,15 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.SingleElementStackE
 {
     public sealed class SingleElementStackFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(SingleElementStack<>);
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.IsGenericType && field.FieldType.GetGenericTypeDefinition() == typeof(SingleElementStack<>);
 
         public override Type DrawerType => typeof(SingleElementStackFieldDrawer);
     }
 
     public class SingleElementStackFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             if (value == null)
             {

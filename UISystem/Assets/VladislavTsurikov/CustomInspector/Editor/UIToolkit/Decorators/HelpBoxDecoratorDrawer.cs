@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Runtime;
@@ -14,7 +15,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
 
     public sealed class HelpBoxDecoratorDrawer : UIToolkitDecoratorDrawer
     {
-        public override VisualElement CreateElement()
+        public override VisualElement CreateElement(FieldInfo field, object target)
         {
             if (Attribute is not HelpBoxAttribute helpBoxAttribute)
             {
@@ -41,3 +42,4 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
     }
 }
 #endif
+

@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -15,20 +16,19 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
 
     public sealed class PreviewTextureDecoratorDrawer : IMGUIDecoratorDrawer
     {
-        public override void Draw(Rect rect)
+        public override void Draw(Rect rect, FieldInfo field, object target)
         {
             if (Attribute is not PreviewTextureAttribute previewTextureAttribute)
             {
                 return;
             }
 
-            var context = InspectorContext.Current;
-            if (context?.Field == null || context.Target == null)
+            if (field == null || target == null)
             {
                 return;
             }
 
-            var texture = context.Field.GetValue(context.Target) as Texture;
+            var texture = field.GetValue(target) as Texture;
             if (texture == null)
             {
                 return;
@@ -39,7 +39,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
             EditorGUI.DrawPreviewTexture(previewRect, texture);
         }
 
-        public override float GetHeight()
+        public override float GetHeight(FieldInfo field, object target)
         {
             return Attribute is PreviewTextureAttribute previewTextureAttribute
                 ? previewTextureAttribute.Height

@@ -11,8 +11,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
 {
     public sealed class HashSetFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(HashSet<>);
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.IsGenericType && field.FieldType.GetGenericTypeDefinition() == typeof(HashSet<>);
 
         public override Type DrawerType => typeof(HashSetFieldDrawer);
     }
@@ -33,7 +33,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
         private string _foldoutKey;
         private string _isAddingElementKey;
 
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             _label = label;
             _hashSet = value;
@@ -178,7 +178,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
             return value;
         }
 
-        public override float GetFieldsHeight(object target)
+        public override float GetFieldsHeight(object target, FieldInfo field, object value)
         {
             float headerHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
             if (target == null)
@@ -401,3 +401,5 @@ namespace VladislavTsurikov.CustomInspector.Editor.Collections
     }
 }
 #endif
+
+

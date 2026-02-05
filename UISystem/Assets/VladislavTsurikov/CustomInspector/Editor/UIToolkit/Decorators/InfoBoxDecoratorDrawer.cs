@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -24,7 +25,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             _attribute = attribute as InfoBoxAttribute;
         }
 
-        public override VisualElement CreateElement()
+        public override VisualElement CreateElement(FieldInfo field, object target)
         {
             if (_attribute == null)
             {
@@ -35,27 +36,26 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             _helpBox.style.marginTop = 2;
             _helpBox.style.marginBottom = 2;
 
-            UpdateHelpBox();
+            UpdateHelpBox(target);
 
             return _helpBox;
         }
 
-        private void UpdateHelpBox()
+        private void UpdateHelpBox(object target)
         {
-            var context = InspectorContext.Current;
-            if (context == null)
+            if (target == null)
             {
                 _helpBox.style.display = DisplayStyle.None;
                 return;
             }
 
-            if (!_attribute.IsVisible(context.Target))
+            if (!_attribute.IsVisible(target))
             {
                 _helpBox.style.display = DisplayStyle.None;
                 return;
             }
 
-            string message = _attribute.GetMessage(context.Target);
+            string message = _attribute.GetMessage(target);
 
             if (string.IsNullOrWhiteSpace(message))
             {
@@ -82,3 +82,4 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
     }
 }
 #endif
+

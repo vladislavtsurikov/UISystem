@@ -66,7 +66,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
             {
                 EditorGUI.indentLevel = initialIndentLevel;
 
-                CustomEditorGUILayout.Label("This List does not have a base type \"ISelect and IHasName\"");
+                EditorGUILayout.LabelField("This List does not have a base type \"ISelect and IHasName\"");
                 return;
             }
 
@@ -420,3 +420,4 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack
     }
 }
 #endif
+

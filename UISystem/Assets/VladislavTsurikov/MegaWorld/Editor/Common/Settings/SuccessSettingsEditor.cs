@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -18,7 +19,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings
 
         public override void OnGUI() =>
             _successSettings.SuccessValue =
-                CustomEditorGUILayout.Slider(_success, _successSettings.SuccessValue, 0f, 100f);
+                EditorGUILayout.Slider(_success, _successSettings.SuccessValue, 0f, 100f);
     }
 }
 #endif

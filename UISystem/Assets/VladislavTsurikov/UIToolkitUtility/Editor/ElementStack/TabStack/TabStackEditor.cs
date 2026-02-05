@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
 {
-    public class TabStackEditor<T>
+    public class TabStackEditor<T> : VisualElement
     {
         public delegate bool IsSelectedCallbackDelegate(T item);
         public delegate void AddCallbackDelegate();
@@ -17,9 +17,15 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
         public delegate string TabNameCallbackDelegate(T item);
 
         private const float DragIndicatorWidth = 2f;
+        private const string LayoutPath =
+            "Assets/VladislavTsurikov/UIToolkitUtility/Editor/ElementStack/TabStack/TabStackEditor.uxml";
+        private const string StylePath =
+            "Assets/VladislavTsurikov/UIToolkitUtility/Editor/ElementStack/TabStack/TabStackEditor.uss";
+        private const string LayoutContainerName = "LayoutContainer";
+        private const string DragIndicatorName = "DragIndicator";
 
         private readonly IList<T> _elements;
-        private readonly List<Button> _tabButtons = new();
+        private readonly List<Tab> _tabButtons = new();
         private VisualElement _root;
         private VisualElement _dragIndicator;
         private int _dragIndex = -1;
@@ -47,26 +53,58 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
         public TabStackEditor(IList<T> elements)
         {
             _elements = elements;
-        }
-
-        public VisualElement CreateGUI()
-        {
-            _root = new VisualElement();
-            _root.style.flexDirection = FlexDirection.Row;
-            _root.style.flexWrap = Wrap.Wrap;
-
-            _dragIndicator = new VisualElement();
-            _dragIndicator.style.position = Position.Absolute;
-            _dragIndicator.style.width = DragIndicatorWidth;
-            _dragIndicator.style.backgroundColor = Color.white;
-            _dragIndicator.style.display = DisplayStyle.None;
-            _root.Add(_dragIndicator);
+            CreateRoot();
 
             _root.RegisterCallback<PointerMoveEvent>(OnPointerMove);
             _root.RegisterCallback<PointerUpEvent>(OnPointerUp);
 
             Refresh();
-            return _root;
+        }
+
+        public VisualElement CreateGUI()
+        {
+            return this;
+        }
+
+        private void CreateRoot()
+        {
+            var layout = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(LayoutPath);
+            if (layout == null)
+            {
+                _root = this;
+                _root.style.flexDirection = FlexDirection.Row;
+                _root.style.flexWrap = Wrap.Wrap;
+
+                _dragIndicator = CreateFallbackDragIndicator();
+                _root.Add(_dragIndicator);
+                return;
+            }
+
+            var template = layout.CloneTree();
+            Add(template);
+            _root = template.Q<VisualElement>(LayoutContainerName) ?? template;
+
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(StylePath);
+            if (styleSheet != null)
+            {
+                styleSheets.Add(styleSheet);
+            }
+
+            _dragIndicator = template.Q<VisualElement>(DragIndicatorName) ?? CreateFallbackDragIndicator();
+            if (_dragIndicator.parent == null)
+            {
+                _root.Add(_dragIndicator);
+            }
+        }
+
+        private static VisualElement CreateFallbackDragIndicator()
+        {
+            var dragIndicator = new VisualElement { name = DragIndicatorName };
+            dragIndicator.style.position = Position.Absolute;
+            dragIndicator.style.width = DragIndicatorWidth;
+            dragIndicator.style.backgroundColor = Color.white;
+            dragIndicator.style.display = DisplayStyle.None;
+            return dragIndicator;
         }
 
         public void Refresh()
@@ -89,34 +127,31 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
 
             if (AddCallback != null)
             {
-                var addButton = new Button(() => AddCallback())
-                {
-                    text = "+"
-                };
+                var addButton = new TabPlus();
+                addButton.Clicked += () => AddCallback();
                 ApplyTabSize(addButton, TabPlusWidth);
                 _root.Add(addButton);
             }
         }
 
-        private Button CreateTabButton(int index)
+        private Tab CreateTabButton(int index)
         {
             var item = _elements[index];
-            var tabButton = new Button(() => Select(index))
-            {
-                text = TabName?.Invoke(item) ?? item?.ToString() ?? "Tab"
-            };
+            var tabButton = new Tab();
+            tabButton.Clicked += () => Select(index);
+            tabButton.Text = TabName?.Invoke(item) ?? item?.ToString() ?? "Tab";
 
-            ApplyTabSize(tabButton, GetTabWidth(tabButton.text));
+            ApplyTabSize(tabButton, GetTabWidth(tabButton.Text));
 
             if (TabColor != null)
             {
                 TabColor(item, out var barColor, out var labelColor);
-                tabButton.style.backgroundColor = barColor;
-                tabButton.style.color = labelColor;
+                tabButton.SetBackgroundColor(barColor);
+                tabButton.SetLabelColor(labelColor);
             }
             else if (IsSelected != null && IsSelected(item))
             {
-                tabButton.style.backgroundColor = SelectedBackgroundColor;
+                tabButton.SetBackgroundColor(SelectedBackgroundColor);
             }
 
             tabButton.RegisterCallback<ContextClickEvent>(evt =>
@@ -157,14 +192,10 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
             return tabButton;
         }
 
-        private void ApplyTabSize(Button tabButton, float width)
+        private void ApplyTabSize(VisualElement tabButton, float width)
         {
             tabButton.style.height = TabHeight;
             tabButton.style.minHeight = TabHeight;
-            tabButton.style.paddingLeft = 10;
-            tabButton.style.paddingRight = 10;
-            tabButton.style.marginRight = 2;
-            tabButton.style.marginBottom = 2;
             tabButton.style.width = width;
             tabButton.style.minWidth = width;
         }
@@ -195,7 +226,7 @@ namespace VladislavTsurikov.UIToolkitUtility.Editor.ElementStack.TabStack
             var tabButton = _tabButtons[index];
             var textField = new TextField
             {
-                value = tabButton.text
+                value = tabButton.Text
             };
 
             textField.style.width = tabButton.resolvedStyle.width;

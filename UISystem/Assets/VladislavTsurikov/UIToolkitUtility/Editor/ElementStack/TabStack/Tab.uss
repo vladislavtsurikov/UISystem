@@ -1,0 +1,14 @@
+.tab-stack-editor__tab {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+.tab-stack-editor__tab-label {
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+}

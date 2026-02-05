@@ -25,19 +25,19 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.PhysXPainter.Settings
             {
                 EditorGUI.indentLevel++;
 
-                _element.ForceRange = CustomEditorGUILayout.Toggle(new GUIContent("Force Range"), _element.ForceRange);
+                _element.ForceRange = EditorGUILayout.Toggle(new GUIContent("Force Range"), _element.ForceRange);
 
                 if (_element.ForceRange)
                 {
                     _element.MinForce = Mathf.Max(0,
-                        CustomEditorGUILayout.Slider(new GUIContent("Min Force"), _element.MinForce, 0, 100));
+                        EditorGUILayout.Slider(new GUIContent("Min Force"), _element.MinForce, 0, 100));
                     _element.MaxForce = Mathf.Max(_element.MinForce,
-                        CustomEditorGUILayout.Slider(new GUIContent("Max Force"), _element.MaxForce, 0, 100));
+                        EditorGUILayout.Slider(new GUIContent("Max Force"), _element.MaxForce, 0, 100));
                 }
                 else
                 {
                     _element.MinForce = Mathf.Max(0,
-                        CustomEditorGUILayout.Slider(new GUIContent("Force"), _element.MinForce, 0, 100));
+                        EditorGUILayout.Slider(new GUIContent("Force"), _element.MinForce, 0, 100));
                 }
 
                 EditorGUI.indentLevel--;
@@ -49,7 +49,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.PhysXPainter.Settings
             {
                 EditorGUI.indentLevel++;
 
-                _element.RandomStrength = CustomEditorGUILayout.Slider(new GUIContent("Random Strength"),
+                _element.RandomStrength = EditorGUILayout.Slider(new GUIContent("Random Strength"),
                     _element.RandomStrength, 0, 100);
 
                 EditorGUI.indentLevel--;

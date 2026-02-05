@@ -43,13 +43,13 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.RendererSystem
 
             if (!RendererStackManager.Instance.IsSetup)
             {
-                CustomEditorGUILayout.Label("Initialization Failed:");
+                EditorGUILayout.LabelField("Initialization Failed:");
 
                 foreach (Renderer renderer in Stack.ElementList)
                 {
                     if (!renderer.IsSetup)
                     {
-                        CustomEditorGUILayout.Label(renderer.Name + " (Renderer)");
+                        EditorGUILayout.LabelField(renderer.Name + " (Renderer)");
                     }
                 }
 
@@ -58,7 +58,7 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.RendererSystem
                 {
                     if (!rendererComponent.IsSetup)
                     {
-                        CustomEditorGUILayout.Label(rendererComponent.Name + " (Renderer Component)");
+                        EditorGUILayout.LabelField(rendererComponent.Name + " (Renderer Component)");
                     }
                 }
 

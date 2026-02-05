@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -16,10 +17,10 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
         public override void OnGUI()
         {
             _element.DrawSolidDisc =
-                CustomEditorGUILayout.Toggle(new GUIContent("Draw Solid Disc"), _element.DrawSolidDisc);
+                EditorGUILayout.Toggle(new GUIContent("Draw Solid Disc"), _element.DrawSolidDisc);
             _element.CircleColor =
-                CustomEditorGUILayout.ColorField(new GUIContent("Сircle Color"), _element.CircleColor);
-            _element.CirclePixelWidth = CustomEditorGUILayout.Slider(new GUIContent("Сircle Pixel Width"),
+                EditorGUILayout.ColorField(new GUIContent("Сircle Color"), _element.CircleColor);
+            _element.CirclePixelWidth = EditorGUILayout.Slider(new GUIContent("Сircle Pixel Width"),
                 _element.CirclePixelWidth, 1f, 5f);
         }
     }

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -32,12 +32,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.TextureStamperTool
                 DrawFitToTerrainSizeButton();
 
                 Area.UseSpawnCells =
-                    CustomEditorGUILayout.Toggle(new GUIContent("Use Spawn Cells"), Area.UseSpawnCells);
+                    EditorGUILayout.Toggle(new GUIContent("Use Spawn Cells"), Area.UseSpawnCells);
 
                 if (Area.UseSpawnCells)
                 {
-                    CustomEditorGUILayout.HelpBox(
-                        "It is recommended to enable \"Use Cells\" when your terrain is more than 4 km * 4 km. This parameter creates smaller cells, \"Stamper Tool\" will spawn each cell in turn. Why this parameter is needed, too long spawn delay can disable Unity.");
+                    EditorGUILayout.HelpBox(
+                        "It is recommended to enable \"Use Cells\" when your terrain is more than 4 km * 4 km. This parameter creates smaller cells, \"Stamper Tool\" will spawn each cell in turn. Why this parameter is needed, too long spawn delay can disable Unity.", MessageType.Info);
 
                     GUILayout.BeginHorizontal();
                     {
@@ -54,12 +54,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.TextureStamperTool
                     GUILayout.Space(3);
 
                     Area.CellSize = CustomEditorGUILayout.FloatField(_cellSize, Area.CellSize);
-                    CustomEditorGUILayout.Label("Cell Count: " + Area.CellList.Count);
-                    Area.ShowCells = CustomEditorGUILayout.Toggle(_showCells, Area.ShowCells);
+                    EditorGUILayout.LabelField("Cell Count: " + Area.CellList.Count);
+                    Area.ShowCells = EditorGUILayout.Toggle(_showCells, Area.ShowCells);
                 }
                 else
                 {
-                    Area.UseMask = CustomEditorGUILayout.Toggle(new GUIContent("Use Mask"), Area.UseMask);
+                    Area.UseMask = EditorGUILayout.Toggle(new GUIContent("Use Mask"), Area.UseMask);
 
                     if (Area.UseMask)
                     {

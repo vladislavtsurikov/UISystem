@@ -30,12 +30,14 @@ namespace VladislavTsurikov.RendererStack.Editor.TerrainObjectRenderer.SceneSett
             var cameraManager =
                 (CameraManager)RendererStackManager.Instance.SceneComponentStack.GetElement(typeof(CameraManager));
 
-            TerrainObjectRendererCameraSettings.LodBias = CustomEditorGUI.Slider(
-                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), LODBias,
+            TerrainObjectRendererCameraSettings.LodBias = EditorGUI.Slider(
+                CustomEditorGUI.PrefixLabel(
+                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), LODBias),
                 TerrainObjectRendererCameraSettings.LodBias, 0.1f, 1);
             rect.y += CustomEditorGUI.SingleLineHeight;
-            TerrainObjectRendererCameraSettings.CameraCullingMode = (CameraCullingMode)CustomEditorGUI.EnumPopup(
-                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), CameraCullingMode,
+            TerrainObjectRendererCameraSettings.CameraCullingMode = (CameraCullingMode)EditorGUI.EnumPopup(
+                CustomEditorGUI.PrefixLabel(
+                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), CameraCullingMode),
                 TerrainObjectRendererCameraSettings.CameraCullingMode);
             rect.y += CustomEditorGUI.SingleLineHeight;
 
@@ -43,9 +45,11 @@ namespace VladislavTsurikov.RendererStack.Editor.TerrainObjectRenderer.SceneSett
             {
                 if (cameraManager.VirtualCameraList.Count > 2)
                 {
-                    TerrainObjectRendererCameraSettings.EnableColliders = CustomEditorGUI.Toggle(
-                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                        new GUIContent("Enable Colliders"), TerrainObjectRendererCameraSettings.EnableColliders);
+                    TerrainObjectRendererCameraSettings.EnableColliders = EditorGUI.Toggle(
+                        CustomEditorGUI.PrefixLabel(
+                            new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                            new GUIContent("Enable Colliders")),
+                        TerrainObjectRendererCameraSettings.EnableColliders);
                     rect.y += CustomEditorGUI.SingleLineHeight;
                 }
             }

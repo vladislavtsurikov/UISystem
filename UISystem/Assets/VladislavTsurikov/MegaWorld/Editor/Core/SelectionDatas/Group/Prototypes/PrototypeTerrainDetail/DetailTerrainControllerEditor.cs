@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.IMGUIUtility.Editor;
@@ -68,8 +68,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
                     }
                     case DetailTerrainResourcesController.TerrainResourcesSyncError.NotAllProtoAvailable:
                     {
-                        CustomEditorGUILayout.WarningBox(
-                            "You need all Terrain Details prototypes to be in the terrain. Click \"Add Missing Resources To Terrain\"");
+                        EditorGUILayout.HelpBox(
+                            "You need all Terrain Details prototypes to be in the terrain. Click \"Add Missing Resources To Terrain\"", MessageType.Warning);
 
                         var getResourcesFromTerrain = "Get/Update Resources From Terrain";
 
@@ -144,7 +144,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
             }
             else
             {
-                CustomEditorGUILayout.WarningBox("There is no active terrain in the scene.");
+                EditorGUILayout.HelpBox("There is no active terrain in the scene.", MessageType.Warning);
             }
         }
 

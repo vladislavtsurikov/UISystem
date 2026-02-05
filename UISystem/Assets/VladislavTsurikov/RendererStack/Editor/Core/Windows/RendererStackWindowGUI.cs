@@ -19,10 +19,10 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.Windows
 
             if (sceneDatas.Count > 1)
             {
-                CustomEditorGUILayout.HelpBox(
-                    "There are several types of Renderer Stack Manager at the level, but there should be only one");
-                CustomEditorGUILayout.HelpBox(
-                    "Open the Scene Data Manager Window via Windows -> VladislavTsurikov -> Scene Data Manager. You need to remove the Renderer Stack Manager from the inactive scene");
+                EditorGUILayout.HelpBox(
+                    "There are several types of Renderer Stack Manager at the level, but there should be only one", MessageType.Info);
+                EditorGUILayout.HelpBox(
+                    "Open the Scene Data Manager Window via Windows -> VladislavTsurikov -> Scene Data Manager. You need to remove the Renderer Stack Manager from the inactive scene", MessageType.Info);
             }
             else if (sceneDatas.Count == 0)
             {

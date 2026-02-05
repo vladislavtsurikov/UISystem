@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -27,15 +27,15 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Stamper
         public override void OnGUI()
         {
             _stamperControllerSettings.Visualisation =
-                CustomEditorGUILayout.Toggle(_visualisation, _stamperControllerSettings.Visualisation);
+                EditorGUILayout.Toggle(_visualisation, _stamperControllerSettings.Visualisation);
 
             _stamperControllerSettings.AutoRespawn =
-                CustomEditorGUILayout.Toggle(_autoRespawn, _stamperControllerSettings.AutoRespawn);
+                EditorGUILayout.Toggle(_autoRespawn, _stamperControllerSettings.AutoRespawn);
 
             if (_stamperControllerSettings.AutoRespawn)
             {
                 EditorGUI.indentLevel++;
-                _stamperControllerSettings.DelayAutoRespawn = CustomEditorGUILayout.Slider(_delayAutoSpawn,
+                _stamperControllerSettings.DelayAutoRespawn = EditorGUILayout.Slider(_delayAutoSpawn,
                     _stamperControllerSettings.DelayAutoRespawn, 0, 3);
                 EditorGUI.indentLevel--;
 

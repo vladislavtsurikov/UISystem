@@ -18,26 +18,15 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     public class RequiredDecoratorDrawer : IMGUIDecoratorDrawer
     {
         private RequiredAttribute _attribute;
-        private FieldInfo _field;
-        private object _target;
 
         public override void Initialize(Attribute attribute)
         {
             _attribute = attribute as RequiredAttribute;
         }
 
-        public override void Draw(Rect rect)
+        public override void Draw(Rect rect, FieldInfo field, object target)
         {
-            var context = InspectorContext.Current;
-            if (context == null)
-            {
-                return;
-            }
-
-            _field = context.Field;
-            _target = context.Target;
-
-            if (IsFieldValid())
+            if (IsFieldValid(field, target))
             {
                 return;
             }
@@ -48,10 +37,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
             EditorGUI.HelpBox(rect, content.text, MessageType.Error);
         }
 
-        public override float GetHeight()
+        public override float GetHeight(FieldInfo field, object target)
         {
-            var context = InspectorContext.Current;
-            if (context == null || IsFieldValid())
+            if (IsFieldValid(field, target))
             {
                 return 0;
             }
@@ -61,14 +49,14 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
             return style.CalcHeight(content, EditorGUIUtility.currentViewWidth) + 4f;
         }
 
-        private bool IsFieldValid()
+        private bool IsFieldValid(FieldInfo field, object target)
         {
-            if (_field == null || _target == null)
+            if (field == null || target == null)
             {
                 return true;
             }
 
-            object value = _field.GetValue(_target);
+            object value = field.GetValue(target);
 
             if (value == null)
             {

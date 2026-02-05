@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -50,26 +50,26 @@ namespace VladislavTsurikov.MegaWorld.Editor.EditTool
             {
                 EditorGUI.indentLevel++;
 
-                CustomEditorGUILayout.Label(
+                EditorGUILayout.LabelField(
                     "<size=14><color=#" + UnityEngine.ColorUtility.ToHtmlStringRGB(EditorColors.Instance.LabelColor) +
                     ">" + "<b><i>Q</i></b> - Move Up/Down.</color></size>", TitleStyle);
-                CustomEditorGUILayout.Label(
+                EditorGUILayout.LabelField(
                     "<size=14><color=#" + UnityEngine.ColorUtility.ToHtmlStringRGB(EditorColors.Instance.LabelColor) +
                     ">" + "<b><i>W</i></b> - Raycast.</color></size>", TitleStyle);
 
-                CustomEditorGUILayout.Label(
+                EditorGUILayout.LabelField(
                     "<size=14><color=#" + UnityEngine.ColorUtility.ToHtmlStringRGB(EditorColors.Instance.LabelColor) +
                     ">" + "<b><i>E</i></b> - Rotation.</color></size>", TitleStyle);
                 EditorGUI.indentLevel++;
-                CustomEditorGUILayout.Label(
+                EditorGUILayout.LabelField(
                     "<size=14><color=#" + UnityEngine.ColorUtility.ToHtmlStringRGB(EditorColors.Instance.LabelColor) +
                     ">" + "<b><i>Space</i></b> - Transform Space.</color></size>", TitleStyle);
                 EditorGUI.indentLevel--;
 
-                CustomEditorGUILayout.Label(
+                EditorGUILayout.LabelField(
                     "<size=14><color=#" + UnityEngine.ColorUtility.ToHtmlStringRGB(EditorColors.Instance.LabelColor) +
                     ">" + "<b><i>R</i></b> - Scale.</color></size>", TitleStyle);
-                CustomEditorGUILayout.Label(
+                EditorGUILayout.LabelField(
                     "<size=14><color=#" + UnityEngine.ColorUtility.ToHtmlStringRGB(EditorColors.Instance.LabelColor) +
                     ">" + "<b><i>T</i></b> - Remove.</color></size>", TitleStyle);
 

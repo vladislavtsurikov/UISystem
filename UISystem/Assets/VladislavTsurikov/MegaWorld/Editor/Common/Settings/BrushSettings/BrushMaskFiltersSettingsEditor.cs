@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -25,7 +25,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
                 EditorGUI.indentLevel++;
 
                 brushVisualisationMaskFiltersPreference.ColorSpace =
-                    (ColorSpaceForBrushMaskFilter)CustomEditorGUILayout.EnumPopup(new GUIContent("Color Space"),
+                    (ColorSpaceForBrushMaskFilter)EditorGUILayout.EnumPopup(new GUIContent("Color Space"),
                         brushVisualisationMaskFiltersPreference.ColorSpace);
 
                 switch (brushVisualisationMaskFiltersPreference.ColorSpace)
@@ -33,13 +33,13 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
                     case ColorSpaceForBrushMaskFilter.СustomColor:
                     {
                         brushVisualisationMaskFiltersPreference.Color =
-                            CustomEditorGUILayout.ColorField(new GUIContent("Color"),
+                            EditorGUILayout.ColorField(new GUIContent("Color"),
                                 brushVisualisationMaskFiltersPreference.Color);
-                        brushVisualisationMaskFiltersPreference.EnableStripe = CustomEditorGUILayout.Toggle(
+                        brushVisualisationMaskFiltersPreference.EnableStripe = EditorGUILayout.Toggle(
                             new GUIContent("Enable Stripe"), brushVisualisationMaskFiltersPreference.EnableStripe);
 
                         brushVisualisationMaskFiltersPreference.AlphaVisualisationType =
-                            (AlphaVisualisationType)CustomEditorGUILayout.EnumPopup(
+                            (AlphaVisualisationType)EditorGUILayout.EnumPopup(
                                 new GUIContent("Alpha Visualisation Type"),
                                 brushVisualisationMaskFiltersPreference.AlphaVisualisationType);
 
@@ -48,7 +48,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
                     case ColorSpaceForBrushMaskFilter.Colorful:
                     {
                         brushVisualisationMaskFiltersPreference.AlphaVisualisationType =
-                            (AlphaVisualisationType)CustomEditorGUILayout.EnumPopup(
+                            (AlphaVisualisationType)EditorGUILayout.EnumPopup(
                                 new GUIContent("Alpha Visualisation Type"),
                                 brushVisualisationMaskFiltersPreference.AlphaVisualisationType);
 
@@ -57,7 +57,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
                     case ColorSpaceForBrushMaskFilter.Heightmap:
                     {
                         brushVisualisationMaskFiltersPreference.AlphaVisualisationType =
-                            (AlphaVisualisationType)CustomEditorGUILayout.EnumPopup(
+                            (AlphaVisualisationType)EditorGUILayout.EnumPopup(
                                 new GUIContent("Alpha Visualisation Type"),
                                 brushVisualisationMaskFiltersPreference.AlphaVisualisationType);
 
@@ -66,7 +66,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
                 }
 
                 brushVisualisationMaskFiltersPreference.CustomAlpha =
-                    CustomEditorGUILayout.Slider(new GUIContent("Alpha"),
+                    EditorGUILayout.Slider(new GUIContent("Alpha"),
                         brushVisualisationMaskFiltersPreference.CustomAlpha, 0, 1);
 
                 EditorGUI.indentLevel--;

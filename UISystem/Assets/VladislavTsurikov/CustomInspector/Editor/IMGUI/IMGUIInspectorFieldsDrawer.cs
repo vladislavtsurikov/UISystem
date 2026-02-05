@@ -5,7 +5,6 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
-using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
@@ -51,14 +50,12 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
                 FieldInfo field = processedField.Field;
                 object value = processedField.Value;
 
-                using var scope = InspectorContext.Push(target, field, elementIndex);
-
                 foreach (IMGUIDecoratorDrawer decorator in processedField.Decorators)
                 {
-                    float decoratorHeight = decorator.GetHeight();
+                    float decoratorHeight = decorator.GetHeight(field, target);
                     Rect decoratorRect = new Rect(rect.x, rect.y, rect.width, decoratorHeight);
 
-                    decorator.Draw(decoratorRect);
+                    decorator.Draw(decoratorRect, field, target);
 
                     rect.y += decoratorHeight;
                     _totalHeight += decoratorHeight;
@@ -68,34 +65,27 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
                 if (drawer != null)
                 {
-                    var fieldHeight = drawer.GetFieldsHeight(value);
+                    var fieldHeight = drawer.GetFieldsHeight(target, field, value);
                     Rect fieldRect = EditorGUI.IndentedRect(new Rect(rect.x, rect.y, rect.width, fieldHeight));
 
-                    bool isReadOnly = field.GetCustomAttribute<ReadOnlyAttribute>() != null;
-                    bool isDisabled = EvaluateDisableIfCondition(field, target);
-                    var guiColorAttribute = field.GetCustomAttribute<GUIColorAttribute>();
-
-                    Color originalColor = GUI.color;
-                    if (guiColorAttribute != null)
+                    using (CreateFieldPresentationScope(
+                               field,
+                               target,
+                               processedField.StateProcessors,
+                               processedField.StyleProcessors,
+                               null))
                     {
-                        GUI.color = guiColorAttribute.GetColor(target);
-                    }
+                        EditorGUI.BeginChangeCheck();
 
-                    EditorGUI.BeginDisabledGroup(isReadOnly || isDisabled);
-                    EditorGUI.BeginChangeCheck();
-
-                    var newValue = drawer.Draw(fieldRect, fieldLabel, field, value);
-
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        field.SetValue(target, newValue);
-                    }
-
-                    EditorGUI.EndDisabledGroup();
-
-                    if (guiColorAttribute != null)
-                    {
-                        GUI.color = originalColor;
+                        var newValue = drawer.Draw(fieldRect, fieldLabel, field, target, value);
+                        bool uiChanged = EditorGUI.EndChangeCheck();
+                        newValue = ApplyProcessorsAndAssignIfNeeded(
+                            field,
+                            target,
+                            newValue,
+                            value,
+                            processedField.ValueProcessors,
+                            uiChanged);
                     }
 
                     rect.y += fieldHeight;
@@ -135,16 +125,17 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
             foreach (var processedField in GetProcessedFields(target))
             {
-                using var scope = InspectorContext.Push(target, processedField.Field, elementIndex);
-
                 foreach (IMGUIDecoratorDrawer decorator in processedField.Decorators)
                 {
-                    _totalHeight += decorator.GetHeight();
+                    _totalHeight += decorator.GetHeight(processedField.Field, target);
                 }
 
                 if (processedField.Drawer != null)
                 {
-                    _totalHeight += processedField.Drawer.GetFieldsHeight(processedField.Value);
+                    _totalHeight += processedField.Drawer.GetFieldsHeight(
+                        target,
+                        processedField.Field,
+                        processedField.Value);
                 }
                 else
                 {
@@ -153,44 +144,12 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
             }
         }
 
-        private bool EvaluateDisableIfCondition(FieldInfo field, object target)
+        protected override FieldPresentationScope CreateFieldPresentationScope(
+            FieldState state,
+            FieldStyle style,
+            object fieldElement)
         {
-            var disableIfAttribute = field.GetCustomAttribute<DisableIfAttribute>();
-            if (disableIfAttribute == null)
-            {
-                return false;
-            }
-
-            FieldInfo conditionField = target.GetType().GetField(disableIfAttribute.ConditionMemberName,
-                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-
-            if (conditionField == null)
-            {
-                return false;
-            }
-
-            object conditionValue = conditionField.GetValue(target);
-            return IsTruthy(conditionValue);
-        }
-
-        private bool IsTruthy(object value)
-        {
-            if (value == null)
-            {
-                return false;
-            }
-
-            if (value is bool boolValue)
-            {
-                return boolValue;
-            }
-
-            if (value is UnityEngine.Object unityObject)
-            {
-                return unityObject != null;
-            }
-
-            return true;
+            return new IMGUIFieldPresentationScope(state, style);
         }
     }
 }

@@ -13,13 +13,13 @@ namespace QuestsSystem.IntegrationActionFlow.Pointer
 {
     public sealed class FieldSelectorFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) => typeof(FieldSelector).IsAssignableFrom(fieldType);
+        public override bool CanDraw(FieldInfo field) => typeof(FieldSelector).IsAssignableFrom(field.FieldType);
         public override Type DrawerType => typeof(FieldSelectorFieldDrawer);
     }
 
     public class FieldSelectorFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, FieldInfo fieldInfo, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo fieldInfo, object target, object value)
         {
             if (value == null)
             {

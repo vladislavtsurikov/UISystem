@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.IMGUIUtility.Editor;
 using VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.ResourceController;
@@ -12,8 +13,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
     {
         public override void OnGUI(Runtime.Core.SelectionDatas.Group.Group group)
         {
-            CustomEditorGUILayout.HelpBox(
-                "If you manually changed the position of the GameObject without using MegaWorld, please click on this button, otherwise, for example, Brush Erase will not be able to delete the changed GameObject.");
+            EditorGUILayout.HelpBox(
+                "If you manually changed the position of the GameObject without using MegaWorld, please click on this button, otherwise, for example, Brush Erase will not be able to delete the changed GameObject.", MessageType.Info);
 
             GUILayout.BeginHorizontal();
             {

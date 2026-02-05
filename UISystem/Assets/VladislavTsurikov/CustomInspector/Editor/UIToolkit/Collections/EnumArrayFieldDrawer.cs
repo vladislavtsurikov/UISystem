@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
@@ -9,8 +10,8 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 {
     public sealed class EnumArrayFieldDrawerMatcher : FieldDrawerMatcher<UIToolkitFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsArray && fieldType.GetElementType()?.IsEnum == true;
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.IsArray && field.FieldType.GetElementType()?.IsEnum == true;
 
         public override Type DrawerType => typeof(EnumArrayFieldDrawer);
     }
@@ -72,3 +73,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
     }
 }
 #endif
+
+
+

@@ -25,7 +25,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.PhysXPainter.Settings
 
             EditorGUI.BeginChangeCheck();
 
-            settings.SimulatePhysics = CustomEditorGUILayout.Toggle(
+            settings.SimulatePhysics = EditorGUILayout.Toggle(
                 new GUIContent("Simulate Physics",
                     "You can freeze physics, and then turn on physics again and objects will fall."),
                 settings.SimulatePhysics);
@@ -45,7 +45,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.PhysXPainter.Settings
 
             if (accelerationPhysics)
             {
-                settings.SpeedUpPhysics = CustomEditorGUILayout.IntSlider(
+                settings.SpeedUpPhysics = EditorGUILayout.IntSlider(
                     new GUIContent("Speed Up Physics", "Speeds up physics several times as much as was installed."),
                     settings.SpeedUpPhysics, 1, 100);
             }

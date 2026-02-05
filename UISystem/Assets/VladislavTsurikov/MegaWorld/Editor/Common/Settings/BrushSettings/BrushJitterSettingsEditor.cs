@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using System;
 using UnityEngine;
 using VladislavTsurikov.IMGUIUtility.Editor;
@@ -28,15 +29,15 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
 
         public void OnGUI(Runtime.Common.Settings.BrushSettings.BrushSettings brush, BrushJitterSettings jitter)
         {
-            brush.BrushSize = CustomEditorGUILayout.Slider(_brushSize, brush.BrushSize, 0.1f,
+            brush.BrushSize = EditorGUILayout.Slider(_brushSize, brush.BrushSize, 0.1f,
                 PreferenceElementSingleton<BrushPreferenceSettings>.Instance.MaxBrushSize);
 
-            jitter.BrushSizeJitter = CustomEditorGUILayout.Slider(_brushJitter, jitter.BrushSizeJitter, 0f, 1f);
+            jitter.BrushSizeJitter = EditorGUILayout.Slider(_brushJitter, jitter.BrushSizeJitter, 0f, 1f);
 
             //CustomEditorGUILayout.Separator();
 
-            jitter.BrushScatter = CustomEditorGUILayout.Slider(_brushScatter, jitter.BrushScatter, 0f, 1f);
-            jitter.BrushScatterJitter = CustomEditorGUILayout.Slider(_brushJitter, jitter.BrushScatterJitter, 0f, 1f);
+            jitter.BrushScatter = EditorGUILayout.Slider(_brushScatter, jitter.BrushScatter, 0f, 1f);
+            jitter.BrushScatterJitter = EditorGUILayout.Slider(_brushJitter, jitter.BrushScatterJitter, 0f, 1f);
 
             //CustomEditorGUILayout.Separator();
 
@@ -46,9 +47,9 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.BrushSettings
                     WindowData.Instance.SelectedData.SelectedGroup.PrototypeType == typeof(PrototypeTerrainTexture))
                 {
                     brush.BrushRotation =
-                        CustomEditorGUILayout.Slider(_brushRotation, brush.BrushRotation, -180f, 180f);
+                        EditorGUILayout.Slider(_brushRotation, brush.BrushRotation, -180f, 180f);
                     jitter.BrushRotationJitter =
-                        CustomEditorGUILayout.Slider(_brushJitter, jitter.BrushRotationJitter, 0f, 1f);
+                        EditorGUILayout.Slider(_brushJitter, jitter.BrushRotationJitter, 0f, 1f);
                     //CustomEditorGUILayout.Separator();
                 }
             }

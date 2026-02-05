@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -25,7 +25,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
         public override void OnGUI()
         {
             _settings.OverlapShapeEnum =
-                (OverlapShapeEnum)CustomEditorGUILayout.EnumPopup(OverlapShape, _settings.OverlapShapeEnum);
+                (OverlapShapeEnum)EditorGUILayout.EnumPopup(OverlapShape, _settings.OverlapShapeEnum);
 
             EditorGUI.indentLevel++;
 
@@ -36,12 +36,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
                     OBBCheck obbCheck = _settings.ObbCheck;
 
                     obbCheck.BoundsType =
-                        (BoundsCheckType)CustomEditorGUILayout.EnumPopup(BoundsType, obbCheck.BoundsType);
+                        (BoundsCheckType)EditorGUILayout.EnumPopup(BoundsType, obbCheck.BoundsType);
 
                     if (obbCheck.BoundsType == BoundsCheckType.Custom)
                     {
                         obbCheck.UniformBoundsSize =
-                            CustomEditorGUILayout.Toggle(UniformBoundsSize, obbCheck.UniformBoundsSize);
+                            EditorGUILayout.Toggle(UniformBoundsSize, obbCheck.UniformBoundsSize);
 
                         if (obbCheck.UniformBoundsSize)
                         {
@@ -52,16 +52,16 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
                         }
                         else
                         {
-                            obbCheck.BoundsSize = CustomEditorGUILayout.Vector3Field(BoundsSize, obbCheck.BoundsSize);
+                            obbCheck.BoundsSize = EditorGUILayout.Vector3Field(BoundsSize, obbCheck.BoundsSize);
                         }
 
                         obbCheck.MultiplyBoundsSize =
-                            CustomEditorGUILayout.Slider(MultiplyBoundsSize, obbCheck.MultiplyBoundsSize, 0, 5);
+                            EditorGUILayout.Slider(MultiplyBoundsSize, obbCheck.MultiplyBoundsSize, 0, 5);
                     }
                     else if (obbCheck.BoundsType == BoundsCheckType.BoundsPrefab)
                     {
                         obbCheck.MultiplyBoundsSize =
-                            CustomEditorGUILayout.Slider(MultiplyBoundsSize, obbCheck.MultiplyBoundsSize, 0, 5);
+                            EditorGUILayout.Slider(MultiplyBoundsSize, obbCheck.MultiplyBoundsSize, 0, 5);
                     }
 
                     break;
@@ -71,12 +71,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
                     SphereCheck sphereCheck = _settings.SphereCheck;
 
                     sphereCheck.VegetationMode =
-                        CustomEditorGUILayout.Toggle(VegetationMode, sphereCheck.VegetationMode);
+                        EditorGUILayout.Toggle(VegetationMode, sphereCheck.VegetationMode);
 
                     if (sphereCheck.VegetationMode)
                     {
                         sphereCheck.Priority = CustomEditorGUILayout.IntField(Priority, sphereCheck.Priority);
-                        sphereCheck.TrunkSize = CustomEditorGUILayout.Slider(TrunkSize, sphereCheck.TrunkSize, 0, 10);
+                        sphereCheck.TrunkSize = EditorGUILayout.Slider(TrunkSize, sphereCheck.TrunkSize, 0, 10);
                         sphereCheck.ViabilitySize =
                             CustomEditorGUILayout.FloatField(ViabilitySize, sphereCheck.ViabilitySize);
 
@@ -98,7 +98,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
 
             CollisionCheck collisionCheck = _settings.CollisionCheck;
 
-            collisionCheck.CollisionCheckType = CustomEditorGUILayout.Toggle(new GUIContent("Collision Check"),
+            collisionCheck.CollisionCheckType = EditorGUILayout.Toggle(new GUIContent("Collision Check"),
                 collisionCheck.CollisionCheckType);
 
             if (collisionCheck.CollisionCheckType)
@@ -106,7 +106,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.OverlapCheckSetting
                 EditorGUI.indentLevel++;
 
                 collisionCheck.MultiplyBoundsSize =
-                    CustomEditorGUILayout.Slider(MultiplyBoundsSize, collisionCheck.MultiplyBoundsSize, 0, 10);
+                    EditorGUILayout.Slider(MultiplyBoundsSize, collisionCheck.MultiplyBoundsSize, 0, 10);
                 collisionCheck.CheckCollisionLayers =
                     CustomEditorGUILayout.LayerField(new GUIContent("Check Collision Layers"),
                         collisionCheck.CheckCollisionLayers);

@@ -25,16 +25,16 @@ namespace VladislavTsurikov.MegaWorld.Editor.EditTool.ActionSystem.GUI
 
         public override void OnGUI()
         {
-            _settings.MouseSensitivitySettings.MouseSensitivity = CustomEditorGUILayout.Slider(_mouseSensitivity,
+            _settings.MouseSensitivitySettings.MouseSensitivity = EditorGUILayout.Slider(_mouseSensitivity,
                 _settings.MouseSensitivitySettings.MouseSensitivity,
                 MouseSensitivitySettings.MinMouseSensitivity, MouseSensitivitySettings.MaxMouseSensitivity);
 
             GlobalCommonComponentSingleton<TransformSpaceSettings>.Instance.TransformSpace =
-                (TransformSpace)CustomEditorGUILayout.EnumPopup(_transformSpace,
+                (TransformSpace)EditorGUILayout.EnumPopup(_transformSpace,
                     GlobalCommonComponentSingleton<TransformSpaceSettings>.Instance.TransformSpace);
 
             _settings.EnableSnapRotate =
-                CustomEditorGUILayout.Toggle(new GUIContent("Enable Snap Rotate"), _settings.EnableSnapRotate);
+                EditorGUILayout.Toggle(new GUIContent("Enable Snap Rotate"), _settings.EnableSnapRotate);
             if (_settings.EnableSnapRotate)
             {
                 EditorGUI.indentLevel++;

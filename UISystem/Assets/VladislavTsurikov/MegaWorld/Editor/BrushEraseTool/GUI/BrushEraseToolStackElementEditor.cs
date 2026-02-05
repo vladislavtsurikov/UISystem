@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -17,7 +18,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.BrushEraseTool
         public override void OnEnable() => _brushEraseToolSettings = (BrushEraseToolSettings)Target;
 
         public override void OnGUI() =>
-            _brushEraseToolSettings.EraseStrength = CustomEditorGUILayout.Slider(new GUIContent("Erase Strength"),
+            _brushEraseToolSettings.EraseStrength = EditorGUILayout.Slider(new GUIContent("Erase Strength"),
                 _brushEraseToolSettings.EraseStrength, 0, 1);
     }
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
-using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 {
@@ -49,11 +48,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
                 string fieldName = processedField.FieldName;
                 object value = processedField.Value;
 
-                using var scope = InspectorContext.Push(target, field, elementIndex);
-
                 foreach (UIToolkitDecoratorDrawer decorator in processedField.Decorators)
                 {
-                    var decoratorElement = decorator.CreateElement();
+                    var decoratorElement = decorator.CreateElement(field, target);
                     if (decoratorElement != null)
                     {
                         container.Add(decoratorElement);
@@ -62,31 +59,40 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 
                 if (drawer != null)
                 {
+                    var processedValue = ApplyProcessorsAndAssignIfNeeded(
+                        field,
+                        target,
+                        value,
+                        value,
+                        processedField.ValueProcessors,
+                        false);
+                    value = processedValue;
+
                     var fieldElement = drawer.CreateField(fieldName, field.FieldType, value, newValue =>
                     {
-                        field.SetValue(target, newValue);
+                        ApplyProcessorsAndAssignIfNeeded(
+                            field,
+                            target,
+                            newValue,
+                            newValue,
+                            processedField.ValueProcessors,
+                            true);
                     });
 
-                    bool isReadOnly = field.GetCustomAttribute<ReadOnlyAttribute>() != null;
-                    bool isDisabled = EvaluateDisableIfCondition(field, target);
-                    if (isReadOnly || isDisabled)
+                    using (CreateFieldPresentationScope(
+                               field,
+                               target,
+                               processedField.StateProcessors,
+                               processedField.StyleProcessors,
+                               fieldElement))
                     {
-                        fieldElement.SetEnabled(false);
-                    }
+                        if (!string.IsNullOrEmpty(processedField.Tooltip))
+                        {
+                            fieldElement.tooltip = processedField.Tooltip;
+                        }
 
-                    var guiColorAttribute = field.GetCustomAttribute<GUIColorAttribute>();
-                    if (guiColorAttribute != null)
-                    {
-                        var color = guiColorAttribute.GetColor(target);
-                        fieldElement.style.backgroundColor = new StyleColor(color);
+                        container.Add(fieldElement);
                     }
-
-                    if (!string.IsNullOrEmpty(processedField.Tooltip))
-                    {
-                        fieldElement.tooltip = processedField.Tooltip;
-                    }
-
-                    container.Add(fieldElement);
                 }
                 else
                 {
@@ -100,44 +106,12 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
             }
         }
 
-        private bool EvaluateDisableIfCondition(FieldInfo field, object target)
+        protected override FieldPresentationScope CreateFieldPresentationScope(
+            FieldState state,
+            FieldStyle style,
+            object fieldElement)
         {
-            var disableIfAttribute = field.GetCustomAttribute<DisableIfAttribute>();
-            if (disableIfAttribute == null)
-            {
-                return false;
-            }
-
-            FieldInfo conditionField = target.GetType().GetField(disableIfAttribute.ConditionMemberName,
-                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-            if (conditionField == null)
-            {
-                return false;
-            }
-
-            object conditionValue = conditionField.GetValue(target);
-            return IsTruthy(conditionValue);
-        }
-
-        private bool IsTruthy(object value)
-        {
-            if (value == null)
-            {
-                return false;
-            }
-
-            if (value is bool boolValue)
-            {
-                return boolValue;
-            }
-
-            if (value is UnityEngine.Object unityObject)
-            {
-                return unityObject != null;
-            }
-
-            return true;
+            return new UIToolkitFieldPresentationScope(state, style, fieldElement as VisualElement);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEditor;
@@ -30,13 +30,13 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize
 
             if (sectors.Count == 0)
             {
-                CustomEditorGUILayout.Label("No Sectors found");
+                EditorGUILayout.LabelField("No Sectors found");
 
                 List<Object> terrains = GameObjectUtility.FindObjectsOfType(typeof(Terrain), true);
 
                 if (terrains.Count > 0)
                 {
-                    CustomEditorGUILayout.Label("Terrains found in scene: " + terrains.Count);
+                    EditorGUILayout.LabelField("Terrains found in scene: " + terrains.Count);
 
                     GUILayout.BeginHorizontal();
                     {
@@ -52,12 +52,12 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize
                 }
                 else if (terrains.Count == 1)
                 {
-                    CustomEditorGUILayout.Label(
+                    EditorGUILayout.LabelField(
                         "Only one Terrain Found in scene, Please either create more tiles or split current terrain");
                 }
                 else
                 {
-                    CustomEditorGUILayout.Label("No Terrains Found in scene, please add some terrains");
+                    EditorGUILayout.LabelField("No Terrains Found in scene, please add some terrains");
                 }
             }
             else
@@ -163,13 +163,13 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize
                     GUILayout.Space(6);
                 }
 
-                CustomEditorGUILayout.Label("Sectors:");
+                EditorGUILayout.LabelField("Sectors:");
                 EditorGUILayout.BeginHorizontal();
                 _windowScrollPos = EditorGUILayout.BeginScrollView(_windowScrollPos);
 
                 foreach (Sector sceneData in sectors)
                 {
-                    CustomEditorGUILayout.Label(sceneData.SceneReference.SceneName);
+                    EditorGUILayout.LabelField(sceneData.SceneReference.SceneName);
                 }
 
                 EditorGUILayout.EndScrollView();

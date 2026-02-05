@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,7 +10,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 {
     public sealed class GradientFieldDrawerMatcher : FieldDrawerMatcher<UIToolkitFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) => fieldType == typeof(Gradient);
+        public override bool CanDraw(FieldInfo field) => field.FieldType == typeof(Gradient);
         public override Type DrawerType => typeof(GradientFieldDrawer);
     }
 
@@ -34,3 +35,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
     }
 }
 #endif
+
+
+

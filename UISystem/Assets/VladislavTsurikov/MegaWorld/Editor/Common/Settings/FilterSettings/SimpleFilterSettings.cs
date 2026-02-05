@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -33,7 +33,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
 
         public void DrawCheckHeight(SimpleFilter filter)
         {
-            filter.CheckHeight = CustomEditorGUILayout.Toggle(_checkHeight, filter.CheckHeight);
+            filter.CheckHeight = EditorGUILayout.Toggle(_checkHeight, filter.CheckHeight);
 
             EditorGUI.indentLevel++;
 
@@ -48,7 +48,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
 
         private void DrawCheckSlope(SimpleFilter filter)
         {
-            filter.CheckSlope = CustomEditorGUILayout.Toggle(_checkSlope, filter.CheckSlope);
+            filter.CheckSlope = EditorGUILayout.Toggle(_checkSlope, filter.CheckSlope);
 
             EditorGUI.indentLevel++;
 

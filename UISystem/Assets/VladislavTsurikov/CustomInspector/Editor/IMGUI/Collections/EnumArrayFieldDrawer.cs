@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -10,15 +10,15 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
     public sealed class EnumArrayFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.IsArray && fieldType.GetElementType()?.IsEnum == true;
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.IsArray && field.FieldType.GetElementType()?.IsEnum == true;
 
         public override Type DrawerType => typeof(EnumArrayFieldDrawer);
     }
 
     public class EnumArrayFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             Type enumType = field.FieldType.GetElementType();
             Array enumArray = (Array)value ?? Array.CreateInstance(enumType, 0);
@@ -59,3 +59,5 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     }
 }
 #endif
+
+

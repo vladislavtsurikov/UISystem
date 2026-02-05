@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -30,15 +30,15 @@ namespace VladislavTsurikov.MegaWorld.Editor.ExplodePhysics
             CustomEditorGUILayout.MinMaxIntSlider(new GUIContent("Instances"),
                 ref _explodePhysicsToolSettings.InstancesMin, ref _explodePhysicsToolSettings.InstancesMax, 2, 200);
             _explodePhysicsToolSettings.SpawnFromOnePoint =
-                CustomEditorGUILayout.Toggle(new GUIContent("Spawn From One Point"),
+                EditorGUILayout.Toggle(new GUIContent("Spawn From One Point"),
                     _explodePhysicsToolSettings.SpawnFromOnePoint);
 
             if (!_explodePhysicsToolSettings.SpawnFromOnePoint)
             {
                 EditorGUI.indentLevel++;
-                _explodePhysicsToolSettings.Size = CustomEditorGUILayout.Slider(new GUIContent("Size"),
+                _explodePhysicsToolSettings.Size = EditorGUILayout.Slider(new GUIContent("Size"),
                     _explodePhysicsToolSettings.Size, 10, 300);
-                _explodePhysicsToolSettings.Force = CustomEditorGUILayout.Slider(new GUIContent("Force"),
+                _explodePhysicsToolSettings.Force = EditorGUILayout.Slider(new GUIContent("Force"),
                     _explodePhysicsToolSettings.Force, 0, 100);
                 EditorGUI.indentLevel--;
             }

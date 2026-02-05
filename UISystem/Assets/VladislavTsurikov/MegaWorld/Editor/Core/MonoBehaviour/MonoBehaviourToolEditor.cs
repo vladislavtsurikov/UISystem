@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,8 +121,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.MonoBehaviour
             {
                 if (Target.Data.SelectedData.SelectedGroup.PrototypeType == typeof(PrototypeTerrainObject))
                 {
-                    CustomEditorGUILayout.HelpBox(
-                        "Terrain Object Renderer is missing in the project. Terrain Object Renderer is only available by sponsor through Patreon.");
+                    EditorGUILayout.HelpBox(
+                        "Terrain Object Renderer is missing in the project. Terrain Object Renderer is only available by sponsor through Patreon.", MessageType.Info);
 
                     GUILayout.BeginHorizontal();
                     {
@@ -143,7 +143,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.MonoBehaviour
             {
                 if (Target.Data.SelectedData.SelectedGroup.PrototypeList.Count == 0)
                 {
-                    CustomEditorGUILayout.HelpBox("This group does not contain more than one prototype.");
+                    EditorGUILayout.HelpBox("This group does not contain more than one prototype.", MessageType.Info);
                     ResourcesControllerEditor.DrawResourceController(SelectionData, false);
                     return;
                 }
@@ -265,7 +265,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.MonoBehaviour
             }
             else
             {
-                CustomEditorGUILayout.HelpBox("Select one prototype to display prototype settings.");
+                EditorGUILayout.HelpBox("Select one prototype to display prototype settings.", MessageType.Info);
             }
         }
 
@@ -295,7 +295,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.MonoBehaviour
             }
             else
             {
-                CustomEditorGUILayout.HelpBox("Select one group to display group settings");
+                EditorGUILayout.HelpBox("Select one group to display group settings", MessageType.Info);
             }
         }
 

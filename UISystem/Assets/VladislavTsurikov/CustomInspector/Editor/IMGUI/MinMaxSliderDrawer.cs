@@ -3,7 +3,6 @@ using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using VladislavTsurikov.CustomInspector.Editor.Core;
 using VladislavTsurikov.CustomInspector.Runtime;
 
 namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
@@ -33,14 +32,15 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
             MinMaxSliderAttribute attribute,
             ref float minValue,
             ref float maxValue,
-            bool useIntFields)
+            bool useIntFields,
+            object target)
         {
             var labelContent = string.IsNullOrWhiteSpace(attribute.LabelOverride)
                 ? label
                 : new GUIContent(attribute.LabelOverride, label.tooltip);
 
             var minLimit = attribute.Min;
-            var maxLimit = GetLimitValue(attribute.Max, attribute.Max, attribute.MaxValueMemberName);
+            var maxLimit = GetLimitValue(attribute.Max, attribute.Max, attribute.MaxValueMemberName, target);
 
             var lineHeight = EditorGUIUtility.singleLineHeight;
             var sliderRect = new Rect(rect.x, rect.y, rect.width, lineHeight);
@@ -177,32 +177,32 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
         private static float GetLimitValue(
             float fallback,
             float defaultValue,
-            string memberName)
+            string memberName,
+            object target)
         {
             if (string.IsNullOrWhiteSpace(memberName))
             {
                 return fallback;
             }
 
-            var context = InspectorContext.Current;
-            if (context?.Target == null)
+            if (target == null)
             {
                 return fallback;
             }
 
-            var targetType = context.Target.GetType();
+            var targetType = target.GetType();
             var field = targetType.GetField(memberName,
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             if (field != null)
             {
-                return ConvertToFloat(field.GetValue(context.Target), fallback);
+                return ConvertToFloat(field.GetValue(target), fallback);
             }
 
             var property = targetType.GetProperty(memberName,
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             if (property != null)
             {
-                return ConvertToFloat(property.GetValue(context.Target), fallback);
+                return ConvertToFloat(property.GetValue(target), fallback);
             }
 
             return defaultValue;

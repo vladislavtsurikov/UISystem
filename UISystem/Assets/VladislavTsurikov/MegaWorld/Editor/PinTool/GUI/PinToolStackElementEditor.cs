@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -43,7 +43,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PinTool.GUI
                 EditorGUI.indentLevel++;
 
                 _pinToolSettings.RotationTransformMode =
-                    (TransformMode)CustomEditorGUILayout.EnumPopup(new GUIContent("Transform Mode"),
+                    (TransformMode)EditorGUILayout.EnumPopup(new GUIContent("Transform Mode"),
                         _pinToolSettings.RotationTransformMode);
 
                 switch (_pinToolSettings.RotationTransformMode)
@@ -53,7 +53,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PinTool.GUI
                         EditorGUI.indentLevel++;
 
                         _pinToolSettings.FixedRotationValue =
-                            CustomEditorGUILayout.Vector3Field(new GUIContent("Rotation"),
+                            EditorGUILayout.Vector3Field(new GUIContent("Rotation"),
                                 _pinToolSettings.FixedRotationValue);
 
                         EditorGUI.indentLevel--;
@@ -77,7 +77,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PinTool.GUI
                 if (_pinToolSettings.RotationTransformMode != TransformMode.Fixed)
                 {
                     _pinToolSettings.FromDirection =
-                        (FromDirection)CustomEditorGUILayout.EnumPopup(new GUIContent("Up"),
+                        (FromDirection)EditorGUILayout.EnumPopup(new GUIContent("Up"),
                             _pinToolSettings.FromDirection);
 
                     if (_pinToolSettings.FromDirection == FromDirection.SurfaceNormal)
@@ -85,7 +85,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PinTool.GUI
                         EditorGUI.indentLevel++;
 
                         _pinToolSettings.WeightToNormal =
-                            CustomEditorGUILayout.Slider(new GUIContent("Weight To Normal"),
+                            EditorGUILayout.Slider(new GUIContent("Weight To Normal"),
                                 _pinToolSettings.WeightToNormal, 0, 1);
 
                         EditorGUI.indentLevel--;
@@ -102,7 +102,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PinTool.GUI
                 EditorGUI.indentLevel++;
 
                 _pinToolSettings.ScaleTransformMode =
-                    (TransformMode)CustomEditorGUILayout.EnumPopup(new GUIContent("Transform Mode"),
+                    (TransformMode)EditorGUILayout.EnumPopup(new GUIContent("Transform Mode"),
                         _pinToolSettings.ScaleTransformMode);
 
                 switch (_pinToolSettings.ScaleTransformMode)
@@ -111,7 +111,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PinTool.GUI
                     {
                         EditorGUI.indentLevel++;
 
-                        _pinToolSettings.FixedScaleValue = CustomEditorGUILayout.Vector3Field(new GUIContent("Scale"),
+                        _pinToolSettings.FixedScaleValue = EditorGUILayout.Vector3Field(new GUIContent("Scale"),
                             _pinToolSettings.FixedScaleValue);
 
                         EditorGUI.indentLevel--;

@@ -59,9 +59,9 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize.SceneManagerIntegrati
                 Rect rectField = totalRect;
                 rectField.width -= 14;
 
-                _sectorizeStreamingScenes.SubScenes[index].SceneAsset = (SceneAsset)CustomEditorGUI.ObjectField(
+                _sectorizeStreamingScenes.SubScenes[index].SceneAsset = (SceneAsset)EditorGUI.ObjectField(
                     new Rect(rectField.x, rectField.y, rectField.width, EditorGUIUtility.singleLineHeight),
-                    null, _sectorizeStreamingScenes.SubScenes[index].SceneAsset, typeof(SceneAsset));
+                    _sectorizeStreamingScenes.SubScenes[index].SceneAsset, typeof(SceneAsset), true);
             }
         }
 

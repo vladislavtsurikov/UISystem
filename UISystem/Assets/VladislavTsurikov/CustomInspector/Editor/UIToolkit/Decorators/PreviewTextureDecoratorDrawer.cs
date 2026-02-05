@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -24,7 +25,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             _attribute = attribute as PreviewTextureAttribute;
         }
 
-        public override VisualElement CreateElement()
+        public override VisualElement CreateElement(FieldInfo field, object target)
         {
             if (_attribute == null)
             {
@@ -43,21 +44,20 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             _imageElement.style.marginTop = 2;
             _imageElement.style.marginBottom = 2;
 
-            UpdateImage();
+            UpdateImage(field, target);
 
             return _imageElement;
         }
 
-        private void UpdateImage()
+        private void UpdateImage(FieldInfo field, object target)
         {
-            var context = InspectorContext.Current;
-            if (context?.Field == null || context.Target == null)
+            if (field == null || target == null)
             {
                 _imageElement.style.display = DisplayStyle.None;
                 return;
             }
 
-            var texture = context.Field.GetValue(context.Target) as Texture;
+            var texture = field.GetValue(target) as Texture;
             if (texture == null)
             {
                 _imageElement.style.display = DisplayStyle.None;
@@ -70,3 +70,4 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
     }
 }
 #endif
+

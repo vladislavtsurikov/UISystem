@@ -22,19 +22,19 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.Preferences
 
         private static void OnGUI(RendererStackSettings stackSettings)
         {
-            stackSettings.AutoShaderConversion = CustomEditorGUILayout.Toggle(new GUIContent("Auto Shader Conversion"),
+            stackSettings.AutoShaderConversion = EditorGUILayout.Toggle(new GUIContent("Auto Shader Conversion"),
                 stackSettings.AutoShaderConversion);
-            stackSettings.ShowRenderModelData = CustomEditorGUILayout.Toggle(new GUIContent("Show Render Model Data"),
+            stackSettings.ShowRenderModelData = EditorGUILayout.Toggle(new GUIContent("Show Render Model Data"),
                 stackSettings.ShowRenderModelData);
-            stackSettings.RenderDirectToCamera = CustomEditorGUILayout.Toggle(new GUIContent("Render Direct To Camera"),
+            stackSettings.RenderDirectToCamera = EditorGUILayout.Toggle(new GUIContent("Render Direct To Camera"),
                 stackSettings.RenderDirectToCamera);
-            stackSettings.RenderSceneCameraInPlayMode = CustomEditorGUILayout.Toggle(
+            stackSettings.RenderSceneCameraInPlayMode = EditorGUILayout.Toggle(
                 new GUIContent("Render Scene Camera in PlayMode"), stackSettings.RenderSceneCameraInPlayMode);
 
             stackSettings.RenderImposter =
-                CustomEditorGUILayout.Toggle(new GUIContent("Render Imposter"), stackSettings.RenderImposter);
+                EditorGUILayout.Toggle(new GUIContent("Render Imposter"), stackSettings.RenderImposter);
             stackSettings.ForceUpdateRendererData =
-                CustomEditorGUILayout.Toggle(new GUIContent("Force Update Renderer Data"),
+                EditorGUILayout.Toggle(new GUIContent("Force Update Renderer Data"),
                     stackSettings.ForceUpdateRendererData);
 
             GUILayout.Space(5);

@@ -18,14 +18,14 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.PhysXPainter.Settings
             {
                 EditorGUI.indentLevel++;
 
-                settings.EnableAutoPositionDown = CustomEditorGUILayout.Toggle(
+                settings.EnableAutoPositionDown = EditorGUILayout.Toggle(
                     new GUIContent("Enable Auto Position Down",
                         "Automatically moves object down when physics turns off."), settings.EnableAutoPositionDown);
 
                 if (settings.EnableAutoPositionDown)
                 {
                     EditorGUI.indentLevel++;
-                    settings.PositionDown = CustomEditorGUILayout.Slider(
+                    settings.PositionDown = EditorGUILayout.Slider(
                         new GUIContent("Position Down (%)",
                             "Moves the object down when physics is turned off. 100% - moves the object down by the size of the object."),
                         settings.PositionDown, 0, 100);

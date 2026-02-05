@@ -67,9 +67,9 @@ namespace VladislavTsurikov.SceneManagerTool.Editor
 
                     Rect rect = EditorGUILayout.GetControlRect(true, EditorGUIUtility.singleLineHeight);
                     rect.width -= 60;
-                    SceneManagerData.Instance.Profile = (Profile)CustomEditorGUI.ObjectField(
-                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), null,
-                        SceneManagerData.Instance.Profile, typeof(Profile));
+                    SceneManagerData.Instance.Profile = (Profile)EditorGUI.ObjectField(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        SceneManagerData.Instance.Profile, typeof(Profile), true);
 
                     var clickRect = new Rect(rect.x + rect.width + 2, rect.y, 60, rect.height);
 
@@ -105,8 +105,8 @@ namespace VladislavTsurikov.SceneManagerTool.Editor
 
                     GUILayout.Space(5);
 
-                    CustomEditorGUILayout.HelpBox(
-                        "If you enable Scene Manager, this will remove your added scenes in Build Settings and will only add added automatically scenes to Scene Manager in Build Settings.");
+                    EditorGUILayout.HelpBox(
+                        "If you enable Scene Manager, this will remove your added scenes in Build Settings and will only add added automatically scenes to Scene Manager in Build Settings.", MessageType.Info);
                 }
                 else
                 {
@@ -128,10 +128,10 @@ namespace VladislavTsurikov.SceneManagerTool.Editor
                             else
                             {
                                 SceneManagerData.Instance.Profile =
-                                    (Profile)CustomEditorGUILayout.ObjectField(new GUIContent("Profile"),
-                                        SceneManagerData.Instance.Profile, typeof(Profile));
+                                    (Profile)EditorGUILayout.ObjectField(new GUIContent("Profile"),
+                                        SceneManagerData.Instance.Profile, typeof(Profile), true);
                                 SceneManagerData.Instance.EnableSceneManager =
-                                    CustomEditorGUILayout.Toggle(new GUIContent("Enable Scene Manager"),
+                                    EditorGUILayout.Toggle(new GUIContent("Enable Scene Manager"),
                                         SceneManagerData.Instance.EnableSceneManager);
                             }
                         }

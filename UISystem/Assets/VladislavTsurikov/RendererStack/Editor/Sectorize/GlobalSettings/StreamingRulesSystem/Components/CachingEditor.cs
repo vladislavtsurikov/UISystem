@@ -39,9 +39,11 @@ namespace VladislavTsurikov.RendererStack.Editor.Sectorize.GlobalSettings.Stream
                     _keepScenes, _caching.KeepScenes));
             rect.y += CustomEditorGUI.SingleLineHeight;
 
-            StreamingUtilitySettings.Instance.CacheMemoryThreshold = (CacheMemoryThreshold)CustomEditorGUI.EnumPopup(
-                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                _cacheMemoryThreshold, StreamingUtilitySettings.Instance.CacheMemoryThreshold);
+            StreamingUtilitySettings.Instance.CacheMemoryThreshold = (CacheMemoryThreshold)EditorGUI.EnumPopup(
+                CustomEditorGUI.PrefixLabel(
+                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                    _cacheMemoryThreshold),
+                StreamingUtilitySettings.Instance.CacheMemoryThreshold);
             rect.y += CustomEditorGUI.SingleLineHeight;
 
             if (StreamingUtilitySettings.Instance.CacheMemoryThreshold == CacheMemoryThreshold.Custom)

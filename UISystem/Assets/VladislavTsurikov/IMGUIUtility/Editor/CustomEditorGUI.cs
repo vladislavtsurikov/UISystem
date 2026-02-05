@@ -19,102 +19,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
 
         public static GUIStyle GetStyle(StyleName styleName) => GetStyle(styleName.ToString());
 
-        public static bool Toggle(Rect rect, GUIContent text, bool value)
-        {
-            var initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.Toggle(rectField, value);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Enum EnumPopup(Rect rect, GUIContent text, Enum value)
-        {
-            Enum initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.EnumPopup(rectField, value);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static int Popup(Rect rect, GUIContent text, int value, GUIContent[] displayedOptions)
-        {
-            var initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.Popup(rectField, value, displayedOptions);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static float Slider(Rect rect, GUIContent text, float value, float min, float max)
-        {
-            var initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.Slider(rectField, value, min, max);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static int IntSlider(Rect rect, GUIContent text, int value, int min, int max)
-        {
-            var initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.IntSlider(rectField, value, min, max);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Bounds BoundsField(Rect rect, GUIContent text, Bounds value)
-        {
-            Bounds initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.BoundsField(rectField, value);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
         public static float FloatField(Rect totalRect, GUIContent text, float value)
         {
             var initialValue = value;
@@ -153,73 +57,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             return value;
         }
 
-        public static Color ColorField(Rect rect, GUIContent text, Color value)
-        {
-            Color initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.ColorField(rectField, value);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Vector3 Vector3Field(Rect rect, GUIContent text, Vector3 value)
-        {
-            Vector3 initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.Vector3Field(rectField, GUIContent.none, value);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Vector2 Vector2Field(Rect rect, GUIContent text, Vector2 value)
-        {
-            Vector2 initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.Vector2Field(rectField, GUIContent.none, value);
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static string TextField(Rect rect, GUIContent text, string value)
-        {
-            var initialValue = value;
-
-            Rect rectField = PrefixLabel(rect, text);
-
-            value = EditorGUI.TextField(rectField, GUIContent.none, value);
-
-            if (initialValue != null)
-            {
-                if (!initialValue.Equals(value))
-                {
-                    GUI.changed = true;
-                }
-            }
-
-            return value;
-        }
-
         public static LayerMask LayerField(Rect rect, GUIContent text, LayerMask value)
         {
             LayerMask initialValue = value;
@@ -229,29 +66,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             LayerMaskField(rectField, value);
 
             if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Object ObjectField(Rect rect, GUIContent text, Object value, Type objType)
-        {
-            Object initialValue = value;
-
-            if (text != null)
-            {
-                Rect rectField = PrefixLabel(rect, text);
-
-                value = EditorGUI.ObjectField(rectField, value, objType, true);
-            }
-            else
-            {
-                value = EditorGUI.ObjectField(rect, value, objType, true);
-            }
-
-            if (initialValue != value)
             {
                 GUI.changed = true;
             }
@@ -934,12 +748,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
 
             return rect;
         }
-
-        public static void HelpBox(Rect rect, string text) => EditorGUI.HelpBox(rect, text, MessageType.Info);
-
-        public static void WarningBox(Rect rect, string text) => EditorGUI.HelpBox(rect, text, MessageType.Warning);
-
-        public static void Header(Rect rect, string text) => EditorGUI.LabelField(rect, text, EditorStyles.boldLabel);
 
         private static bool LabelHasContent(GUIContent label) =>
             label == null || label.text != string.Empty ||

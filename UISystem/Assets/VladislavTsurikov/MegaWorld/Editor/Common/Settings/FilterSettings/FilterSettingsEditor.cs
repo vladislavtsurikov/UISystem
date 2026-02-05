@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -30,7 +31,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
         public override void OnGUI()
         {
             _filterSettings.FilterType =
-                (FilterType)CustomEditorGUILayout.EnumPopup(new GUIContent("Filter Type"), _filterSettings.FilterType);
+                (FilterType)EditorGUILayout.EnumPopup(new GUIContent("Filter Type"), _filterSettings.FilterType);
 
             switch (_filterSettings.FilterType)
             {
@@ -41,7 +42,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
                 }
                 case FilterType.MaskFilter:
                 {
-                    CustomEditorGUILayout.HelpBox("\"Mask Filter\" works only with Unity terrain");
+                    EditorGUILayout.HelpBox("\"Mask Filter\" works only with Unity terrain", MessageType.Info);
                     _maskFilterComponentSettingsEditor.OnGUI();
                     break;
                 }

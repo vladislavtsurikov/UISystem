@@ -9,7 +9,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
     public sealed class SpriteFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) => fieldType == typeof(Sprite);
+        public override bool CanDraw(FieldInfo field) => field.FieldType == typeof(Sprite);
         public override Type DrawerType => typeof(SpriteFieldDrawer);
     }
 
@@ -17,7 +17,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     {
         private const float ObjectFieldSize = 50f;
 
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             var labelWidth = EditorGUIUtility.labelWidth;
             var labelHeight = EditorGUIUtility.singleLineHeight;
@@ -31,7 +31,9 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 
         public override bool ShouldCreateInstanceIfNull() => false;
 
-        public override float GetFieldsHeight(object target) => 50;
+        public override float GetFieldsHeight(object target, FieldInfo field, object value) => 50;
     }
 }
 #endif
+
+

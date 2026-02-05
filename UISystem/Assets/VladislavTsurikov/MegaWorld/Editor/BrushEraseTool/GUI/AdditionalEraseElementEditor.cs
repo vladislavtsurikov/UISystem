@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -20,7 +21,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.BrushEraseTool
 
         public override void OnGUI() =>
             _additionalEraseSetting.Success =
-                CustomEditorGUILayout.Slider(_success, _additionalEraseSetting.Success, 0f, 100f);
+                EditorGUILayout.Slider(_success, _additionalEraseSetting.Success, 0f, 100f);
     }
 }
 #endif

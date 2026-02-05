@@ -19,19 +19,19 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.GUI.MouseActions
 
         public override void OnGUI()
         {
-            _settings.MouseMoveAlongDirectionSettings.MouseSensitivity = CustomEditorGUILayout.Slider(
+            _settings.MouseMoveAlongDirectionSettings.MouseSensitivity = EditorGUILayout.Slider(
                 new GUIContent("Mouse Sensitivity"), _settings.MouseMoveAlongDirectionSettings.MouseSensitivity,
                 MouseSensitivitySettings.MinMouseSensitivity, MouseSensitivitySettings.MaxMouseSensitivity);
 
             _settings.MoveAlongAxis =
-                (MoveAlongAxis)CustomEditorGUILayout.EnumPopup(new GUIContent("Move Along Axis"),
+                (MoveAlongAxis)EditorGUILayout.EnumPopup(new GUIContent("Move Along Axis"),
                     _settings.MoveAlongAxis);
 
             if (_settings.MoveAlongAxis == MoveAlongAxis.SurfaceNormal)
             {
                 EditorGUI.indentLevel++;
 
-                _settings.WeightToNormal = CustomEditorGUILayout.Slider(new GUIContent("Weight To Normal"),
+                _settings.WeightToNormal = EditorGUILayout.Slider(new GUIContent("Weight To Normal"),
                     _settings.WeightToNormal, 0, 1);
 
                 EditorGUI.indentLevel--;

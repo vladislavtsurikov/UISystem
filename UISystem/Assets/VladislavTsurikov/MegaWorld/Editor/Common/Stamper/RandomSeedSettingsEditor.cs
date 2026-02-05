@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -19,7 +19,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Stamper
         public override void OnGUI()
         {
             _settings.GenerateRandomSeed =
-                CustomEditorGUILayout.Toggle(new GUIContent("Generate Random Seed"), _settings.GenerateRandomSeed);
+                EditorGUILayout.Toggle(new GUIContent("Generate Random Seed"), _settings.GenerateRandomSeed);
             if (_settings.GenerateRandomSeed)
             {
                 EditorGUI.indentLevel++;

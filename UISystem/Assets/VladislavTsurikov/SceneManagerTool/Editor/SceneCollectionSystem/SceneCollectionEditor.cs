@@ -30,8 +30,11 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SceneCollectionSystem
         public override void OnGUI(Rect rect, int index)
         {
             _sceneCollection.Startup =
-                CustomEditorGUI.Toggle(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                    new GUIContent("Startup"), _sceneCollection.Startup);
+                EditorGUI.Toggle(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        new GUIContent("Startup")),
+                    _sceneCollection.Startup);
             rect.y += CustomEditorGUI.SingleLineHeight;
 
             SettingsStackEditor.OnGUI(rect);

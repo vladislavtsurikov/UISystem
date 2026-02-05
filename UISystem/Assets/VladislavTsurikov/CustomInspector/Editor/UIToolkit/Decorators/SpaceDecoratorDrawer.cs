@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -14,7 +15,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
 
     public sealed class SpaceDecoratorDrawer : UIToolkitDecoratorDrawer
     {
-        public override VisualElement CreateElement()
+        public override VisualElement CreateElement(FieldInfo field, object target)
         {
             float height = 8f;
 
@@ -31,3 +32,4 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
     }
 }
 #endif
+

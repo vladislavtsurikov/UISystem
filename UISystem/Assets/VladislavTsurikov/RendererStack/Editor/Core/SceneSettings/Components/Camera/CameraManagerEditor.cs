@@ -285,8 +285,11 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.SceneSettings.Camera
                 else
                 {
                     EditorGUI.BeginDisabledGroup(true);
-                    CustomEditorGUI.ObjectField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                        new GUIContent("Camera"), virtualCamera.Camera, typeof(UnityEngine.Camera));
+                    EditorGUI.ObjectField(
+                        CustomEditorGUI.PrefixLabel(
+                            new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                            new GUIContent("Camera")),
+                        virtualCamera.Camera, typeof(UnityEngine.Camera), true);
                     rect.y += CustomEditorGUI.SingleLineHeight;
                     EditorGUI.EndDisabledGroup();
 
@@ -298,16 +301,21 @@ namespace VladislavTsurikov.RendererStack.Editor.Core.SceneSettings.Camera
             }
             else if (virtualCamera.Camera == null)
             {
-                virtualCamera.Camera = (UnityEngine.Camera)CustomEditorGUI.ObjectField(
-                    new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), new GUIContent("Camera"),
-                    virtualCamera.Camera, typeof(UnityEngine.Camera));
+                virtualCamera.Camera = (UnityEngine.Camera)EditorGUI.ObjectField(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        new GUIContent("Camera")),
+                    virtualCamera.Camera, typeof(UnityEngine.Camera), true);
                 rect.y += CustomEditorGUI.SingleLineHeight;
             }
             else
             {
                 EditorGUI.BeginDisabledGroup(true);
-                CustomEditorGUI.ObjectField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
-                    new GUIContent("Camera"), virtualCamera.Camera, typeof(UnityEngine.Camera));
+                EditorGUI.ObjectField(
+                    CustomEditorGUI.PrefixLabel(
+                        new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                        new GUIContent("Camera")),
+                    virtualCamera.Camera, typeof(UnityEngine.Camera), true);
                 rect.y += CustomEditorGUI.SingleLineHeight;
                 EditorGUI.EndDisabledGroup();
 

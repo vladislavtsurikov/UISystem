@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -24,7 +25,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.AdvancedBrushTool
             {
                 if (WindowData.Instance.SelectedData.SelectedGroup.PrototypeType == typeof(PrototypeTerrainTexture))
                 {
-                    _advancedBrushToolSettings.TextureTargetStrength = CustomEditorGUILayout.Slider(
+                    _advancedBrushToolSettings.TextureTargetStrength = EditorGUILayout.Slider(
                         new GUIContent("Target Strength"), _advancedBrushToolSettings.TextureTargetStrength, 0, 1);
                 }
             }

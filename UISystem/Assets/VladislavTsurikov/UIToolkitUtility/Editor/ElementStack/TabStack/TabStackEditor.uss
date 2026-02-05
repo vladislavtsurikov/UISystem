@@ -1,0 +1,12 @@
+.TabStackEditor#LayoutContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.TabStackEditor#DragIndicator {
+    position: absolute;
+    width: 2px;
+    background-color: rgb(255, 255, 255);
+    display: none;
+}

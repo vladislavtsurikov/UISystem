@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -23,8 +24,8 @@ namespace VladislavTsurikov.RendererStack.Editor.TerrainObjectRenderer.SceneSett
 
         public override void OnGUI()
         {
-            _quality.TransformOfFloatingOrigin = (Transform)CustomEditorGUILayout.ObjectField(TransformOfFloatingOrigin,
-                _quality.TransformOfFloatingOrigin, typeof(Transform));
+            _quality.TransformOfFloatingOrigin = (Transform)EditorGUILayout.ObjectField(TransformOfFloatingOrigin,
+                _quality.TransformOfFloatingOrigin, typeof(Transform), true);
 
             if (_quality.DirectionalLight == null)
             {
@@ -49,8 +50,8 @@ namespace VladislavTsurikov.RendererStack.Editor.TerrainObjectRenderer.SceneSett
             else
             {
                 _quality.DirectionalLight =
-                    (Light)CustomEditorGUILayout.ObjectField(DirectionalLight, _quality.DirectionalLight,
-                        typeof(Light));
+                    (Light)EditorGUILayout.ObjectField(DirectionalLight, _quality.DirectionalLight, typeof(Light),
+                        true);
             }
         }
     }

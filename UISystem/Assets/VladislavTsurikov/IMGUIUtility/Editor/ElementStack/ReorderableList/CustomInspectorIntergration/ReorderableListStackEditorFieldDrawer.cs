@@ -13,15 +13,15 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
 {
     public sealed class ReorderableListStackEditorFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) =>
-            fieldType.TryGetGenericArgument(typeof(AdvancedNodeStack<>)) != null;
+        public override bool CanDraw(FieldInfo field) =>
+            field.FieldType.TryGetGenericArgument(typeof(AdvancedNodeStack<>)) != null;
 
         public override Type DrawerType => typeof(ReorderableListStackEditorFieldDrawer);
     }
 
     public class ReorderableListStackEditorFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             if (value == null)
             {
@@ -51,7 +51,7 @@ namespace VladislavTsurikov.IMGUIUtility.Editor.ElementStack.ReorderableList
         public override bool ShouldCreateInstanceIfNull() => true;
 
 
-        public override float GetFieldsHeight(object target)
+        public override float GetFieldsHeight(object target, FieldInfo field, object value)
         {
             if (target == null)
             {

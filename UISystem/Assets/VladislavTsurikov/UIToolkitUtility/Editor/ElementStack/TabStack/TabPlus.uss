@@ -1,0 +1,4 @@
+.tab-stack-editor__tab--add .tab-stack-editor__tab-label {
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+}

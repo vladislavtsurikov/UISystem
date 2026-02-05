@@ -21,9 +21,9 @@ namespace VladislavTsurikov.SceneManagerTool.Editor.SceneTypeSystem
 
         public override void OnGUI(Rect rect, int index)
         {
-            _single.SceneReference.SceneAsset = (SceneAsset)CustomEditorGUI.ObjectField(
-                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), null,
-                _single.SceneReference.SceneAsset, typeof(SceneAsset));
+            _single.SceneReference.SceneAsset = (SceneAsset)EditorGUI.ObjectField(
+                new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight),
+                _single.SceneReference.SceneAsset, typeof(SceneAsset), true);
             rect.y += CustomEditorGUI.SingleLineHeight;
 
             base.OnGUI(rect, index);

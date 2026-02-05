@@ -11,13 +11,13 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
 {
     public sealed class UnityObjectFieldDrawerMatcher : FieldDrawerMatcher<IMGUIFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) => typeof(Object).IsAssignableFrom(fieldType);
+        public override bool CanDraw(FieldInfo field) => typeof(Object).IsAssignableFrom(field.FieldType);
         public override Type DrawerType => typeof(UnityObjectFieldDrawer);
     }
 
     public class UnityObjectFieldDrawer : IMGUIFieldDrawer
     {
-        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object value)
+        public override object Draw(Rect rect, GUIContent label, FieldInfo field, object target, object value)
         {
             Type objectType = field.FieldType;
 
@@ -34,3 +34,5 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
     }
 }
 #endif
+
+

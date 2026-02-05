@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -8,7 +9,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
 {
     public sealed class BoundsIntFieldDrawerMatcher : FieldDrawerMatcher<UIToolkitFieldDrawer>
     {
-        public override bool CanDraw(Type fieldType) => fieldType == typeof(BoundsInt);
+        public override bool CanDraw(FieldInfo field) => field.FieldType == typeof(BoundsInt);
         public override Type DrawerType => typeof(BoundsIntFieldDrawer);
     }
 
@@ -31,3 +32,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit
     }
 }
 #endif
+
+
+

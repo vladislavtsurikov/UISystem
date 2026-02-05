@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -32,7 +32,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.GUI
 
         public override void OnGUI()
         {
-            _settings.RememberPastTransform = CustomEditorGUILayout.Toggle(new GUIContent("Remember Past Transform"),
+            _settings.RememberPastTransform = EditorGUILayout.Toggle(new GUIContent("Remember Past Transform"),
                 _settings.RememberPastTransform);
 
             _mouseDragSettingsFoldout = CustomEditorGUILayout.Foldout(_mouseDragSettingsFoldout, "Mouse Drag Settings");
@@ -44,7 +44,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.GUI
                 _settings.Spacing =
                     Mathf.Max(CustomEditorGUILayout.FloatField(new GUIContent("Spacing"), _settings.Spacing), 0.5f);
                 _settings.RandomSelectPrototype =
-                    CustomEditorGUILayout.Toggle(new GUIContent("Random Select Prototype"),
+                    EditorGUILayout.Toggle(new GUIContent("Random Select Prototype"),
                         _settings.RandomSelectPrototype);
 
                 EditorGUI.indentLevel--;
@@ -58,15 +58,15 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.GUI
                 EditorGUI.indentLevel++;
 
                 _settings.UseTransformComponents =
-                    CustomEditorGUILayout.Toggle(new GUIContent("Use Transform Components"),
+                    EditorGUILayout.Toggle(new GUIContent("Use Transform Components"),
                         _settings.UseTransformComponents);
                 _settings.OverlapCheck =
-                    CustomEditorGUILayout.Toggle(new GUIContent("Overlap Check"), _settings.OverlapCheck);
+                    EditorGUILayout.Toggle(new GUIContent("Overlap Check"), _settings.OverlapCheck);
 
                 if (_settings.OverlapCheck)
                 {
                     EditorGUI.indentLevel++;
-                    _settings.VisualizeOverlapCheckSettings = CustomEditorGUILayout.Toggle(
+                    _settings.VisualizeOverlapCheckSettings = EditorGUILayout.Toggle(
                         new GUIContent("Visualize Overlap Check Settings"), _settings.VisualizeOverlapCheckSettings);
                     EditorGUI.indentLevel--;
                 }
@@ -88,20 +88,20 @@ namespace VladislavTsurikov.MegaWorld.Editor.PrecisePlaceTool.GUI
                 //	EditorGUI.indentLevel--;
                 //}
 
-                _settings.Align = CustomEditorGUILayout.Toggle(new GUIContent("Align"), _settings.Align);
+                _settings.Align = EditorGUILayout.Toggle(new GUIContent("Align"), _settings.Align);
 
                 if (_settings.Align)
                 {
                     EditorGUI.indentLevel++;
 
-                    _settings.WeightToNormal = CustomEditorGUILayout.Slider(new GUIContent("Weight To Normal"),
+                    _settings.WeightToNormal = EditorGUILayout.Slider(new GUIContent("Weight To Normal"),
                         _settings.WeightToNormal, 0, 1);
 
                     EditorGUI.indentLevel--;
                 }
 
                 _settings.AlongStroke =
-                    CustomEditorGUILayout.Toggle(new GUIContent("Along Stroke"), _settings.AlongStroke);
+                    EditorGUILayout.Toggle(new GUIContent("Along Stroke"), _settings.AlongStroke);
 
                 EditorGUI.indentLevel--;
             }

@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEditor;
 using VladislavTsurikov.IMGUIUtility.Editor;
@@ -23,8 +23,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.PreferencesSystem
         {
             EditorGUI.BeginChangeCheck();
 
-            CustomEditorGUILayout.HelpBox(
-                "These settings are for more advanced users. In most cases, you do not need to configure anything here.");
+            EditorGUILayout.HelpBox(
+                "These settings are for more advanced users. In most cases, you do not need to configure anything here.", MessageType.Info);
 
             preferencesSettings.StackEditor.OnGUI();
 

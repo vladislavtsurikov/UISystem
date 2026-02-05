@@ -19,8 +19,6 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
     {
         private RequiredAttribute _attribute;
         private HelpBox _helpBox;
-        private FieldInfo _field;
-        private object _target;
 
         public override void Initialize(Attribute attribute)
         {
@@ -28,7 +26,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             _attribute = attribute as RequiredAttribute;
         }
 
-        public override VisualElement CreateElement()
+        public override VisualElement CreateElement(FieldInfo field, object target)
         {
             if (_attribute == null)
             {
@@ -39,24 +37,20 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             _helpBox.style.marginTop = 2;
             _helpBox.style.marginBottom = 2;
 
-            UpdateVisibility();
+            UpdateVisibility(field, target);
 
             return _helpBox;
         }
 
-        private void UpdateVisibility()
+        private void UpdateVisibility(FieldInfo field, object target)
         {
-            var context = InspectorContext.Current;
-            if (context == null)
+            if (field == null || target == null)
             {
                 _helpBox.style.display = DisplayStyle.None;
                 return;
             }
 
-            _field = context.Field;
-            _target = context.Target;
-
-            if (IsFieldValid())
+            if (IsFieldValid(field, target))
             {
                 _helpBox.style.display = DisplayStyle.None;
             }
@@ -66,14 +60,14 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
             }
         }
 
-        private bool IsFieldValid()
+        private bool IsFieldValid(FieldInfo field, object target)
         {
-            if (_field == null || _target == null)
+            if (field == null || target == null)
             {
                 return true;
             }
 
-            object value = _field.GetValue(_target);
+            object value = field.GetValue(target);
 
             if (value == null)
             {
@@ -100,3 +94,4 @@ namespace VladislavTsurikov.CustomInspector.Editor.UIToolkit.Decorators
     }
 }
 #endif
+

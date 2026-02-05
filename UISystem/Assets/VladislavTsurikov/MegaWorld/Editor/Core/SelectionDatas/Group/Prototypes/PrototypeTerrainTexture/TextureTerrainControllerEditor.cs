@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -115,8 +115,8 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
                     }
                     case TextureTerrainResourcesController.TerrainResourcesSyncError.NotAllProtoAvailable:
                     {
-                        CustomEditorGUILayout.WarningBox(
-                            "You need all Terrain Textures prototypes to be in the terrain. Click \"Add Missing Resources To Terrain\"");
+                        EditorGUILayout.HelpBox(
+                            "You need all Terrain Textures prototypes to be in the terrain. Click \"Add Missing Resources To Terrain\"", MessageType.Warning);
 
                         var getResourcesFromTerrain = "Get/Update Resources From Terrain";
 
@@ -187,7 +187,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
                     }
                 }
 
-                CustomEditorGUILayout.Header("Active Terrain: Layer Palette");
+                EditorGUILayout.LabelField("Active Terrain: Layer Palette", EditorStyles.boldLabel);
 
                 if (Terrain.activeTerrain != null)
                 {
@@ -198,7 +198,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core.SelectionDatas.Group.Prototype
             }
             else
             {
-                CustomEditorGUILayout.WarningBox("There is no active terrain in the scene.");
+                EditorGUILayout.HelpBox("There is no active terrain in the scene.", MessageType.Warning);
             }
 
             ChangeTerrainLayer(group);

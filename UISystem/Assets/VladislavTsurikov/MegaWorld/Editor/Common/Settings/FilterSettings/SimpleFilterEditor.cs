@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
@@ -57,7 +57,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
 
         private void DrawCheckHeight(SimpleFilter filter)
         {
-            filter.CheckHeight = CustomEditorGUILayout.Toggle(_checkHeight, filter.CheckHeight);
+            filter.CheckHeight = EditorGUILayout.Toggle(_checkHeight, filter.CheckHeight);
 
             EditorGUI.indentLevel++;
 
@@ -80,12 +80,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
             }
 
             filter.HeightFalloffType =
-                (FalloffType)CustomEditorGUILayout.EnumPopup(_heightFalloffType, filter.HeightFalloffType);
+                (FalloffType)EditorGUILayout.EnumPopup(_heightFalloffType, filter.HeightFalloffType);
 
             if (filter.HeightFalloffType != FalloffType.None)
             {
                 filter.HeightFalloffMinMax =
-                    CustomEditorGUILayout.Toggle(_heightFalloffMinMax, filter.HeightFalloffMinMax);
+                    EditorGUILayout.Toggle(_heightFalloffMinMax, filter.HeightFalloffMinMax);
 
                 if (filter.HeightFalloffMinMax)
                 {
@@ -110,12 +110,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
             }
 
             filter.SlopeFalloffType =
-                (FalloffType)CustomEditorGUILayout.EnumPopup(_slopeFalloffType, filter.SlopeFalloffType);
+                (FalloffType)EditorGUILayout.EnumPopup(_slopeFalloffType, filter.SlopeFalloffType);
 
             if (filter.SlopeFalloffType != FalloffType.None)
             {
                 filter.SlopeFalloffMinMax =
-                    CustomEditorGUILayout.Toggle(_slopeFalloffMinMax, filter.SlopeFalloffMinMax);
+                    EditorGUILayout.Toggle(_slopeFalloffMinMax, filter.SlopeFalloffMinMax);
 
                 if (filter.SlopeFalloffMinMax)
                 {
@@ -133,7 +133,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
 
         private void DrawCheckSlope(SimpleFilter filter)
         {
-            filter.CheckSlope = CustomEditorGUILayout.Toggle(_checkSlope, filter.CheckSlope);
+            filter.CheckSlope = EditorGUILayout.Toggle(_checkSlope, filter.CheckSlope);
 
             EditorGUI.indentLevel++;
 
@@ -154,7 +154,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
             var width = 150;
             var height = 150;
 
-            filter.CheckGlobalFractalNoise = CustomEditorGUILayout.Toggle(new GUIContent("Check Global Fractal Noise"),
+            filter.CheckGlobalFractalNoise = EditorGUILayout.Toggle(new GUIContent("Check Global Fractal Noise"),
                 filter.CheckGlobalFractalNoise);
 
             if (filter.CheckGlobalFractalNoise)
@@ -181,18 +181,18 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
                 }
                 GUILayout.EndHorizontal();
 
-                filter.Fractal.NoiseType = (NoiseType)CustomEditorGUILayout.EnumPopup(new GUIContent("Noise Type"),
+                filter.Fractal.NoiseType = (NoiseType)EditorGUILayout.EnumPopup(new GUIContent("Noise Type"),
                     filter.Fractal.NoiseType);
 
-                filter.Fractal.Seed = CustomEditorGUILayout.IntSlider(_seed, filter.Fractal.Seed, 0, 65000);
-                filter.Fractal.Octaves = CustomEditorGUILayout.IntSlider(_octaves, filter.Fractal.Octaves, 1, 12);
+                filter.Fractal.Seed = EditorGUILayout.IntSlider(_seed, filter.Fractal.Seed, 0, 65000);
+                filter.Fractal.Octaves = EditorGUILayout.IntSlider(_octaves, filter.Fractal.Octaves, 1, 12);
                 filter.Fractal.Frequency =
-                    CustomEditorGUILayout.Slider(_frequency, filter.Fractal.Frequency, 0f, 0.01f);
+                    EditorGUILayout.Slider(_frequency, filter.Fractal.Frequency, 0f, 0.01f);
 
                 filter.Fractal.Persistence =
-                    CustomEditorGUILayout.Slider(_persistence, filter.Fractal.Persistence, 0f, 1f);
+                    EditorGUILayout.Slider(_persistence, filter.Fractal.Persistence, 0f, 1f);
                 filter.Fractal.Lacunarity =
-                    CustomEditorGUILayout.Slider(_lacunarity, filter.Fractal.Lacunarity, 1f, 3.5f);
+                    EditorGUILayout.Slider(_lacunarity, filter.Fractal.Lacunarity, 1f, 3.5f);
 
                 _additionalNoiseSettingsFoldout =
                     CustomEditorGUILayout.Foldout(_additionalNoiseSettingsFoldout, "Additional Settings");
@@ -201,10 +201,10 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings.FilterSettings
                 {
                     EditorGUI.indentLevel++;
 
-                    filter.RemapNoiseMin = CustomEditorGUILayout.Slider(_remapNoiseMin, filter.RemapNoiseMin, 0f, 1f);
-                    filter.RemapNoiseMax = CustomEditorGUILayout.Slider(_remapNoiseMax, filter.RemapNoiseMax, 0f, 1f);
+                    filter.RemapNoiseMin = EditorGUILayout.Slider(_remapNoiseMin, filter.RemapNoiseMin, 0f, 1f);
+                    filter.RemapNoiseMax = EditorGUILayout.Slider(_remapNoiseMax, filter.RemapNoiseMax, 0f, 1f);
 
-                    filter.Invert = CustomEditorGUILayout.Toggle(_invert, filter.Invert);
+                    filter.Invert = EditorGUILayout.Toggle(_invert, filter.Invert);
 
                     EditorGUI.indentLevel--;
                 }

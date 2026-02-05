@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.CustomInspector.Editor.Core;
@@ -23,20 +24,14 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
             _attribute = attribute as InfoBoxAttribute;
         }
 
-        public override void Draw(Rect rect)
+        public override void Draw(Rect rect, FieldInfo field, object target)
         {
-            var context = InspectorContext.Current;
-            if (context == null)
+            if (target == null || !_attribute.IsVisible(target))
             {
                 return;
             }
 
-            if (!_attribute.IsVisible(context.Target))
-            {
-                return;
-            }
-
-            string message = _attribute.GetMessage(context.Target);
+            string message = _attribute.GetMessage(target);
 
             if (string.IsNullOrWhiteSpace(message))
             {
@@ -47,20 +42,14 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI
             EditorGUI.HelpBox(rect, message, messageType);
         }
 
-        public override float GetHeight()
+        public override float GetHeight(FieldInfo field, object target)
         {
-            var context = InspectorContext.Current;
-            if (context == null)
+            if (target == null || !_attribute.IsVisible(target))
             {
                 return 0;
             }
 
-            if (!_attribute.IsVisible(context.Target))
-            {
-                return 0;
-            }
-
-            string message = _attribute.GetMessage(context.Target);
+            string message = _attribute.GetMessage(target);
 
             if (string.IsNullOrWhiteSpace(message))
             {

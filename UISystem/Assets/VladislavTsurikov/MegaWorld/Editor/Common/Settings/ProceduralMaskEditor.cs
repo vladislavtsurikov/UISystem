@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -61,9 +61,9 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings
                     EditorGUI.indentLevel--;
                 }
 
-                _target.Shape = (Shape)CustomEditorGUILayout.EnumPopup(_shape, _target.Shape);
-                _target.Falloff = CustomEditorGUILayout.Slider(_brushFalloff, _target.Falloff, 0f, 100f);
-                _target.Strength = CustomEditorGUILayout.Slider(_brushStrength, _target.Strength, 0f, 100f);
+                _target.Shape = (Shape)EditorGUILayout.EnumPopup(_shape, _target.Shape);
+                _target.Falloff = EditorGUILayout.Slider(_brushFalloff, _target.Falloff, 0f, 100f);
+                _target.Strength = EditorGUILayout.Slider(_brushStrength, _target.Strength, 0f, 100f);
 
                 DrawNoiseForProceduralBrush();
 
@@ -80,25 +80,25 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings
         {
             EditorGUI.BeginChangeCheck();
 
-            _target.FractalNoise = CustomEditorGUILayout.Toggle(_fractalNoise, _target.FractalNoise);
+            _target.FractalNoise = EditorGUILayout.Toggle(_fractalNoise, _target.FractalNoise);
 
             if (_target.FractalNoise)
             {
                 EditorGUI.indentLevel++;
 
                 _target.NoiseType =
-                    (NoiseType)CustomEditorGUILayout.EnumPopup(new GUIContent("Check Fractal Noise"),
+                    (NoiseType)EditorGUILayout.EnumPopup(new GUIContent("Check Fractal Noise"),
                         _target.NoiseType);
 
-                _target.Seed = CustomEditorGUILayout.IntSlider(new GUIContent("Seed"), _target.Seed, 0, 65000);
-                _target.Octaves = CustomEditorGUILayout.IntSlider(new GUIContent("Octaves"), _target.Octaves, 1, 12);
+                _target.Seed = EditorGUILayout.IntSlider(new GUIContent("Seed"), _target.Seed, 0, 65000);
+                _target.Octaves = EditorGUILayout.IntSlider(new GUIContent("Octaves"), _target.Octaves, 1, 12);
                 _target.Frequency =
-                    CustomEditorGUILayout.Slider(new GUIContent("Frequency"), _target.Frequency, 0f, 0.1f);
+                    EditorGUILayout.Slider(new GUIContent("Frequency"), _target.Frequency, 0f, 0.1f);
 
                 _target.Persistence =
-                    CustomEditorGUILayout.Slider(new GUIContent("Persistence"), _target.Persistence, 0f, 1f);
+                    EditorGUILayout.Slider(new GUIContent("Persistence"), _target.Persistence, 0f, 1f);
                 _target.Lacunarity =
-                    CustomEditorGUILayout.Slider(new GUIContent("Lacunarity"), _target.Lacunarity, 1f, 3.5f);
+                    EditorGUILayout.Slider(new GUIContent("Lacunarity"), _target.Lacunarity, 1f, 3.5f);
 
                 AdditionalNoiseSettingsFoldout =
                     CustomEditorGUILayout.Foldout(AdditionalNoiseSettingsFoldout, "Additional Settings");
@@ -108,11 +108,11 @@ namespace VladislavTsurikov.MegaWorld.Editor.Common.Settings
                     EditorGUI.indentLevel++;
 
                     _target.RemapMin =
-                        CustomEditorGUILayout.Slider(new GUIContent("Remap Min"), _target.RemapMin, 0f, 1f);
+                        EditorGUILayout.Slider(new GUIContent("Remap Min"), _target.RemapMin, 0f, 1f);
                     _target.RemapMax =
-                        CustomEditorGUILayout.Slider(new GUIContent("Remap Max"), _target.RemapMax, 0f, 1f);
+                        EditorGUILayout.Slider(new GUIContent("Remap Max"), _target.RemapMax, 0f, 1f);
 
-                    _target.Invert = CustomEditorGUILayout.Toggle(new GUIContent("Invert"), _target.Invert);
+                    _target.Invert = EditorGUILayout.Toggle(new GUIContent("Invert"), _target.Invert);
 
                     EditorGUI.indentLevel--;
                 }

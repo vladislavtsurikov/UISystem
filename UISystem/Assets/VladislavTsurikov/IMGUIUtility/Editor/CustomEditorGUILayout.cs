@@ -82,90 +82,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             GUILayout.Space(2);
         }
 
-        public static bool Toggle(GUIContent text, bool value)
-        {
-            var initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.Toggle(value));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Enum EnumPopup(GUIContent text, Enum value)
-        {
-            Enum initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.EnumPopup(value));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static int Popup(GUIContent text, int value, string[] displayedOptions)
-        {
-            var initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.Popup(value, displayedOptions));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static float Slider(GUIContent text, float value, float min, float max)
-        {
-            var initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.Slider(value, min, max));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static int IntSlider(GUIContent text, int value, int min, int max)
-        {
-            var initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.IntSlider(value, min, max));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Bounds BoundsField(GUIContent text, Bounds value)
-        {
-            Bounds initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.BoundsField(value));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
         public static float FloatField(GUIContent text, float value)
         {
             var initialValue = value;
@@ -243,65 +159,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             return value;
         }
 
-        public static Color ColorField(GUIContent text, Color value)
-        {
-            Color initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.ColorField(value));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Vector3 Vector3Field(GUIContent text, Vector3 value)
-        {
-            Vector3 initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.Vector3Field(GUIContent.none, value));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static Vector2 Vector2Field(GUIContent text, Vector2 value)
-        {
-            Vector2 initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.Vector2Field(GUIContent.none, value));
-
-            if (!initialValue.Equals(value))
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static string TextField(GUIContent text, string value)
-        {
-            var initialValue = value;
-
-            GeneralDrawGUIParamater(text, () => value = EditorGUILayout.TextField(GUIContent.none, value));
-
-            if (initialValue != null)
-            {
-                if (!initialValue.Equals(value))
-                {
-                    GUI.changed = true;
-                }
-            }
-
-            return value;
-        }
-
         public static LayerMask LayerField(GUIContent text, LayerMask value)
         {
             LayerMask initialValue = value;
@@ -362,60 +219,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             }
 
             return value;
-        }
-
-        public static Object ObjectField(GUIContent text, Object value, Type objType, int endHorizontalSpace = 5)
-        {
-            Object initialValue = value;
-
-            Color initialGUIColor = GUI.color;
-
-            SetLabelGUIStyle(out GUIStyle labelTextStyle, out _);
-
-            GUILayout.BeginHorizontal();
-            {
-                labelTextStyle.normal.textColor = EditorColors.Instance.LabelColor;
-
-                Rect labelRect = EditorGUILayout.GetControlRect(GUILayout.Height(15), GUILayout.Width(LabelWidth));
-
-                GUI.color = initialGUIColor;
-                labelTextStyle.normal.textColor = EditorColors.Instance.LabelColor;
-                EditorGUI.LabelField(labelRect, new GUIContent(text), labelTextStyle);
-                GUILayout.Space(2);
-                value = EditorGUILayout.ObjectField(value, objType, true);
-
-                GUILayout.Space(endHorizontalSpace);
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.Space(2);
-
-            if (initialValue != value)
-            {
-                GUI.changed = true;
-            }
-
-            return value;
-        }
-
-        public static void PropertyField(GUIContent text, SerializedProperty property)
-        {
-            SetLabelGUIStyle(out GUIStyle labelTextStyle, out _);
-
-            GUILayout.BeginHorizontal();
-            {
-                Rect labelRect = EditorGUILayout.GetControlRect(GUILayout.Height(15), GUILayout.Width(LabelWidth));
-                labelRect.width += 25;
-                labelRect.x += 1;
-                labelTextStyle.normal.textColor = EditorColors.Instance.LabelColor;
-                EditorGUI.LabelField(labelRect, new GUIContent(text), labelTextStyle);
-
-                EditorGUILayout.PropertyField(property, GUIContent.none);
-
-                GUILayout.Space(5);
-            }
-            GUILayout.EndHorizontal();
-            GUILayout.Space(2);
         }
 
         public static void MinMaxSlider(GUIContent text, ref float min, ref float max, float minimumValue,
@@ -643,29 +446,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             GUILayout.EndVertical();
 
             return result;
-        }
-
-        public static void Label(string text)
-        {
-            SetLabelGUIStyle(out GUIStyle labelTextStyle, out _);
-            Label(text, labelTextStyle);
-        }
-
-        public static void Label(string text, GUIStyle style)
-        {
-            GUILayout.BeginHorizontal();
-            {
-                Rect labelRect =
-                    EditorGUILayout.GetControlRect(GUILayout.Height(15), GUILayout.Width(ScreenRect.width));
-                labelRect.x += 1;
-
-                style.normal.textColor = EditorColors.Instance.LabelColor;
-                EditorGUI.LabelField(labelRect, new GUIContent(text), style);
-
-                GUILayout.Space(5);
-            }
-            GUILayout.EndHorizontal();
-            GUILayout.Space(2);
         }
 
         public static void RectTab(Rect rect, string text, ButtonStyle colorSpace, float height, int fontSize)
@@ -1211,12 +991,6 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
             }
         }
 
-        public static void HelpBox(string text) => EditorGUILayout.HelpBox(text, MessageType.Info);
-
-        public static void WarningBox(string text) => EditorGUILayout.HelpBox(text, MessageType.Warning);
-
-        public static void Header(string text) => EditorGUILayout.LabelField(text, EditorStyles.boldLabel);
-
         private static GUIStyle GetStyle(string styleName)
         {
             GUIStyle style = Skin.GetStyle(styleName);
@@ -1225,3 +999,4 @@ namespace VladislavTsurikov.IMGUIUtility.Editor
     }
 }
 #endif
+

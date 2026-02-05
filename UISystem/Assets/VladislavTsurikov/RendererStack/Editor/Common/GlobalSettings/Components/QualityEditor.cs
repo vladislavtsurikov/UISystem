@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -26,10 +27,10 @@ namespace VladislavTsurikov.RendererStack.Editor.Common.GlobalSettings
 
         public override void OnGUI()
         {
-            _quality.IsShadowCasting = CustomEditorGUILayout.Toggle(IsShadowCasting, _quality.IsShadowCasting);
+            _quality.IsShadowCasting = EditorGUILayout.Toggle(IsShadowCasting, _quality.IsShadowCasting);
             _quality.MaxRenderDistance =
                 CustomEditorGUILayout.FloatField(MaxRenderDistance, _quality.MaxRenderDistance);
-            _quality.LODBias = CustomEditorGUILayout.Slider(LODBias, _quality.LODBias, 0.1f, 5);
+            _quality.LODBias = EditorGUILayout.Slider(LODBias, _quality.LODBias, 0.1f, 5);
         }
     }
 }

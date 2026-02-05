@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using VladislavTsurikov.Nody.Editor.Core;
 using VladislavTsurikov.Core.Editor;
@@ -19,7 +20,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.EditTool.ActionSystem.GUI
         public override void OnEnable() => _settings = (MoveAlongDirection)Target;
 
         public override void OnGUI() =>
-            _settings.MouseSensitivitySettings.MouseSensitivity = CustomEditorGUILayout.Slider(_mouseSensitivity,
+            _settings.MouseSensitivitySettings.MouseSensitivity = EditorGUILayout.Slider(_mouseSensitivity,
                 _settings.MouseSensitivitySettings.MouseSensitivity,
                 MouseSensitivitySettings.MinMouseSensitivity, MouseSensitivitySettings.MaxMouseSensitivity);
     }

@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -19,7 +20,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
         private GUIContent _content;
         private MessageType _messageType;
 
-        public override void Draw(Rect rect)
+        public override void Draw(Rect rect, FieldInfo field, object target)
         {
             if (Attribute is HelpBoxAttribute helpBoxAttribute)
             {
@@ -30,7 +31,7 @@ namespace VladislavTsurikov.CustomInspector.Editor.IMGUI.Decorators
             EditorGUI.HelpBox(rect, _content.text, _messageType);
         }
 
-        public override float GetHeight()
+        public override float GetHeight(FieldInfo field, object target)
         {
             if (Attribute is not HelpBoxAttribute helpBoxAttribute)
             {

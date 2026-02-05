@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
+using UnityEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core
                         }
                     }
 
-                    CustomEditorGUILayout.HelpBox("This tool only works with these Resource Types: " + text);
+                    EditorGUILayout.HelpBox("This tool only works with these Resource Types: " + text, MessageType.Info);
 
                     return false;
                 }
@@ -44,7 +45,7 @@ namespace VladislavTsurikov.MegaWorld.Editor.Core
 
             if (!ToolUtility.IsToolSupportSelectedMultipleTypes(toolType, selectionData))
             {
-                CustomEditorGUILayout.HelpBox("This tool does not support multiple selected types.");
+                EditorGUILayout.HelpBox("This tool does not support multiple selected types.", MessageType.Info);
                 return false;
             }
 

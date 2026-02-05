@@ -21,12 +21,12 @@ namespace VladislavTsurikov.MegaWorld.Editor.EditTool.ActionSystem.GUI
 
         public override void OnGUI()
         {
-            _settings.MouseSensitivitySettings.MouseSensitivity = CustomEditorGUILayout.Slider(_mouseSensitivity,
+            _settings.MouseSensitivitySettings.MouseSensitivity = EditorGUILayout.Slider(_mouseSensitivity,
                 _settings.MouseSensitivitySettings.MouseSensitivity,
                 MouseSensitivitySettings.MinMouseSensitivity, MouseSensitivitySettings.MaxMouseSensitivity);
 
             _settings.EnableSnapScale =
-                CustomEditorGUILayout.Toggle(new GUIContent("Enable Snap Scale"), _settings.EnableSnapScale);
+                EditorGUILayout.Toggle(new GUIContent("Enable Snap Scale"), _settings.EnableSnapScale);
             if (_settings.EnableSnapScale)
             {
                 EditorGUI.indentLevel++;
