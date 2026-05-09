@@ -1,0 +1,91 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.ShaderKeywordFilter;
+using UnityEngine;
+using VladislavTsurikov.ReflectionUtility.Runtime;
+using VladislavTsurikov.UISystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.Core.Graph;
+
+namespace VladislavTsurikov.UISystem.Editor.Core.Graph
+{
+    public static class NodeTreeGenerator
+    {
+        [MenuItem("Tools/UISystem/Generate Node Tree")]
+        public static void Generate()
+        {
+            Type[] allTypes = AllTypesDerivedFrom<UIPresenter>.Types
+                .Where(type => !Attribute.IsDefined(type, typeof(DynamicUIPresenterChildAttribute), true))
+                .ToArray();
+            Dictionary<Type, Node> typeToNode = CreateNodes(allTypes);
+            List<Node> roots = BuildHierarchy(allTypes, typeToNode);
+
+            SaveNodeTree(roots);
+
+            Debug.Log("UI NodeTreeAsset updated successfully.");
+        }
+
+        private static Dictionary<Type, Node> CreateNodes(Type[] allTypes)
+        {
+            Dictionary<Type, Node> typeToNode = new();
+
+            foreach (Type type in allTypes)
+            {
+                Node node = new() {
+                    PresenterType = type,
+                    Filters = type
+                        .GetCustomAttributes(typeof(FilterAttribute), true)
+                        .Cast<FilterAttribute>()
+                        .Select(f => f.GetType())
+                        .ToList()
+                };
+
+                typeToNode[type] = node;
+            }
+
+            return typeToNode;
+        }
+
+        private static List<Node> BuildHierarchy(Type[] allTypes, Dictionary<Type, Node> map)
+        {
+            List<Node> roots = new();
+
+            foreach (Type type in allTypes)
+            {
+                Node node = map[type];
+
+                UIParentAttribute parentAttr = type
+                    .GetCustomAttributes(typeof(UIParentAttribute), true)
+                    .Cast<UIParentAttribute>()
+                    .FirstOrDefault();
+
+                if (parentAttr != null)
+                {
+                    if (map.TryGetValue(parentAttr.ParentType, out Node parentNode))
+                    {
+                        parentNode.Children.Add(node);
+                        continue;
+                    }
+
+                    Debug.LogWarning(
+                        $"[NodeTreeGenerator] Parent type `{parentAttr.ParentType.FullName}` for `{type.FullName}` not found. This node will be skipped from tree.");
+                    continue;
+                }
+
+                roots.Add(node);
+            }
+
+            return roots;
+        }
+
+        private static void SaveNodeTree(List<Node> roots)
+        {
+            NodeTree tree = new() { Roots = roots };
+            NodeTreeAsset.Instance.SetTree(tree);
+            AssetDatabase.SaveAssets();
+        }
+    }
+}
+#endif

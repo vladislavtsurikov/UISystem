@@ -1,0 +1,28 @@
+{
+  "name": "com.vladislavtsurikov.uisystem",
+  "version": "1.0.0",
+  "displayName": "VladislavTsurikov.UISystem",
+  "unity": "2021.3",
+  "description": "UPM package for VladislavTsurikov.UISystem.",
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.10",
+    "com.mathijsbakker.extenject": "9.2.0",
+    "com.neuecc.unirx": "7.1.0",
+    "com.unity.addressables": "2.8.0",
+    "com.unity.ugui": "2.0.0",
+    "com.vladislavtsurikov.actionflow": "1.0.0",
+    "com.vladislavtsurikov.addressableloadersystem": "1.0.0",
+    "com.vladislavtsurikov.addressableseditortools": "1.0.0",
+    "com.vladislavtsurikov.autodefines": "1.0.0",
+    "com.vladislavtsurikov.core": "1.0.0",
+    "com.vladislavtsurikov.cscodegenerator": "1.0.0",
+    "com.vladislavtsurikov.nody": "1.0.0",
+    "com.vladislavtsurikov.odinserializer": "1.0.0",
+    "com.vladislavtsurikov.reflectionutility": "1.0.0",
+    "com.vladislavtsurikov.scenemanagertool": "1.0.0",
+    "com.vladislavtsurikov.sceneutility": "1.0.0",
+    "com.vladislavtsurikov.scriptableobjectutility": "1.0.0",
+    "com.vladislavtsurikov.utility": "1.0.0",
+    "com.vladislavtsurikov.zenjectutility": "1.0.0"
+  }
+}
