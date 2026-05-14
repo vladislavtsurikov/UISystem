@@ -51,8 +51,8 @@ The manager gets its hierarchy from:
 `UINavigator` is a small static facade for feature code:
 
 ```csharp
-await UINavigator.Show<UIMissionsMainWindowPresenter>(ct);
-await UINavigator.Hide<UIMissionsMainWindowPresenter>(ct);
+await UINavigator.Show<UpgradeWindowPresenter>(ct);
+await UINavigator.Hide<UpgradeWindowPresenter>(ct);
 ```
 
 It resolves the presenter from the dependency container and uses `[UIParent]` when the presenter is registered under a parent type.
@@ -89,16 +89,16 @@ If the presenter has no loader, it can use the parent binding context and resolv
 UGUI components bind by implementing `IBindableView`:
 
 ```csharp
-public sealed class MainMissionsWindowView : MonoBehaviour, IBindableView
+public sealed class SampleWindowView : MonoBehaviour, IBindableView
 {
-    public string BindingId => "MainMissionsWindowView";
+    public string BindingId => nameof(SampleWindowView);
 }
 ```
 
 `UnityUIComponentBinder` finds all `IBindableView` components under the spawned prefab and registers them in DI. Presenters can then resolve views:
 
 ```csharp
-View = GetView<MainMissionsWindowView>("MainMissionsWindowView");
+View = GetView<SampleWindowView>(nameof(SampleWindowView));
 ```
 
 When multiple views share the same type and binding id, use the optional `index` argument:
@@ -114,8 +114,8 @@ UI Toolkit uses the same idea through `UIToolkitElementBinder`: elements bind by
 Static child presenters declare their parent:
 
 ```csharp
-[UIParent(typeof(UIMissionsMainWindowPresenter))]
-public sealed class ChapterMissionsWindowPresenter : UnityUIPresenter
+[UIParent(typeof(BattleHUDRootPresenter))]
+public sealed class OpenUpgradeHUDButtonPresenter : UIToolkitUIPresenter
 {
 }
 ```
@@ -148,55 +148,262 @@ When `AddressableLoaderSystem` integration is available, UISystem can compose sc
 
 This gives projects a single place to decide which UI belongs to the current scene and when scene UI should be created or removed.
 
-## Example
+## Examples from ShooterUpgradePrototype
 
-This simplified example follows the current test presenters in the package:
+These examples are adapted from the runtime UI layer in [ShooterUpgradePrototype](https://github.com/vladislavtsurikov/ShooterUpgradePrototype). They show how UISystem is used in a real gameplay prototype with UI Toolkit layouts, Addressables loaders, scene filters, DI, reactive bindings, and dynamic child presenters. Some feature-specific methods are abbreviated so the examples stay focused on UISystem usage.
+
+### Scene HUD Root
+
+The root presenter loads the Battle HUD layout into the `HUD` slot of the global UI root. It is created only for the `Battle` scene and shows itself immediately after initialization.
+
+```csharp
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using UniRx;
+using UIRootSystem.Runtime;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.UIToolkitIntegration;
+
+[SceneFilter("Battle")]
+[UIParent(typeof(Root), RootSlots.HUD)]
+public sealed class BattleHUDRootPresenter : UIToolkitUIPresenter
+{
+    public BattleHUDRootPresenter(BattleHUDLayoutLoader loader)
+        : base(loader)
+    {
+    }
+
+    protected override async UniTask InitializeUIPresenter(
+        CancellationToken cancellationToken,
+        CompositeDisposable disposables) => await Show(cancellationToken);
+
+    protected override string SpawnedRootName => "ShooterUpgradePrototypeBattleHUD";
+}
+```
+
+### HUD Button Opens a Screen
+
+This presenter does not load its own layout. It is a child of `BattleHUDRootPresenter`, resolves an already-bound `OpenUpgradeHUDButtonView`, and opens the upgrade window through `UINavigator`.
 
 ```csharp
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
-using VladislavTsurikov.UIRootSystem.Runtime.Layers;
 using VladislavTsurikov.UISystem.Runtime.Core;
-using VladislavTsurikov.UISystem.Runtime.UnityUIIntegration;
+using VladislavTsurikov.UISystem.Runtime.UIToolkitIntegration;
 
-[SceneFilter("TestScene_1")]
-[UIParent(typeof(Screens))]
-public sealed class UIMissionsMainWindowPresenter : UnityUIPresenter
+[SceneFilter("Battle")]
+[UIParent(typeof(BattleHUDRootPresenter))]
+public sealed class OpenUpgradeHUDButtonPresenter : UIToolkitUIPresenter
 {
-    private readonly SingleActiveChildPresenterModule _singleActiveChildPresenterModule;
+    private OpenUpgradeHUDButtonView _view;
 
-    public MainMissionsWindowView View { get; private set; }
-
-    public UIMissionsMainWindowPresenter(UIMissionsMainWindowLoader loader)
-        : base(loader)
+    protected override UniTask InitializeUIPresenter(
+        CancellationToken cancellationToken,
+        CompositeDisposable disposables)
     {
-        _singleActiveChildPresenterModule = new SingleActiveChildPresenterModule(this);
+        _view = GetView<OpenUpgradeHUDButtonView>(nameof(OpenUpgradeHUDButtonView));
+
+        _view.OnClicked
+            .Subscribe(_ => UINavigator.Show<UpgradeWindowPresenter>(cancellationToken).Forget())
+            .AddTo(disposables);
+
+        return UniTask.CompletedTask;
+    }
+}
+```
+
+### Reactive HUD Presenter
+
+This HUD presenter subscribes to gameplay state and keeps a bound view updated. The subscriptions are attached to the presenter's disposable lifetime.
+
+```csharp
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using UniRx;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.UIToolkitIntegration;
+
+[SceneFilter("Battle")]
+[UIParent(typeof(BattleHUDRootPresenter))]
+public sealed class PlayerHealthHUDPresenter : UIToolkitUIPresenter
+{
+    private const string HealthStatId = "HP";
+
+    private readonly PlayerStatsService _playerStatsService;
+    private PlayerHealthHUDView _view;
+
+    public PlayerHealthHUDPresenter(PlayerStatsService playerStatsService)
+    {
+        _playerStatsService = playerStatsService;
     }
 
     protected override UniTask InitializeUIPresenter(
         CancellationToken cancellationToken,
         CompositeDisposable disposables)
     {
-        _singleActiveChildPresenterModule.Initialize(disposables);
+        _view = GetView<PlayerHealthHUDView>(nameof(PlayerHealthHUDView));
+
+        _playerStatsService.GetValueProperty(HealthStatId)
+            .Subscribe(_ => RenderHealth())
+            .AddTo(disposables);
+
+        _playerStatsService.GetLevelProperty(HealthStatId)
+            .Subscribe(_ => RenderHealth())
+            .AddTo(disposables);
+
+        RenderHealth();
         return UniTask.CompletedTask;
     }
 
-    protected override UniTask AfterShowUIPresenter(
-        CancellationToken ct,
+    private void RenderHealth()
+    {
+        float currentValue = _playerStatsService.GetCurrentValue(HealthStatId);
+        float maxValue = _playerStatsService.GetCurrentMaxValue(HealthStatId);
+
+        _view.SetHealthText(currentValue, maxValue);
+    }
+}
+```
+
+### Screen Presenter with Show-Time Bindings
+
+The upgrade window is loaded as a screen, disables gameplay input while visible, creates dynamic stat rows, and clears show-specific bindings when hidden.
+
+```csharp
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using UniRx;
+using UIRootSystem.Runtime;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.UIToolkitIntegration;
+
+[SceneFilter("Battle")]
+[UIParent(typeof(ScreenPresenter))]
+public sealed class UpgradeWindowPresenter : UIToolkitUIPresenter
+{
+    private readonly GameplayInputBlocker _gameplayInputBlocker;
+    private readonly PlayerStatsService _playerStatsService;
+    private readonly IReadOnlyList<string> _upgradeStatIds;
+    private readonly Dictionary<string, int> _draftLevels = new();
+    private readonly SerialDisposable _showBindings = new();
+
+    private UpgradeWindowView _view;
+
+    public UpgradeWindowPresenter(
+        UpgradeWindowLayoutLoader loader,
+        PlayerInputActions playerInputActions,
+        PlayerStatsService playerStatsService) : base(loader)
+    {
+        _gameplayInputBlocker = new GameplayInputBlocker(playerInputActions);
+        _playerStatsService = playerStatsService;
+        _upgradeStatIds = _playerStatsService.GetUpgradeWindowStatIds();
+    }
+
+    protected override string SpawnedRootName => "ShooterUpgradePrototypeUpgradeWindow";
+
+    protected override async UniTask AfterShowUIPresenter(
+        CancellationToken cancellationToken,
         CompositeDisposable disposables)
     {
-        if (View != null)
+        _gameplayInputBlocker.DisableGameplayInput();
+        _view = GetView<UpgradeWindowView>(nameof(UpgradeWindowView));
+
+        CompositeDisposable showDisposables = new();
+        _showBindings.Disposable = showDisposables;
+
+        _view.OnCloseClicked
+            .Subscribe(_ => UINavigator.Hide<UpgradeWindowPresenter>(CancellationToken.None).Forget())
+            .AddTo(showDisposables);
+
+        _view.OnApplyClicked
+            .Subscribe(_ => ApplyDraftLevels())
+            .AddTo(showDisposables);
+
+        await CreateStatRows(cancellationToken);
+        Refresh();
+    }
+
+    protected override UniTask AfterHideUIPresenter(
+        CancellationToken cancellationToken,
+        CompositeDisposable disposables)
+    {
+        _showBindings.Disposable = Disposable.Empty;
+        _gameplayInputBlocker.EnableGameplayInput();
+        return UniTask.CompletedTask;
+    }
+
+    private async UniTask CreateStatRows(CancellationToken cancellationToken)
+    {
+        foreach (string statId in _upgradeStatIds)
+        {
+            UpgradeStatRowPresenter row = GetDynamicChild<UpgradeStatRowPresenter>(statId);
+
+            if (row == null)
+            {
+                row = await CreateDynamicChild<UpgradeStatRowPresenter>(
+                    statId,
+                    showAutomatically: true,
+                    cancellationToken);
+
+                row.UpgradeRequested += AddDraftLevel;
+            }
+        }
+    }
+}
+```
+
+### Dynamic UI Toolkit Row
+
+Dynamic child presenters use `InstanceKey` to distinguish repeated UI instances. Here every stat row is spawned into the `rowsContainer` element of the parent upgrade window.
+
+```csharp
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using UniRx;
+using UnityEngine.UIElements;
+using VladislavTsurikov.AddressableLoaderSystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.Core;
+using VladislavTsurikov.UISystem.Runtime.UIToolkitIntegration;
+
+[SceneFilter("Battle")]
+[DynamicUIPresenterChild]
+public sealed class UpgradeStatRowPresenter : UIToolkitUIPresenter
+{
+    private UpgradeStatRowView _view;
+
+    public event Action<string> UpgradeRequested;
+
+    protected override string ParentContainerName => "rowsContainer";
+    protected override string SpawnedRootName => $"ShooterUpgradePrototypeUpgradeStatRow:{InstanceKey}";
+
+    public UpgradeStatRowPresenter(UpgradeStatRowLayoutLoader loader)
+        : base(loader)
+    {
+    }
+
+    protected override UniTask AfterShowUIPresenter(
+        CancellationToken cancellationToken,
+        CompositeDisposable disposables)
+    {
+        if (_view != null)
         {
             return UniTask.CompletedTask;
         }
 
-        View = GetView<MainMissionsWindowView>("MainMissionsWindowView");
-        View.OnCloseClicked
-            .Subscribe(_ => Hide(ct).Forget())
+        _view = GetView<UpgradeStatRowView>(nameof(UpgradeStatRowView));
+
+        _view.OnUpgradeClicked
+            .Subscribe(_ => UpgradeRequested?.Invoke(InstanceKey))
             .AddTo(disposables);
 
+        _view.style.position = Position.Relative;
         return UniTask.CompletedTask;
     }
 }
